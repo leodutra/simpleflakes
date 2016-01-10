@@ -1,0 +1,43 @@
+{
+  "name": "simpleflakes",
+  "version": "1.0.3",
+  "description": "Fast 64-bit simpleflake ID generator, in pure JavaScript, for Node.js.",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape  tests/**/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leodutra/simpleflakes.git"
+  },
+  "keywords": [
+    "simpleflake",
+    "snowflake",
+    "id",
+    "sql",
+    "nosql",
+    "flake",
+    "bigint",
+    "shards",
+    "partition"
+  ],
+  "engines": {
+    "node": ">= 0.4.0"
+  },
+  "author": {
+    "name": "Leonardo Dutra",
+    "email": "leodutra.br@gmail.com",
+    "url": "https://github.com/leodutra"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leodutra/simpleflakes/issues"
+  },
+  "homepage": "https://github.com/leodutra/simpleflakes#readme",
+  "dependencies": {
+    "bn.js": "^4.6.1"
+  },
+  "devDependencies": {
+    "tape": "^4.4.0"
+  }
+}
