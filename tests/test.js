@@ -49,9 +49,14 @@ test('testing lib.binary()', function(t) {
 //
 // });
 
+test('testing lib.SimpleFlakeStruct()', function(t) {
+  t.assert(lib.SimpleFlakeStruct(SIMPLEFLAKE_TIMESTAMP.toString(), SIMPLEFLAKE_RANDOMBITS.toString()), SIMPLEFLAKE_TIMESTAMP.toString(), 'returning new SimpleFlakeStruct() when calling SimpleFlakeStruct()?');
+  t.end();
+});
+
 test('testing lib.parseSimpleflake()', function(t) {
 
-  var flake = lib.simpleflake(SIMPLEFLAKE_TIMESTAMP, SIMPLEFLAKE_RANDOMBITS);
+  var flake = lib.simpleflake(SIMPLEFLAKE_TIMESTAMP., SIMPLEFLAKE_RANDOMBITS);
 
   t.equal(lib.parseSimpleflake(flake).timestamp, SIMPLEFLAKE_TIMESTAMP.toString(), 'correct timestamp parsing?');
   t.equal(lib.parseSimpleflake(flake).randomBits, SIMPLEFLAKE_RANDOMBITS.toString(), 'correct random bits parsing?');
