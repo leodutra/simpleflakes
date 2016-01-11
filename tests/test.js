@@ -56,7 +56,7 @@ test('testing lib.SimpleFlakeStruct()', function(t) {
 
 test('testing lib.parseSimpleflake()', function(t) {
 
-  var flake = lib.simpleflake(SIMPLEFLAKE_TIMESTAMP., SIMPLEFLAKE_RANDOMBITS);
+  var flake = lib.simpleflake(SIMPLEFLAKE_TIMESTAMP, SIMPLEFLAKE_RANDOMBITS);
 
   t.equal(lib.parseSimpleflake(flake).timestamp, SIMPLEFLAKE_TIMESTAMP.toString(), 'correct timestamp parsing?');
   t.equal(lib.parseSimpleflake(flake).randomBits, SIMPLEFLAKE_RANDOMBITS.toString(), 'correct random bits parsing?');
