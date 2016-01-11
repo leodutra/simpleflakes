@@ -11,7 +11,7 @@ node_js:
 before_install:
   - npm install -g istanbul
 after_success:
-  - istanbul cover tape --report lcovonly -- tests/**/*.js && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
+  - istanbul cover ./node_modules/tape/bin/tape --report lcovonly -- tests/**/*.js && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
 
 deploy:
   provider: npm
