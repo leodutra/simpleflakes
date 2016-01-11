@@ -1,7 +1,10 @@
 # simpleflakes
 
-[![travis shield](http://img.shields.io/travis/leodutra/simpleflakes/master.svg?style=flat-square)](https://travis-ci.org/leodutra/simpleflakes) [![npm shield](https://img.shields.io/npm/v/simpleflakes.svg?style=flat-square)](https://www.npmjs.com/package/simpleflakes) [![npm shield](https://img.shields.io/coveralls/leodutra/simpleflakes/master.svg?style=flat-square)](https://coveralls.io/github/leodutra/simpleflakes)
-
+[![travis badge][travis-badge]][travis-link]
+[![npm badge][npm-badge]][npm-link]
+[![npm badge][coveralls-badge]][coveralls-link]
+[![npm badge][dependencies-badge]][dependencies-url]
+[![npm badge][dependencies-dev-badge]][dependencies-dev-url]
 
 **Fast 64-bit simpleflake ID generator, in _pure_ JavaScript, for Node.js.**  
 
@@ -66,3 +69,16 @@ SimpleFlake.SimpleFlakeStruct // same as simpleflake.simpleflakeStruct
 
 ### License:  
 [MIT](https://raw.githubusercontent.com/leodutra/simpleflakes/master/LICENSE)
+
+[npm-badge]: https://img.shields.io/npm/v/simpleflakes.svg?style=flat-square
+[travis-badge]: http://img.shields.io/travis/leodutra/simpleflakes/master.svg?style=flat-square
+[coveralls-badge]: https://img.shields.io/coveralls/leodutra/simpleflakes/master.svg?style=flat-square
+
+[npm-link]: https://www.npmjs.com/package/simpleflakes
+[travis-link]: https://travis-ci.org/leodutra/simpleflakes
+[coveralls-link]: https://coveralls.io/github/leodutra/simpleflakes
+
+[dependencies-url]: https://david-dm.org/leodutra/simpleflakes
+[dependencies-badge]: 	https://img.shields.io/david/leodutra/simpleflakes.svg?style=flat-square
+[dependencies-dev-url]: https://david-dm.org/leodutra/simpleflakes#info=devDependencies&view=table
+[dependencies-dev-badge]: 	https://img.shields.io/david/dev/leodutra/simpleflakes.svg?style=flat-square
