@@ -40,6 +40,7 @@
   },
   "devDependencies": {
     "benchmark": "^2.0.0",
+    "faucet": "0.0.1",
     "tape": "^4.4.0"
   }
 }
