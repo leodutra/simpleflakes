@@ -1,6 +1,7 @@
 # simpleflakes
 
-[![travis shield](http://img.shields.io/travis/leodutra/simpleflakes/master.svg?style=flat-square)](https://travis-ci.org/leodutra/simpleflakes) [![npm shield](https://img.shields.io/npm/v/simpleflakes.svg?style=flat-square)](https://www.npmjs.com/package/simpleflakes)
+[![travis shield](http://img.shields.io/travis/leodutra/simpleflakes/master.svg?style=flat-square)](https://travis-ci.org/leodutra/simpleflakes) [![npm shield](https://img.shields.io/npm/v/simpleflakes.svg?style=flat-square)](https://www.npmjs.com/package/simpleflakes) [![npm shield](https://img.shields.io/coveralls/leodutra/simpleflakes/master.svg?style=flat-square)](https://coveralls.io/github/leodutra/simpleflakes)
+
 
 **Fast 64-bit simpleflake ID generator, in _pure_ JavaScript, for Node.js.**  
 
