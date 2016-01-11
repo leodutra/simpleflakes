@@ -4,8 +4,8 @@
   "description": "Fast 64-bit simpleflake ID generator, in pure JavaScript, for Node.js.",
   "main": "index.js",
   "scripts": {
-    "test": "tape  tests/**/*.js",
-    "benchmark": "node  tests/bench.js"
+    "test": "tape tests/**/*.js | faucet",
+    "benchmark": "node  benchmark/run.js"
   },
   "repository": {
     "type": "git",
