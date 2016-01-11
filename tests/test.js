@@ -1,5 +1,5 @@
 var test = require('tape');
-var lib = require('../lib/simpleflake')
+var lib = require('../lib/simpleflakes')
 var BigNum = require('bn.js')
 
 var SIMPLEFLAKE = '4242436206093260245';
@@ -32,16 +32,6 @@ test('testing lib.simpleflake()', function(t) {
   t.end();
 });
 
-test('testing lib.parseSimpleflake()', function(t) {
-
-  var flake = lib.simpleflake(SIMPLEFLAKE_TIMESTAMP, SIMPLEFLAKE_RANDOMBITS);
-
-  t.equal(lib.parseSimpleflake(flake).timestamp, SIMPLEFLAKE_TIMESTAMP.toString(), 'correct timestamp parsing');
-  t.equal(lib.parseSimpleflake(flake).randomBits, SIMPLEFLAKE_RANDOMBITS.toString(), 'correct random bits parsing');
-
-  t.end();
-});
-
 test('testing lib.binary()', function(t) {
 
   t.equal(lib.binary('83928382810918298'), '0000000100101010001011000110101101100100000001001000110110011010', "simpleflake.binary('83928382810918298')");
@@ -50,5 +40,21 @@ test('testing lib.binary()', function(t) {
   t.equal(lib.binary(7, false), '111', "simpleflake.binary(7, false)");
   t.equal(lib.binary(64), '0000000000000000000000000000000000000000000000000000000001000000', "simpleflake.binary(64)");
   t.equal(lib.binary(64, false), '1000000', "simpleflake.binary(64, false)");
+  t.end();
+});
+
+// test('testing lib.extractBits()', function(t) {
+//
+//   t.equal(SIMPLEFLAKE_TIMESTAMP.toString())
+//
+// });
+
+test('testing lib.parseSimpleflake()', function(t) {
+
+  var flake = lib.simpleflake(SIMPLEFLAKE_TIMESTAMP, SIMPLEFLAKE_RANDOMBITS);
+
+  t.equal(lib.parseSimpleflake(flake).timestamp, SIMPLEFLAKE_TIMESTAMP.toString(), 'correct timestamp parsing');
+  t.equal(lib.parseSimpleflake(flake).randomBits, SIMPLEFLAKE_RANDOMBITS.toString(), 'correct random bits parsing');
+
   t.end();
 });
