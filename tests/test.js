@@ -11,7 +11,7 @@ var SIMPLEFLAKE_2 = '11101011100000001010010100000010000110011100011101010111010
 var SIMPLEFLAKE_16 = '3ae029408671d5d5';
 var SIMPLEFLAKE_36 = 'w8cq4fjf37x1';
 
-test('testing bn.js', function(t) {
+test('testing dependency bn.js', function(t) {
 
   var bignum = new BigNum(SIMPLEFLAKE);
 
@@ -25,14 +25,14 @@ test('testing bn.js', function(t) {
 });
 
 
-test('testing lib.simpleflake()', function(t) {
+test('testing simpleflake()', function(t) {
 
   t.assert(lib.simpleflake() instanceof  BigNum, 'returning correct instance of big number lib?');
   t.equal(lib.simpleflake(SIMPLEFLAKE_TIMESTAMP, SIMPLEFLAKE_RANDOMBITS, SIMPLEFLAKE_EPOCH).toString(), '4242436206093260245', 'right timestamp, random bits and epoch parameterization?');
   t.end();
 });
 
-test('testing lib.binary()', function(t) {
+test('testing binary()', function(t) {
 
   t.equal(lib.binary('83928382810918298'), '0000000100101010001011000110101101100100000001001000110110011010', "valid simpleflake.binary('83928382810918298') result?");
   t.equal(lib.binary('83928382810918298', false), '100101010001011000110101101100100000001001000110110011010', "valid simpleflake.binary('83928382810918298', false) result?");
@@ -43,18 +43,25 @@ test('testing lib.binary()', function(t) {
   t.end();
 });
 
-// test('testing lib.extractBits()', function(t) {
-//
-//   t.equal(SIMPLEFLAKE_TIMESTAMP.toString())
-//
-// });
 
-test('testing lib.SimpleFlakeStruct()', function(t) {
-  t.assert(lib.SimpleFlakeStruct(SIMPLEFLAKE_TIMESTAMP.toString(), SIMPLEFLAKE_RANDOMBITS.toString()), SIMPLEFLAKE_TIMESTAMP.toString(), 'returning new SimpleFlakeStruct() when calling SimpleFlakeStruct()?');
+test('testing extractBits()', function(t) {
+
+  t.assert(lib.extractBits(7, 0, 1) instanceof BigNum, 'returns big number object');
+  t.equal(lib.extractBits(7, 0, 1).toString(), '1', 'extractBits(7, 0, 1)');
+  t.equal(lib.extractBits(7, 0, 2).toString(), '3', 'extractBits(7, 0, 2)');
+  t.equal(lib.extractBits(7, 0, 3).toString(), '7', 'extractBits(7, 0, 3)');
+  t.equal(lib.extractBits(7, 1, 2).toString(), '3', 'extractBits(7, 1, 2)');
+  t.equal(lib.extractBits(7, 2, 1).toString(), '1', 'extractBits(7, 2, 1)');
+  t.equal(lib.extractBits(7, 2, 2).toString(), '1', 'extractBits(7, 2, 2)');
   t.end();
 });
 
-test('testing lib.parseSimpleflake()', function(t) {
+test('testing SimpleFlakeStruct()', function(t) {
+  t.assert(lib.SimpleFlakeStruct(SIMPLEFLAKE_TIMESTAMP.toString(), SIMPLEFLAKE_RANDOMBITS.toString()) instanceof lib.SimpleFlakeStruct, 'returning new SimpleFlakeStruct() when calling SimpleFlakeStruct()?');
+  t.end();
+});
+
+test('testing parseSimpleflake()', function(t) {
 
   var flake = lib.simpleflake(SIMPLEFLAKE_TIMESTAMP, SIMPLEFLAKE_RANDOMBITS);
 
