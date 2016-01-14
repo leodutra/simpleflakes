@@ -40,7 +40,6 @@
   },
   "devDependencies": {
     "benchmark": "^2.0.0",
-    "coveralls": "^2.11.6",
     "faucet": "0.0.1",
     "tape": "^4.4.0"
   }

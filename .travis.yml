@@ -9,9 +9,12 @@ node_js:
 - iojs
 
 before_install:
-  - npm install -g istanbul coveralls
-after_success:
-  - istanbul cover ./node_modules/tape/bin/tape --report lcovonly -- tests/**/*.js && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage
+  - npm install -g istanbul coveralls codacy-coverage
+
+before_script:
+  - export CODACY_PROJECT_TOKEN=becf7b26a5d84fceab4c94d0bb2bf2ec
+
+script: "istanbul cover ./node_modules/tape/bin/tape --report lcovonly -- tests/**/*.js && cat ./coverage/lcov.info | coveralls && cat ./coverage/lcov.info | codacy-coverage && rm -rf ./coverage"
 
 deploy:
   provider: npm

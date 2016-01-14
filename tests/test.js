@@ -1,6 +1,6 @@
 var test = require('tape');
-var lib = require('../lib/simpleflakes')
-var BigNum = require('bn.js')
+var lib = require('../lib/simpleflakes');
+var BigNum = require('bn.js');
 
 var SIMPLEFLAKE = '4242436206093260245';
 var SIMPLEFLAKE_EPOCH = 946702800000;
@@ -58,6 +58,19 @@ test('testing extractBits()', function(t) {
 
 test('testing SimpleFlakeStruct()', function(t) {
   t.assert(lib.SimpleFlakeStruct(SIMPLEFLAKE_TIMESTAMP.toString(), SIMPLEFLAKE_RANDOMBITS.toString()) instanceof lib.SimpleFlakeStruct, 'returning new SimpleFlakeStruct() when calling SimpleFlakeStruct()?');
+  t.throws(function() {
+    var undef;
+    lib.SimpleFlakeStruct(undef, '1');
+  }, "throw typeError when timestamp arg is missing");
+
+  t.throws(function() {
+    lib.SimpleFlakeStruct('1');
+  }, "throw typeError when randomBits argument is missing");
+
+  t.throws(function() {
+    lib.SimpleFlakeStruct();
+  }, "throw typeError when arguments are missing");
+
   t.end();
 });
 

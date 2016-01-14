@@ -6,7 +6,7 @@
 [![npm badge][dependencies-badge]][dependencies-url]
 [![npm badge][dependencies-dev-badge]][dependencies-dev-url]
 
-**Fast 64-bit simpleflake ID generator, in _pure_ JavaScript, for Node.js.**  
+**Fast 64-bit (big int ID) generator, in _pure_ JavaScript, for Node.js.**  
 
 Simpleflake is the smartest way to generate a 64-bit + time-ordered + snowflake based ID. [See the presentation!](http://akmanalp.com/simpleflake_presentation/)
 
@@ -70,15 +70,17 @@ SimpleFlake.SimpleFlakeStruct // same as simpleflake.simpleflakeStruct
 ### License:  
 [MIT](https://raw.githubusercontent.com/leodutra/simpleflakes/master/LICENSE)
 
-[npm-badge]: https://img.shields.io/npm/v/simpleflakes.svg?style=flat-square
-[travis-badge]: http://img.shields.io/travis/leodutra/simpleflakes/master.svg?style=flat-square
-[coveralls-badge]: https://img.shields.io/coveralls/leodutra/simpleflakes/master.svg?style=flat-square
+[npm-badge]: https://img.shields.io/npm/v/simpleflakes.svg?style=flat
+[travis-badge]: http://img.shields.io/travis/leodutra/simpleflakes/master.svg?style=flat
+[codacy-badge]: 	https://img.shields.io/codacy/f71ef817e5f14a9ab3b8b2cb6fabf51a/master.svg?style=flat
+[coveralls-badge]: https://img.shields.io/coveralls/leodutra/simpleflakes/master.svg?style=flat
 
 [npm-link]: https://www.npmjs.com/package/simpleflakes
 [travis-link]: https://travis-ci.org/leodutra/simpleflakes
+[codacy-link]: https://www.codacy.com/app/leodutra/simpleflakes
 [coveralls-link]: https://coveralls.io/github/leodutra/simpleflakes
 
 [dependencies-url]: https://david-dm.org/leodutra/simpleflakes
-[dependencies-badge]: 	https://img.shields.io/david/leodutra/simpleflakes.svg?style=flat-square
+[dependencies-badge]: 	https://img.shields.io/david/leodutra/simpleflakes.svg?style=flat
 [dependencies-dev-url]: https://david-dm.org/leodutra/simpleflakes#info=devDependencies&view=table
-[dependencies-dev-badge]: 	https://img.shields.io/david/dev/leodutra/simpleflakes.svg?style=flat-square
+[dependencies-dev-badge]: 	https://img.shields.io/david/dev/leodutra/simpleflakes.svg?style=flat
