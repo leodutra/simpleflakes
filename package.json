@@ -1,6 +1,6 @@
 {
   "name": "simpleflakes",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Fast 64-bit simpleflake ID generator, in pure JavaScript, for Node.js.",
   "main": "index.js",
   "scripts": {
