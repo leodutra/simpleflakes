@@ -72,9 +72,9 @@ SimpleFlake.SimpleFlakeStruct // same as simpleflake.simpleflakeStruct
 [MIT](https://raw.githubusercontent.com/leodutra/simpleflakes/master/LICENSE)
 
 [npm-badge]: https://img.shields.io/npm/v/simpleflakes.svg?style=flat
-[travis-badge]: http://img.shields.io/travis/leodutra/simpleflakes/master.svg?style=flat
-[codacy-badge]: 	https://img.shields.io/codacy/f71ef817e5f14a9ab3b8b2cb6fabf51a/master.svg?style=flat
-[coveralls-badge]: https://img.shields.io/coveralls/leodutra/simpleflakes/master.svg?style=flat
+[travis-badge]: http://img.shields.io/travis/leodutra/simpleflakes.svg?style=flat
+[codacy-badge]: 	https://img.shields.io/codacy/f71ef817e5f14a9ab3b8b2cb6fabf51a.svg?style=flat
+[coveralls-badge]: https://img.shields.io/coveralls/leodutra/simpleflakes.svg?style=flat
 
 [npm-link]: https://www.npmjs.com/package/simpleflakes
 [travis-link]: https://travis-ci.org/leodutra/simpleflakes
