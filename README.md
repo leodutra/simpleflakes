@@ -7,7 +7,7 @@
 [![david badge][dependencies-badge]][dependencies-url]
 [![david dev badge][dependencies-dev-badge]][dependencies-dev-url]
 
-**Fast 64-bit (big int ID) generator, in _pure_ JavaScript, for Node.js.**  
+**Smart, fast and reliable 64-bit ID generation, in pure JavaScript, for Node.js.**  
 
 Simpleflake is the smartest way to generate a 64-bit + time-ordered + snowflake based ID. [See the presentation!](http://akmanalp.com/simpleflake_presentation/)
 
