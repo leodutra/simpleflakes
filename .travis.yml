@@ -9,9 +9,9 @@ node_js:
 - iojs
 
 before_install:
-  - npm install -g istanbul
+  - npm install -g istanbul coveralls
 after_success:
-  - istanbul cover ./node_modules/tape/bin/tape --report lcovonly -- tests/**/*.js && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
+  - istanbul cover ./node_modules/tape/bin/tape --report lcovonly -- tests/**/*.js && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage
 
 deploy:
   provider: npm
