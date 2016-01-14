@@ -2,9 +2,10 @@
 
 [![travis badge][travis-badge]][travis-link]
 [![npm badge][npm-badge]][npm-link]
-[![npm badge][coveralls-badge]][coveralls-link]
-[![npm badge][dependencies-badge]][dependencies-url]
-[![npm badge][dependencies-dev-badge]][dependencies-dev-url]
+[![codacy badge][codacy-badge]][coveralls-link]
+[![coveralls badge][coveralls-badge]][coveralls-link]
+[![david badge][dependencies-badge]][dependencies-url]
+[![david dev badge][dependencies-dev-badge]][dependencies-dev-url]
 
 **Fast 64-bit (big int ID) generator, in _pure_ JavaScript, for Node.js.**  
 
