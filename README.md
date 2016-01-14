@@ -2,7 +2,7 @@
 
 [![travis badge][travis-badge]][travis-link]
 [![npm badge][npm-badge]][npm-link]
-[![codacy badge][codacy-badge]][coveralls-link]
+[![codacy badge][codacy-badge]][codacy-link]
 [![coveralls badge][coveralls-badge]][coveralls-link]
 [![david badge][dependencies-badge]][dependencies-url]
 [![david dev badge][dependencies-dev-badge]][dependencies-dev-url]
