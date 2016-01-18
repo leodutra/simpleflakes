@@ -81,7 +81,7 @@ SimpleFlake.SimpleFlakeStruct // same as simpleflake.simpleflakeStruct
 [travis-link]: https://travis-ci.org/leodutra/simpleflakes
 [codacy-link]: https://www.codacy.com/app/leodutra/simpleflakes
 [coveralls-link]: https://coveralls.io/github/leodutra/simpleflakes
-[demo-tonicdev-link]: https://tonicdev.com/569d1cde7927c10c005e9cee/569d1cde7927c10c005e9cef
+[demo-tonicdev-link]: https://tonicdev.com/leodutra/simpleflakes-demo/1.0.13
 
 [dependencies-url]: https://david-dm.org/leodutra/simpleflakes
 [dependencies-badge]: 	https://img.shields.io/david/leodutra/simpleflakes.svg?style=flat
