@@ -1,11 +1,12 @@
 # simpleflakes
 
-[![travis badge][travis-badge]][travis-link]
-[![npm badge][npm-badge]][npm-link]
-[![codacy badge][codacy-badge]][codacy-link]
-[![coveralls badge][coveralls-badge]][coveralls-link]
-[![david badge][dependencies-badge]][dependencies-url]
-[![david dev badge][dependencies-dev-badge]][dependencies-dev-url]
+[![travis status][travis-badge]][travis-link]
+[![npm][npm-badge]][npm-link]
+[![codacy quality][codacy-badge]][codacy-link]
+[![coveralls status][coveralls-badge]][coveralls-link]
+[![tonicdev demo][demo-tonicdev-badge]][demo-tonicdev-link]
+[![david dep status][dependencies-badge]][dependencies-url]
+[![david dev dep status][dependencies-dev-badge]][dependencies-dev-url]
 
 **Fast, and reliable, distributed 64-bit ID generation, in pure JavaScript, for Node.js.**  
 
@@ -80,8 +81,10 @@ SimpleFlake.SimpleFlakeStruct // same as simpleflake.simpleflakeStruct
 [travis-link]: https://travis-ci.org/leodutra/simpleflakes
 [codacy-link]: https://www.codacy.com/app/leodutra/simpleflakes
 [coveralls-link]: https://coveralls.io/github/leodutra/simpleflakes
+[demo-tonicdev-link]: https://tonicdev.com/569d1cde7927c10c005e9cee/569d1cde7927c10c005e9cef
 
 [dependencies-url]: https://david-dm.org/leodutra/simpleflakes
 [dependencies-badge]: 	https://img.shields.io/david/leodutra/simpleflakes.svg?style=flat
 [dependencies-dev-url]: https://david-dm.org/leodutra/simpleflakes#info=devDependencies&view=table
 [dependencies-dev-badge]: 	https://img.shields.io/david/dev/leodutra/simpleflakes.svg?style=flat
+[demo-tonicdev-badge]: https://img.shields.io/badge/demo-%40tonicdev-008bb8.svg?style=flat
