@@ -1,6 +1,6 @@
 {
   "name": "simpleflakes",
-  "version": "1.0.13",
+  "version": "1.1.0",
   "description": "Fast, and reliable, distributed 64-bit ID generation, in pure JavaScript, for Node.js.",
   "main": "index.js",
   "scripts": {
