@@ -8,10 +8,11 @@
 [![david dep status][dependencies-badge]][dependencies-url]
 [![david dev dep status][dependencies-dev-badge]][dependencies-dev-url]
 
-**Fast, and reliable, distributable 64-bit ID generation, in pure JavaScript, for Node.js.**  
+**Fast distributable 64-bit ID generation, in pure JavaScript, for Node.js.**  
 
 Simpleflake is the smartest way to generate a 64-bit + time-ordered + snowflake based ID. [See the presentation!](http://akmanalp.com/simpleflake_presentation/)
 
+This port is test driven and no release goes out without tests.
 
 ### Install:
 
