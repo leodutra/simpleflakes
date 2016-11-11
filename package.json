@@ -22,9 +22,6 @@
     "shards",
     "partition"
   ],
-  "engines": {
-    "node": ">= 0.4.0"
-  },
   "author": {
     "name": "Leonardo Dutra",
     "email": "leodutra.br@gmail.com",
