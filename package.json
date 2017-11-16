@@ -38,6 +38,6 @@
   "devDependencies": {
     "benchmark": "~2.1.0",
     "faucet": "~0.0.1",
-    "tape": "~4.6.2"
+    "tape": "~4.8.0"
   }
 }
