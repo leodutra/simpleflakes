@@ -3,9 +3,10 @@
 [![travis status][travis-badge]][travis-link]
 [![npm][npm-badge]][npm-link]
 [![bitHound Overall Score](https://www.bithound.io/github/leodutra/simpleflakes/badges/score.svg)](https://www.bithound.io/github/leodutra/simpleflakes)
+[![bitHound Code](https://www.bithound.io/github/leodutra/simpleflakes/badges/code.svg)](https://www.bithound.io/github/leodutra/simpleflakes)  
 [![bitHound Dependencies](https://www.bithound.io/github/leodutra/simpleflakes/badges/dependencies.svg)](https://www.bithound.io/github/leodutra/simpleflakes/master/dependencies/npm)
 [![codacy quality][codacy-badge]][codacy-link]
-[![coveralls status][coveralls-badge]][coveralls-link]
+[![coveralls status][coveralls-badge]][coveralls-link]  
 [![tonicdev demo][demo-tonicdev-badge]][demo-tonicdev-link]
 [![david dep status][dependencies-badge]][dependencies-url]
 [![david dev dep status][dependencies-dev-badge]][dependencies-dev-url]
