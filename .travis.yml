@@ -1,14 +1,12 @@
 language: node_js
 node_js:
 - stable
+- '9'
+- '8'
 - '7'
 - '6'
 - '5'
 - '4'
-- '2'
-- '1'
-- '1.1'
-- iojs
 
 before_install:
   - npm install -g istanbul coveralls codacy-coverage
