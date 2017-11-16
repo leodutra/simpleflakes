@@ -1,5 +1,5 @@
 var Benchmark = require('benchmark');
-var suite = new Benchmark.Suite;
+var suite = new Benchmark.Suite();
 var lib = require('../lib/simpleflakes');
 var BigNum = lib.BigNum;
 
