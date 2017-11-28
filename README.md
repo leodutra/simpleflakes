@@ -10,6 +10,7 @@
 [![tonicdev demo][demo-tonicdev-badge]][demo-tonicdev-link]
 [![david dep status][dependencies-badge]][dependencies-url]
 [![david dev dep status][dependencies-dev-badge]][dependencies-dev-url]
+[![NSP Status](https://nodesecurity.io/orgs/leo-dutra-github/projects/d3e1cf82-c7fb-4cb4-a5c9-8a0c9440716f/badge)](https://nodesecurity.io/orgs/leo-dutra-github/projects/d3e1cf82-c7fb-4cb4-a5c9-8a0c9440716f)
 
 Simpleflake is the smartest way to generate a 64-bit + time-ordered + snowflake based ID. [See the presentation!](http://akmanalp.com/simpleflake_presentation/)
 
