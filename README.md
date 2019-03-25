@@ -2,7 +2,8 @@
 
 [![travis status][travis-badge]][travis-link]
 [![npm][npm-badge]][npm-link]
-[![codacy quality][codacy-badge]][codacy-link]
+[![codacy quality][codacy-quality-badge]][codacy-quality-link]
+[![codacy coverage][codacy-coverage-badge]][codacy-coverage-link]
 [![coveralls status][coveralls-badge]][coveralls-link]  
 [![tonicdev demo][demo-tonicdev-badge]][demo-tonicdev-link]
 [![david dep status][dependencies-badge]][dependencies-url]
@@ -71,12 +72,16 @@ SimpleFlake.SimpleFlakeStruct // same as simpleflake.simpleflakeStruct
 
 [npm-badge]: https://img.shields.io/npm/v/simpleflakes.svg?style=flat
 [travis-badge]: http://img.shields.io/travis/leodutra/simpleflakes.svg?style=flat
-[codacy-badge]: 	https://img.shields.io/codacy/f71ef817e5f14a9ab3b8b2cb6fabf51a.svg?style=flat
+[codacy-coverage-badge]: https://api.codacy.com/project/badge/Coverage/f71ef817e5f14a9ab3b8b2cb6fabf51a
+[codacy-quality-badge]: https://api.codacy.com/project/badge/Grade/f71ef817e5f14a9ab3b8b2cb6fabf51a
 [coveralls-badge]: https://img.shields.io/coveralls/leodutra/simpleflakes.svg?style=flat
 
 [npm-link]: https://www.npmjs.com/package/simpleflakes
 [travis-link]: https://travis-ci.org/leodutra/simpleflakes
-[codacy-link]: https://www.codacy.com/app/leodutra/simpleflakes
+[codacy-quality-link]: https://www.codacy.com/app/leodutra/simpleflakes
+
+[codacy-coverage-link]: https://www.codacy.com/app/leodutra/simpleflakes?utm_source=github.com&utm_medium=referral&utm_content=leodutra/simpleflakes&utm_campaign=Badge_Coverage
+[codacy-quality-link]: https://www.codacy.com/app/leodutra/simpleflakes?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=leodutra/simpleflakes&amp;utm_campaign=Badge_Grade
 [coveralls-link]: https://coveralls.io/github/leodutra/simpleflakes
 [demo-tonicdev-link]: https://tonicdev.com/leodutra/simpleflakes-demo/1.0.13
 
@@ -85,3 +90,4 @@ SimpleFlake.SimpleFlakeStruct // same as simpleflake.simpleflakeStruct
 [dependencies-dev-url]: https://david-dm.org/leodutra/simpleflakes#info=devDependencies&view=table
 [dependencies-dev-badge]: 	https://img.shields.io/david/dev/leodutra/simpleflakes.svg?style=flat
 [demo-tonicdev-badge]: https://img.shields.io/badge/demo-%40tonicdev-008bb8.svg?style=flat
+
