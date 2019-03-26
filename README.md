@@ -11,37 +11,51 @@
 
 Simpleflake is the smartest way to generate a 64-bit + time-ordered + snowflake based ID. [See the presentation!](http://akmanalp.com/simpleflake_presentation/)
 
-This port is test driven and no release goes out without tests.
+This port is test driven and no release goes out without tests.  
+Also, this library does not rely on low level bindings, with OpenSSL, libgmp or anything beyond pure JavaScript.  
 
-### Install:
+### How to Install:
 
 ```sh
-npm install simpleflakes
+npm install simpleflakes --save
 ```
 
 ### Implementation:  
 Assumes [original Python implementation](https://simpleflake.readthedocs.org/en/latest/) as reference and fixes epoch (starts on `2000-01-01T00:00:00.000Z` (UTC) while Python API v0.1.5 epoch starts on `2000-01-01T05:00:00.000Z`).  
 
-Uses and exposes [Fedor Indutny's big number library (bn.js)](https://github.com/indutny/bn.js) and does not rely on low level bindings, with OpenSSL, libgmp or anything beyond pure JavaScript.  
+**simpleflakes** uses the TC39 BigInt implementation, when running on newer versions of Node.js. When BigInt is not available, [Fedor Indutny's big number library (bn.js)](https://github.com/indutny/bn.js) is used as the fastest fallback for big number calculations.
 
-### API:
 
+### Usage:
 ```js
-const simpleflake = require('simpleflakes');
+const { simpleflake } = require('simpleflakes');
 
-// Generate a 64 bit, roughly-ordered, globally-unique ID.
-var flakeBigNum = simpleflake.simpleflake(timestamp=Date.now(), random_bits=23-bit random, epoch=Date.UTC(2000, 0, 1))
+const flakeBigInt = simpleflake()
 
-flakeBigNum.toString();       // '4234673179811182512'
-flakeBigNum.toString(16);     // '3ac494d21e84f7b0'
-flakeBigNum.toString(2);      // MIN BASE -> '11101011000100100101001101001000011110100001001111011110110000'
-flakeBigNum.toString(36);     // MAX BASE
+// simpleflake(
+//    timestamp = Date.now(), 
+//    random_bits = 23-bit random, 
+//     epoch = Date.UTC(2000, 0, 1)
+// )
+// returns BigInt on newer Node.js or bn.js BigNum on older engines.
+
+flakeBigInt.toString();       // 4234673179811182512
+flakeBigInt.toString(16);     // 3ac494d21e84f7b0
+flakeBigInt.toString(2);      // 11101011000100...
+flakeBigInt.toString(36);     // 20rfh5
 ```
 You can check the [original Python API 0.1.5](https://simpleflake.readthedocs.org/en/latest/) documentation for more info.  
 
 
-#### More ports from the [original Python API 0.1.5](https://simpleflake.readthedocs.org/en/latest/):
+### Reference
 ```js
+// Main flake function and its defaults
+simpleflake(
+    timestamp = Date.now(), 
+    random_bits = 23-bit random, 
+    epoch = Date.UTC(2000, 0, 1)
+)
+
 // Static constant epoch for simpleflake timestamps, starts at the year 2000  
 simpleflake.SIMPLEFLAKE_EPOCH // const = 946702800
 
@@ -54,16 +68,11 @@ simpleflake.extractBits(data, shift, length)
 // Parses a simpleflake and returns a named tuple with the parts.
 simpleflake.parseSimpleflake(flake)
 
-// original API alias for SimpleFlake class
+// original API alias for SimpleFlake class, from the Python API
 simpleflake.simpleflakeStruct
-```
 
-
-#### JavaScript API additions:
-```js
-simpleflake.BigNum // bn.js big number class
-
-SimpleFlake.SimpleFlakeStruct // same as simpleflake.simpleflakeStruct
+// same as simpleflake.simpleflakeStruct
+SimpleFlake.SimpleFlakeStruct
 ```
 
 
