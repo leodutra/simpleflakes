@@ -1,3 +1,5 @@
+'use strict'
+
 const test = require('tape')
 const lib = require('../lib/simpleflakes-legacy')
 const BigNum = require('bn.js')

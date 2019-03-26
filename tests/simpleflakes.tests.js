@@ -1,3 +1,5 @@
+'use strict'
+
 if (typeof BigInt === 'function') {
 
   const test = require('tape')

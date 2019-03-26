@@ -1,3 +1,5 @@
+'use strict'
+
 const Benchmark = require('benchmark')
 const suite = new Benchmark.Suite()
 const legacy = require('../lib/simpleflakes-legacy')
