@@ -9,6 +9,7 @@ if (typeof BigInt === 'function') {
 
 
   test('testing simpleflake()', (t) => {
+    // eslint-disable-next-line valid-typeof
     t.assert(typeof lib.simpleflake() === 'bigint', 'returning BigInt?');
     t.equal(lib.simpleflake(SIMPLEFLAKE_TIMESTAMP, SIMPLEFLAKE_RANDOMBITS, SIMPLEFLAKE_EPOCH).toString(), '4242436206093260245', 'right timestamp, random bits and epoch parameterization?');
     t.end();
@@ -26,6 +27,7 @@ if (typeof BigInt === 'function') {
 
 
   test('testing extractBits()', (t) => {
+    // eslint-disable-next-line valid-typeof
     t.assert(typeof lib.extractBits(7, 0, 1) === 'bigint', 'returns big int');
     t.equal(lib.extractBits(7, 0, 1).toString(), '1', 'extractBits(7, 0, 1)');
     t.equal(lib.extractBits(7, 0, 2).toString(), '3', 'extractBits(7, 0, 2)');
