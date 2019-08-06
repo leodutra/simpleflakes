@@ -41,7 +41,8 @@ suite.add('legacy simpleflake()', () => {
     legacy.binary(64);
   })
   .add('legacy new BigNum()', () => {
-    BigNum('4242436206093260245', 10);
+    // eslint-disable-next-line no-new
+    new BigNum('4242436206093260245', 10);
   })
   .add('legacy parseSimpleflake()', () => {
     legacy.parseSimpleflake(SIMPLEFLAKE);
