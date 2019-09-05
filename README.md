@@ -4,7 +4,8 @@
 [![npm][npm-badge]][npm-link]
 [![codacy quality][codacy-quality-badge]][codacy-quality-link]
 [![codacy coverage][codacy-coverage-badge]][codacy-coverage-link]
-[![coveralls status][coveralls-badge]][coveralls-link]  
+[![coveralls status][coveralls-badge]][coveralls-link] [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fleodutra%2Fsimpleflakes.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fleodutra%2Fsimpleflakes?ref=badge_shield)
+ 
 [![tonicdev demo][demo-tonicdev-badge]][demo-tonicdev-link]
 [![david dep status][dependencies-badge]][dependencies-url]
 [![david dev dep status][dependencies-dev-badge]][dependencies-dev-url]  
@@ -99,3 +100,6 @@ SimpleFlake.SimpleFlakeStruct
 [dependencies-dev-badge]: 	https://img.shields.io/david/dev/leodutra/simpleflakes.svg?style=flat
 [demo-tonicdev-badge]: https://img.shields.io/badge/demo-%40tonicdev-008bb8.svg?style=flat
 
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fleodutra%2Fsimpleflakes.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fleodutra%2Fsimpleflakes?ref=badge_large)
