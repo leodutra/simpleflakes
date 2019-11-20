@@ -13,12 +13,12 @@
 Simpleflake is the smartest way to generate a 64-bit + time-ordered + snowflake based ID. [See the presentation!](http://akmanalp.com/simpleflake_presentation/)
 
 ### Test-driven, pure JavaScript
-This port is test driven and no release goes out without tests.  
-**Also, this library does not rely on low level bindings, with OpenSSL, libgmp or anything beyond pure JavaScript.**
+This port is test-driven and no release goes out without tests.  
+**Also, this library does not rely on low-level bindings, with OpenSSL, libgmp or anything beyond pure JavaScript.**
 
 Assumes [original Python implementation](https://simpleflake.readthedocs.org/en/latest/) as reference and fixes epoch (starts on `2000-01-01T00:00:00.000Z` (UTC) while Python API v0.1.5 epoch starts on `2000-01-01T05:00:00.000Z`).  
 
-**simpleflakes** uses the TC39 BigInt implementation, when running on newer versions of Node.js. When BigInt is not available, [Fedor Indutny's big number library (bn.js)](https://github.com/indutny/bn.js) is used as the fastest fallback for big number calculations.
+**simpleflakes** uses the TC39 BigInt implementation when running on newer versions of Node.js. When BigInt is not available, [Fedor Indutny's big number library (bn.js)](https://github.com/indutny/bn.js) is used as the fastest fallback for big number calculations.
 
 ### How to Install:
 
