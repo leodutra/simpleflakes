@@ -33,14 +33,11 @@
   },
   "homepage": "https://github.com/leodutra/simpleflakes#readme",
   "dependencies": {
-    "bn.js": "^5.0.0"
+    "bn.js": "^5.2.0"
   },
   "devDependencies": {
     "benchmark": "^2.1.4",
-    "eslint": "^6.1.0",
-    "eslint-config-airbnb-base": "^13.2.0",
-    "eslint-plugin-import": "^2.18.2",
-    "faucet": "0.0.1",
-    "tape": "^4.11.0"
+    "faucet": "^0.0.1",
+    "tape": "^5.3.1"
   }
 }
