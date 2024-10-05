@@ -1,5 +1,5 @@
-use rand::Rng;
 use wasm_bindgen::prelude::*;
+use getrandom::getrandom;
 
 const SIMPLEFLAKE_EPOCH: u64 = 946684800000;
 const UNSIGNED_23BIT_MAX: u32 = 8388607;
@@ -46,8 +46,10 @@ pub fn simpleflake(ts: Option<u64>, random_bits: Option<u64>, epoch: Option<u64>
     let ts = ts.unwrap_or_else(|| js_sys::Date::now() as u64);
     let epoch = epoch.unwrap_or(SIMPLEFLAKE_EPOCH);
     let random_bits = random_bits.unwrap_or_else(|| {
-        let mut rng = rand::thread_rng();
-        rng.gen_range(0..=UNSIGNED_23BIT_MAX) as u64
+        let mut buf = [0u8; 4]; // We need 4 bytes to cover a u32.
+        getrandom(&mut buf).expect("Failed to get random data");
+        let rand_num = u32::from_be_bytes(buf) & UNSIGNED_23BIT_MAX; // Mask with 23-bit max
+        rand_num as u64
     });
     let flake = (ts - epoch) << SIMPLEFLAKE_TIMESTAMP_SHIFT | random_bits;
     flake
