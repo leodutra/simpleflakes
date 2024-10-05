@@ -1,5 +1,5 @@
-use wasm_bindgen::prelude::*;
 use getrandom::getrandom;
+use wasm_bindgen::prelude::*;
 
 const SIMPLEFLAKE_EPOCH: u64 = 946684800000;
 const UNSIGNED_23BIT_MAX: u32 = 8388607;
@@ -72,7 +72,7 @@ fn extract_bits(data: u64, shift: u8, length: u8) -> u64 {
     (data >> shift) & mask
 }
 
-#[wasm_bindgen]
+#[wasm_bindgen(js_name = parseSimpleFlake)]
 pub fn parse_simpleflake(flake: u64) -> SimpleFlakeStruct {
     let timestamp = extract_bits(
         flake,
