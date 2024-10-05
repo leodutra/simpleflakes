@@ -3,8 +3,10 @@
   "version": "2.2.2",
   "description": "Fast, and reliable, distributed 64-bit ID generation, in pure JavaScript, for Node.js.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "tape tests/**/*.js | faucet",
+    "test-wasm": "tape tests/simpleflakes-wasm.tests.js | faucet",
     "benchmark": "node  benchmark/run.js"
   },
   "repository": {
@@ -33,11 +35,12 @@
   },
   "homepage": "https://github.com/leodutra/simpleflakes#readme",
   "dependencies": {
-    "bn.js": "^5.2.0"
+    "bn.js": "^5.2.1",
+    "simpleflakes-wasm": "file:simpleflakes-wasm/pkg"
   },
   "devDependencies": {
     "benchmark": "^2.1.4",
-    "faucet": "^0.0.1",
-    "tape": "^5.3.1"
+    "faucet": "^0.0.4",
+    "tape": "^5.9.0"
   }
 }
