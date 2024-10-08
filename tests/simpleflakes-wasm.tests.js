@@ -1,5 +1,5 @@
 import { test } from "tape";
-import {simpleflake, binary, parseSimpleFlake } from "../lib/simpleflakes-wasm.js";
+import {simpleflake, binary, parseSimpleFlake, SimpleFlakeStruct } from "../lib/simpleflakes-wasm.js";
 
 // eslint-disable-next-line global-require
 // eslint-disable-next-line global-require
