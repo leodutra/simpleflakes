@@ -8,6 +8,7 @@ crate-type = ["cdylib"]
 
 [features]
 default = ["console_error_panic_hook"]
+# wasm_bindgen_test = ["wasm-bindgen-test"]
 
 [dependencies]
 # The `console_error_panic_hook` crate provides better debugging of panics by
