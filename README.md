@@ -136,7 +136,7 @@ This gives you:
 
 ## ⚡ Performance
 
-Simpleflakes is optimized for speed:
+This library is optimized for speed:
 
 ```javascript
 // Benchmark results (operations per second)
