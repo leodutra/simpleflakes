@@ -2,16 +2,8 @@ name: CI
 
 on:
   push:
-    branches: [ master,     - name: Upload coverage to Coveralls
-      if: matrix.node-version == 'lts/*'
-      uses: coverallsapp/github-action@v2
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: ./coverage/lcov.info
-      continue-on-error: true
-
-    - name: Upload coverage to Codacy
-      if: matrix.node-version == 'lts/*' && env.CODACY_PROJECT_TOKEN != ''ull_request:
+    branches: [ master, main ]
+  pull_request:
     branches: [ master, main ]
   workflow_dispatch:
 
@@ -53,7 +45,7 @@ jobs:
       run: npm run test:compatibility
 
     - name: Upload coverage to Coveralls
-      if: matrix.node-version == '20.x'
+      if: matrix.node-version == 'lts/*'
       uses: coverallsapp/github-action@v2
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -61,7 +53,7 @@ jobs:
       continue-on-error: true
 
     - name: Upload coverage to Codacy
-      if: matrix.node-version == '20.x' && env.CODACY_PROJECT_TOKEN != ''
+      if: matrix.node-version == 'lts/*' && env.CODACY_PROJECT_TOKEN != ''
       uses: codacy/codacy-coverage-reporter-action@v1
       env:
         CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
