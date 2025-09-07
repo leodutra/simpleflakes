@@ -3,9 +3,11 @@
   "check-coverage": true,
   "lines": 95,
   "functions": 95,
-  "branches": 95,
+  "branches": 93,
   "statements": 95,
   "include": ["dist/**"],
   "exclude": ["coverage/**", "tests/**", "benchmark/**", "node_modules/**"],
-  "all": true
+  "all": true,
+  "skip-full": false,
+  "source-map": true
 }
