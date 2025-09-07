@@ -40,6 +40,26 @@ flakeBigInt.toString(16);     // 3ac494d21e84f7b0
 flakeBigInt.toString(2);      // 11101011000100...
 flakeBigInt.toString(36);     // 20rfh5
 ```
+
+### TypeScript Support:
+The library is written in TypeScript and includes full type definitions:
+
+```typescript
+import { simpleflake, SimpleFlakeStruct, parseSimpleflake } from 'simpleflakes';
+
+// Generate a typed ID
+const flakeId: bigint = simpleflake();
+
+// Parse with full type safety
+const parsed: SimpleFlakeStruct = parseSimpleflake(flakeId);
+console.log(parsed.timestamp);   // string
+console.log(parsed.randomBits);  // string
+
+// All functions have proper type annotations
+const binaryStr: string = binary(flakeId);
+const bits: bigint = extractBits(flakeId, 23n, 41n);
+```
+
 You can check the [original Python API 0.1.5](https://simpleflake.readthedocs.org/en/latest/) documentation for more info.
 
 
@@ -71,6 +91,29 @@ simpleflake.simpleflakeStruct
 SimpleFlake.SimpleFlakeStruct
 ```
 
+### Development:
+
+This project is written in TypeScript and includes comprehensive test coverage.
+
+```sh
+# Install dependencies
+npm install
+
+# Build TypeScript to JavaScript
+npm run build
+
+# Run tests (automatically builds first)
+npm test
+
+# Run with coverage
+npm run test:coverage
+
+# Type checking
+npm run type-check
+
+# Clean build artifacts
+npm run clean
+```
 
 ### License:
 

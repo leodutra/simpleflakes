@@ -1,1 +1,1 @@
-module.exports = require('./lib/simpleflakes');
+module.exports = require('./dist/simpleflakes');

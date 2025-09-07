@@ -2,14 +2,28 @@
   "name": "simpleflakes",
   "version": "3.0.0",
   "description": "Fast, and reliable, distributed 64-bit ID generation, in pure JavaScript, for Node.js.",
-  "main": "index.js",
+  "main": "dist/simpleflakes.js",
+  "types": "dist/simpleflakes.d.ts",
+  "files": [
+    "dist/",
+    "index.js",
+    "lib/",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
-    "test": "tape tests/**/*.js | faucet",
+    "build": "tsc",
+    "build:clean": "rimraf dist",
+    "prebuild": "npm run build:clean",
+    "postbuild": "echo 'TypeScript compilation complete. Output in ./dist/'",
+    "type-check": "tsc --noEmit",
+    "test": "npm run build && tape tests/**/*.js | faucet",
     "test:coverage": "nyc npm test",
     "test:coverage:report": "nyc report --reporter=html && echo '\nHTML coverage report generated in ./coverage/index.html'",
     "test:coverage:ci": "nyc npm test && cat ./coverage/lcov.info",
     "test:coverage:clean": "rimraf coverage .nyc_output",
-    "benchmark": "node  benchmark/run.js"
+    "benchmark": "npm run build && node  benchmark/run.js",
+    "clean": "npm run build:clean && npm run test:coverage:clean"
   },
   "repository": {
     "type": "git",
@@ -43,10 +57,13 @@
     "node": ">=10.4.0"
   },
   "devDependencies": {
+    "@types/node": "^24.3.1",
     "benchmark": "^2.1.4",
     "faucet": "^0.0.4",
     "nyc": "^17.1.0",
     "rimraf": "^6.0.1",
-    "tape": "^5.9.0"
+    "tape": "^5.9.0",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
   }
 }
