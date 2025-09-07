@@ -14,12 +14,15 @@
   "keywords": [
     "simpleflake",
     "snowflake",
+    "flake",
     "id",
+    "uuidv4",
+    "uuidv7",
+    "database",
+    "shards",
+    "bigint",
     "sql",
     "nosql",
-    "flake",
-    "bigint",
-    "shards",
     "partition"
   ],
   "author": {
