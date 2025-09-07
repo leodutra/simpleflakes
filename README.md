@@ -11,7 +11,7 @@
 [![Last Commit](https://img.shields.io/github/last-commit/leodutra/simpleflakes.svg?style=flat)](https://github.com/leodutra/simpleflakes)
 [![coveralls status][coveralls-badge]][coveralls-link] [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fleodutra%2Fsimpleflakes.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fleodutra%2Fsimpleflakes?ref=badge_shield)
 
-> **Fast, lightweight, and reliable distributed 64-bit ID generation for Node.js** ⚡
+> **Fast, lightweight, and reliable distributed 64-bit ID generation for Node.js** ⚡  
 > Zero dependencies • TypeScript-ready • 8.8M+ ops/sec performance
 
 ## ✨ Features
