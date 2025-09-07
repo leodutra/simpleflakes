@@ -9,12 +9,12 @@
 Simpleflake is the smartest way to generate a 64-bit + time-ordered + snowflake based ID. [See the presentation!](http://akmanalp.com/simpleflake_presentation/)
 
 ### Test-driven, pure JavaScript
-This port is test-driven and no release goes out without tests.  
+This port is test-driven and no release goes out without tests.
 **Also, this library does not rely on low-level bindings, with OpenSSL, libgmp or anything beyond pure JavaScript.**
 
-Assumes [original Python implementation](https://simpleflake.readthedocs.org/en/latest/) as reference and fixes epoch (starts on `2000-01-01T00:00:00.000Z` (UTC) while Python API v0.1.5 epoch starts on `2000-01-01T05:00:00.000Z`).  
+Assumes [original Python implementation](https://simpleflake.readthedocs.org/en/latest/) as reference and fixes epoch (starts on `2000-01-01T00:00:00.000Z` (UTC) while Python API v0.1.5 epoch starts on `2000-01-01T05:00:00.000Z`).
 
-**simpleflakes** uses the TC39 BigInt implementation when running on newer versions of Node.js. When BigInt is not available, [Fedor Indutny's big number library (bn.js)](https://github.com/indutny/bn.js) is used as the fastest fallback for big number calculations.
+**simpleflakes** uses the TC39 BigInt implementation for fast and reliable 64-bit ID generation in pure JavaScript.
 
 ### How to Install:
 
@@ -29,30 +29,30 @@ const { simpleflake } = require('simpleflakes');
 const flakeBigInt = simpleflake()
 
 // simpleflake(
-//    timestamp = Date.now(), 
-//    random_bits = 23-bit random, 
+//    timestamp = Date.now(),
+//    random_bits = 23-bit random,
 //     epoch = Date.UTC(2000, 0, 1)
 // )
-// returns BigInt on newer Node.js or bn.js BigNum on older engines.
+// returns BigInt
 
 flakeBigInt.toString();       // 4234673179811182512
 flakeBigInt.toString(16);     // 3ac494d21e84f7b0
 flakeBigInt.toString(2);      // 11101011000100...
 flakeBigInt.toString(36);     // 20rfh5
 ```
-You can check the [original Python API 0.1.5](https://simpleflake.readthedocs.org/en/latest/) documentation for more info.  
+You can check the [original Python API 0.1.5](https://simpleflake.readthedocs.org/en/latest/) documentation for more info.
 
 
 ### Reference
 ```js
 // Main flake function and its defaults
 simpleflake(
-    timestamp = Date.now(), 
-    random_bits = 23-bit random, 
+    timestamp = Date.now(),
+    random_bits = 23-bit random,
     epoch = Date.UTC(2000, 0, 1)
 )
 
-// Static constant epoch for simpleflake timestamps, starts at the year 2000  
+// Static constant epoch for simpleflake timestamps, starts at the year 2000
 simpleflake.SIMPLEFLAKE_EPOCH // const = 946702800
 
 // Show binary digits of a number, pads to 64 bits unless specified.
@@ -72,7 +72,8 @@ SimpleFlake.SimpleFlakeStruct
 ```
 
 
-### License:  
+### License:
+
 [MIT](https://raw.githubusercontent.com/leodutra/simpleflakes/master/LICENSE)
 
 [npm-badge]: https://img.shields.io/npm/v/simpleflakes.svg?style=flat
