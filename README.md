@@ -1,6 +1,6 @@
 # simpleflakes
 
-[![travis status][travis-badge]][travis-link]
+[![CI](https://github.com/leodutra/simpleflakes/actions/workflows/ci.yml/badge.svg)](https://github.com/leodutra/simpleflakes/actions/workflows/ci.yml)
 [![npm][npm-badge]][npm-link]
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 <!-- [![codacy quality][codacy-quality-badge]][codacy-quality-link]
@@ -127,13 +127,11 @@ npm run clean
 [MIT](https://raw.githubusercontent.com/leodutra/simpleflakes/master/LICENSE)
 
 [npm-badge]: https://img.shields.io/npm/v/simpleflakes.svg?style=flat
-[travis-badge]: http://img.shields.io/travis/leodutra/simpleflakes.svg?style=flat
 [codacy-coverage-badge]: https://api.codacy.com/project/badge/Coverage/f71ef817e5f14a9ab3b8b2cb6fabf51a
 [codacy-quality-badge]: https://api.codacy.com/project/badge/Grade/f71ef817e5f14a9ab3b8b2cb6fabf51a
 [coveralls-badge]: https://img.shields.io/coveralls/leodutra/simpleflakes.svg?style=flat
 
 [npm-link]: https://www.npmjs.com/package/simpleflakes
-[travis-link]: https://travis-ci.org/leodutra/simpleflakes
 [codacy-quality-link]: https://www.codacy.com/app/leodutra/simpleflakes
 
 [codacy-coverage-link]: https://www.codacy.com/app/leodutra/simpleflakes?utm_source=github.com&utm_medium=referral&utm_content=leodutra/simpleflakes&utm_campaign=Badge_Coverage
