@@ -8,7 +8,7 @@ function extractOpsPerSec(benchmarkOutput) {
   // Parse the benchmark output to extract ops/sec for simpleflake()
   const lines = benchmarkOutput.split('\n');
   const simpleflakeLine = lines.find(line => line.includes('simpleflake()') && line.includes('ops/sec'));
-  
+
   if (simpleflakeLine) {
     // Extract number like "8,791,527 ops/sec"
     const match = simpleflakeLine.match(/([\d,]+)\s+ops\/sec/);
@@ -32,10 +32,10 @@ if (fs.existsSync(resultsFile)) {
   const benchmarkOutput = fs.readFileSync(resultsFile, 'utf8');
   const performance = extractOpsPerSec(benchmarkOutput);
   const badgeUrl = createBadgeUrl(performance);
-  
+
   console.log('Performance:', performance);
   console.log('Badge URL:', badgeUrl);
-  
+
   // Save for use in README or other places
   fs.writeFileSync('benchmark-badge.txt', badgeUrl);
 } else {
