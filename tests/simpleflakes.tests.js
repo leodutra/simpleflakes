@@ -82,45 +82,45 @@ test("simpleflake(): random bits validation", (t) => {
   const flakeMin = lib.simpleflake(now, 0);
   const flakeMax = lib.simpleflake(now, UNSIGNED_23BIT_MAX);
   t.assert(flakeMax > flakeMin, "max random bits generates larger flake than min");
-  
+
   // Test that zero random bits actually produces zero (not random)
   const flakeZeroRandom1 = lib.simpleflake(now, 0);
   const flakeZeroRandom2 = lib.simpleflake(now, 0);
   t.equal(flakeZeroRandom1, flakeZeroRandom2, "zero random bits produces deterministic result");
-  
+
   t.end();
 });
 
 test("simpleflake(): nullish coalescing behavior", (t) => {
   const now = Date.now();
-  
+
   // Test that 0 is treated as a valid value (not replaced with random)
   const flakeWithZero1 = lib.simpleflake(now, 0);
   const flakeWithZero2 = lib.simpleflake(now, 0);
   t.equal(flakeWithZero1, flakeWithZero2, "zero random bits produces consistent result");
-  
+
   // Test that null generates random (different results)
   const flakeWithNull1 = lib.simpleflake(now, null);
   const flakeWithNull2 = lib.simpleflake(now, null);
   t.notEqual(flakeWithNull1, flakeWithNull2, "null random bits generates random values");
-  
+
   // Test that undefined generates random (different results)
   const flakeWithUndefined1 = lib.simpleflake(now, undefined);
   const flakeWithUndefined2 = lib.simpleflake(now, undefined);
   t.notEqual(flakeWithUndefined1, flakeWithUndefined2, "undefined random bits generates random values");
-  
+
   // Test that false (falsy but not nullish) is treated as 0
   const flakeWithFalse1 = lib.simpleflake(now, false);
   const flakeWithFalse2 = lib.simpleflake(now, false);
   t.equal(flakeWithFalse1, flakeWithFalse2, "false random bits produces consistent result (converted to 0)");
   t.equal(flakeWithFalse1, flakeWithZero1, "false and 0 produce same result");
-  
+
   // Test that empty string (falsy but not nullish) is treated as 0
   const flakeWithEmptyString1 = lib.simpleflake(now, "");
   const flakeWithEmptyString2 = lib.simpleflake(now, "");
   t.equal(flakeWithEmptyString1, flakeWithEmptyString2, "empty string random bits produces consistent result (converted to 0)");
   t.equal(flakeWithEmptyString1, flakeWithZero1, "empty string and 0 produce same result");
-  
+
   t.end();
 });
 
