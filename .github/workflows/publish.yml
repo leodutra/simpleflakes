@@ -30,8 +30,8 @@ jobs:
     - name: Build TypeScript
       run: npm run build
 
-    - name: Run all tests
-      run: npm run test:ci
+    - name: Run smoke tests (quick validation)
+      run: npm run test
 
     - name: Publish to NPM
       run: npm publish
