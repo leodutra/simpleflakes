@@ -34,7 +34,7 @@ jobs:
       run: npm run build
 
     - name: Run smoke tests (quick validation)
-      run: npm run test
+      run: npm run test:ci
 
     - name: Publish to NPM
       run: npm publish

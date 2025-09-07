@@ -21,7 +21,7 @@
     "test:coverage:report": "nyc report --reporter=html && echo '\nHTML coverage report generated in ./coverage/index.html'",
     "test:coverage:ci": "npm run test:coverage && cat ./coverage/lcov.info",
     "test:coverage:clean": "rimraf coverage .nyc_output",
-    "benchmark": "npm run build && node  benchmark/run.js",
+    "benchmark": "npm run build && node benchmark/run.js",
     "clean": "npm run build:clean && npm run test:coverage:clean"
   },
   "repository": {

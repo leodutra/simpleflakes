@@ -32,17 +32,8 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
-    - name: Build TypeScript
-      run: npm run build
-
-    - name: Run TypeScript type checking
-      run: npm run type-check
-
-    - name: Run tests with coverage
-      run: npm run test:coverage
-
-    - name: Run compatibility tests
-      run: npm run test:compatibility
+    - name: Run tests with coverage and generate LCOV
+      run: npm run test:coverage:ci
 
     - name: Upload coverage to Coveralls
       if: matrix.node-version == 'lts/*'
@@ -78,9 +69,6 @@ jobs:
 
     - name: Install dependencies
       run: npm ci
-
-    - name: Build TypeScript
-      run: npm run build
 
     - name: Run benchmark
       run: |
