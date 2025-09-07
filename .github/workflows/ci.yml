@@ -53,8 +53,10 @@ jobs:
       continue-on-error: true
 
     - name: Upload coverage to Codacy
-      if: matrix.node-version == '20.x' && secrets.CODACY_PROJECT_TOKEN
+      if: matrix.node-version == '20.x' && env.CODACY_PROJECT_TOKEN != ''
       uses: codacy/codacy-coverage-reporter-action@v1
+      env:
+        CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
       with:
         project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
         coverage-reports: ./coverage/lcov.info
