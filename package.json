@@ -10,10 +10,12 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "npm run type-check && npm run build:js && npm run build:dts",
+    "build:js": "swc src/simpleflakes.ts -o dist/simpleflakes.js --source-maps",
+    "build:dts": "tsc --emitDeclarationOnly",
     "build:clean": "rimraf dist",
     "prebuild": "npm run build:clean",
-    "postbuild": "echo 'TypeScript compilation complete. Output in ./dist/'",
+    "postbuild": "echo 'Build complete. Output in ./dist/'",
     "type-check": "tsc --noEmit",
     "test": "npm run build && tape tests/**/*.js | faucet",
     "test:ci": "npm run test:coverage",
@@ -59,6 +61,8 @@
     "node": ">=16.0.0"
   },
   "devDependencies": {
+    "@swc/cli": "^0.7.8",
+    "@swc/core": "^1.13.5",
     "@types/node": "^24.3.1",
     "benchmark": "^2.1.4",
     "faucet": "^0.0.4",
