@@ -133,18 +133,8 @@ npm run clean
 
 [npm-link]: https://www.npmjs.com/package/simpleflakes
 [codacy-quality-link]: https://www.codacy.com/app/leodutra/simpleflakes
-
 [codacy-coverage-link]: https://www.codacy.com/app/leodutra/simpleflakes?utm_source=github.com&utm_medium=referral&utm_content=leodutra/simpleflakes&utm_campaign=Badge_Coverage
-[codacy-quality-link]: https://www.codacy.com/app/leodutra/simpleflakes?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=leodutra/simpleflakes&amp;utm_campaign=Badge_Grade
 [coveralls-link]: https://coveralls.io/github/leodutra/simpleflakes
-[demo-tonicdev-link]: https://tonicdev.com/leodutra/simpleflakes-demo/1.0.13
-
-[dependencies-url]: https://david-dm.org/leodutra/simpleflakes
-[dependencies-badge]: 	https://img.shields.io/david/leodutra/simpleflakes.svg?style=flat
-[dependencies-dev-url]: https://david-dm.org/leodutra/simpleflakes#info=devDependencies&view=table
-[dependencies-dev-badge]: 	https://img.shields.io/david/dev/leodutra/simpleflakes.svg?style=flat
-[demo-tonicdev-badge]: https://img.shields.io/badge/demo-%40tonicdev-008bb8.svg?style=flat
-
 
 
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fleodutra%2Fsimpleflakes.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fleodutra%2Fsimpleflakes?ref=badge_large)
