@@ -33,14 +33,17 @@
     "snowflake",
     "flake",
     "id",
-    "uuidv4",
+    "uuid",
+    "sequential",
+    "monotonic",
+    "ksuid",
+    "nanoid",
     "uuidv7",
     "database",
-    "shards",
+    "distributed",
     "bigint",
-    "sql",
-    "nosql",
-    "partition"
+    "time-ordered",
+    "typescript"
   ],
   "author": {
     "name": "Leonardo Dutra",
