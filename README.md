@@ -37,7 +37,8 @@ Simpleflake generates **unique 64-bit integers** that are:
 
 Perfect for database primary keys, distributed system IDs, and anywhere you need fast, unique identifiers.
 
-[See the original presentation!](http://akmanalp.com/simpleflake_presentation/)
+[See the original presentation (slides)](http://akmanalp.com/simpleflake_presentation/)  
+[Mali Akmanalp discusses Simpleflake (video)](http://www.youtube.com/watch?v=SCQPBGi_QRk)
 
 ## 📦 Installation
 
