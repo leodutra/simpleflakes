@@ -1,9 +1,6 @@
-name: Release and Publish
+name: Publish to NPM
 
 on:
-  push:
-    tags:
-      - 'v*.*.*'
   release:
     types: [published]
   workflow_dispatch:
@@ -13,10 +10,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  release-and-publish:
+  publish:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
 
     steps:
     - name: Checkout code
@@ -37,33 +32,6 @@ jobs:
 
     - name: Run all tests
       run: npm run test:ci
-
-    - name: Create GitHub Release
-      if: startsWith(github.ref, 'refs/tags/')
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref_name }}
-        release_name: Release ${{ github.ref_name }}
-        body: |
-          ## 🚀 simpleflakes ${{ github.ref_name }}
-
-          Fast, reliable, distributed 64-bit ID generation for Node.js.
-
-          ### Performance
-          - ~8.8M ops/sec simpleflake() generation
-          - Zero dependencies
-          - TypeScript ready
-
-          ### Installation
-          ```bash
-          npm install simpleflakes@${{ github.ref_name }}
-          ```
-
-          See the [changelog](https://github.com/leodutra/simpleflakes/commits/${{ github.ref_name }}) for details.
-        draft: false
-        prerelease: false
 
     - name: Publish to NPM
       run: npm publish
