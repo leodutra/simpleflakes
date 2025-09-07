@@ -1,30 +1,34 @@
 {
   "jsc": {
-    "baseUrl": "./src",
-    "paths": {},
     "target": "es2020",
     "parser": {
       "syntax": "typescript",
-      "tsx": false,
-      "dynamicImport": true
+      "tsx": false
     },
-    "transform": {
-      "useDefineForClassFields": true
-    },
+    "transform": {},
     "externalHelpers": false,
     "keepClassNames": false,
     "minify": {
       "compress": {
         "unused": true,
-        "dead_code": true
+        "dead_code": true,
+        "evaluate": true,
+        "conditionals": true,
+        "sequences": true,
+        "hoist_funs": false,
+        "hoist_vars": false,
+        "reduce_vars": true,
+        "collapse_vars": true
       },
-      "mangle": true
+      "mangle": {
+        "keep_fnames": true,
+        "keep_classnames": false,
+        "toplevel": false
+      }
     }
   },
   "module": {
-    "type": "commonjs",
-    "strict": true,
-    "strictMode": true
+    "type": "commonjs"
   },
   "minify": true,
   "sourceMaps": true
