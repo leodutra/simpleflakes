@@ -83,4 +83,16 @@ jobs:
       run: npm run build
 
     - name: Run benchmark
-      run: npm run benchmark
+      run: |
+        npm run benchmark > benchmark-results.txt
+        echo "## 🚀 Benchmark Results" >> $GITHUB_STEP_SUMMARY
+        echo '```' >> $GITHUB_STEP_SUMMARY
+        cat benchmark-results.txt >> $GITHUB_STEP_SUMMARY
+        echo '```' >> $GITHUB_STEP_SUMMARY
+
+    - name: Upload benchmark results
+      uses: actions/upload-artifact@v4
+      with:
+        name: benchmark-results
+        path: benchmark-results.txt
+        retention-days: 30

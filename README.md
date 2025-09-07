@@ -4,6 +4,7 @@
 [![npm][npm-badge]][npm-link]
 [![npm downloads](https://img.shields.io/npm/dm/simpleflakes.svg?style=flat)](https://www.npmjs.com/package/simpleflakes)
 [![Bundle Size](https://img.shields.io/bundlephobia/minzip/simpleflakes?style=flat)](https://bundlephobia.com/package/simpleflakes)
+[![Performance](https://img.shields.io/badge/performance-8.8M%20ops%2Fsec-brightgreen?style=flat&logo=javascript)](https://github.com/leodutra/simpleflakes/actions/workflows/ci.yml)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D16.0.0-brightgreen.svg?style=flat)](https://nodejs.org/)
 [![Dependencies](https://img.shields.io/badge/dependencies-0-green.svg?style=flat)](https://www.npmjs.com/package/simpleflakes)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
