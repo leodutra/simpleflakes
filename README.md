@@ -57,7 +57,7 @@ console.log(id); // 4234673179811182512n (BigInt)
 // Convert to different formats
 console.log(id.toString());    // "4234673179811182512"
 console.log(id.toString(16));  // "3ac494d21e84f7b0" (hex)
-console.log(id.toString(36));  // "20rfh5bt4k0g" (base36 - shortest)
+console.log(id.toString(36));  // "w68acyhy50hc" (base36 - shortest)
 ```
 
 ### TypeScript / ES Modules
@@ -255,7 +255,7 @@ const id = uuidv4(); // "f47ac10b-58cc-4372-a567-0e02b2c3d479"
 
 // After (Simpleflake)
 import { simpleflake } from 'simpleflakes';
-const id = simpleflake().toString(36); // "20rfh5bt4k0g" (shorter!)
+const id = simpleflake().toString(36); // "w68acyhy50hc" (shorter!)
 ```
 
 ### From Twitter Snowflake
@@ -286,7 +286,7 @@ const serviceBId = simpleflake(); // Service B
 ### Short URLs
 ```javascript
 // Generate compact URL identifiers
-const shortId = simpleflake().toString(36); // "20rfh5bt4k0g"
+const shortId = simpleflake().toString(36); // "w68acyhy50hc"
 const url = `https://short.ly/${shortId}`;
 ```
 
