@@ -6,7 +6,6 @@
   "types": "dist/simpleflakes.d.ts",
   "files": [
     "dist/",
-    "lib/",
     "README.md",
     "LICENSE"
   ],

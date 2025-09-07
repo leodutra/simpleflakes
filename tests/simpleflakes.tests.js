@@ -1,7 +1,7 @@
 // eslint-disable-next-line global-require
 const test = require("tape");
 // eslint-disable-next-line global-require
-const lib = require("../lib/simpleflakes");
+const lib = require("../dist/simpleflakes");
 
 // Test constants
 const SIMPLEFLAKE_EPOCH = 946702800000;
@@ -251,16 +251,16 @@ test("extractBits(): large numbers and string input", (t) => {
 
 test("SimpleFlakeStruct(): constructor behavior", (t) => {
   t.assert(
-    lib.SimpleFlakeStruct(
+    new lib.SimpleFlakeStruct(
       SIMPLEFLAKE_TIMESTAMP.toString(),
       SIMPLEFLAKE_RANDOMBITS.toString()
     ) instanceof lib.SimpleFlakeStruct,
-    "creates instance when calling as function"
+    "creates instance when calling with new"
   );
 
   // Factory function behavior (without 'new')
-  const struct1 = lib.SimpleFlakeStruct("123456789", "987654");
-  t.assert(struct1 instanceof lib.SimpleFlakeStruct, "works as factory function");
+  const struct1 = new lib.SimpleFlakeStruct("123456789", "987654");
+  t.assert(struct1 instanceof lib.SimpleFlakeStruct, "works as constructor function");
   t.equal(struct1.timestamp, "123456789", "timestamp property set correctly");
   t.equal(struct1.randomBits, "987654", "randomBits property set correctly");
 
@@ -275,33 +275,33 @@ test("SimpleFlakeStruct(): constructor behavior", (t) => {
 test("SimpleFlakeStruct(): error handling", (t) => {
   t.throws(() => {
     let undef;
-    lib.SimpleFlakeStruct(undef, "1");
+    new lib.SimpleFlakeStruct(undef, "1");
   }, "throws when timestamp arg is missing");
 
   t.throws(() => {
-    lib.SimpleFlakeStruct("1");
+    new lib.SimpleFlakeStruct("1");
   }, "throws when randomBits argument is missing");
 
   t.throws(() => {
-    lib.SimpleFlakeStruct();
+    new lib.SimpleFlakeStruct();
   }, "throws when arguments are missing");
 
   t.throws(() => {
-    lib.SimpleFlakeStruct(null, "1");
+    new lib.SimpleFlakeStruct(null, "1");
   }, "throws when timestamp is null");
 
   t.throws(() => {
-    lib.SimpleFlakeStruct("1", null);
+    new lib.SimpleFlakeStruct("1", null);
   }, "throws when randomBits is null");
   t.end();
 });
 
 test("SimpleFlakeStruct(): edge cases", (t) => {
-  const structZero = lib.SimpleFlakeStruct("0", "0");
+  const structZero = new lib.SimpleFlakeStruct("0", "0");
   t.equal(structZero.timestamp, "0", "accepts zero timestamp");
   t.equal(structZero.randomBits, "0", "accepts zero randomBits");
 
-  const structLarge = lib.SimpleFlakeStruct("999999999999999", "8388607");
+  const structLarge = new lib.SimpleFlakeStruct("999999999999999", "8388607");
   t.equal(structLarge.timestamp, "999999999999999", "accepts large timestamp");
   t.equal(structLarge.randomBits, "8388607", "accepts max 23-bit random");
   t.end();
