@@ -1,11 +1,16 @@
 {
   "jsc": {
+    "baseUrl": "./src",
+    "paths": {},
     "target": "es2020",
     "parser": {
       "syntax": "typescript",
-      "tsx": false
+      "tsx": false,
+      "dynamicImport": true
     },
-    "transform": {},
+    "transform": {
+      "useDefineForClassFields": true
+    },
     "externalHelpers": false,
     "keepClassNames": false,
     "minify": {
@@ -17,7 +22,9 @@
     }
   },
   "module": {
-    "type": "commonjs"
+    "type": "commonjs",
+    "strict": true,
+    "strictMode": true
   },
   "minify": true,
   "sourceMaps": true
