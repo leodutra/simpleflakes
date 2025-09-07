@@ -1,18 +1,17 @@
 language: node_js
 node_js:
 - stable
-- '12'
-- '11'
-- '10'
-- '8'
+- '20'
+- '18'
+- '16'
 
 before_install:
-  - npm install -g istanbul coveralls codacy-coverage
+  - npm install -g coveralls codacy-coverage
 
 before_script:
   - export CODACY_PROJECT_TOKEN=becf7b26a5d84fceab4c94d0bb2bf2ec
 
-script: "istanbul cover ./node_modules/tape/bin/tape --report lcovonly -- tests/**/*.js && cat ./coverage/lcov.info | coveralls && cat ./coverage/lcov.info | codacy-coverage && rm -rf ./coverage"
+script: "npm run test:coverage:ci | coveralls && npm run test:coverage:ci | codacy-coverage && npm run test:coverage:clean"
 
 deploy:
   provider: npm

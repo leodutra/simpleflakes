@@ -5,6 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "tape tests/**/*.js | faucet",
+    "test:coverage": "nyc npm test",
+    "test:coverage:report": "nyc report --reporter=html && echo '\nHTML coverage report generated in ./coverage/index.html'",
+    "test:coverage:ci": "nyc npm test && cat ./coverage/lcov.info",
+    "test:coverage:clean": "rimraf coverage .nyc_output",
     "benchmark": "node  benchmark/run.js"
   },
   "repository": {
@@ -35,9 +39,14 @@
     "url": "https://github.com/leodutra/simpleflakes/issues"
   },
   "homepage": "https://github.com/leodutra/simpleflakes#readme",
+  "engines": {
+    "node": ">=10.4.0"
+  },
   "devDependencies": {
     "benchmark": "^2.1.4",
     "faucet": "^0.0.4",
+    "nyc": "^17.1.0",
+    "rimraf": "^6.0.1",
     "tape": "^5.9.0"
   }
 }

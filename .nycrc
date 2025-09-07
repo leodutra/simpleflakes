@@ -1,0 +1,11 @@
+{
+  "reporter": ["text", "lcovonly", "html"],
+  "check-coverage": true,
+  "lines": 95,
+  "functions": 95,
+  "branches": 95,
+  "statements": 95,
+  "include": ["lib/**"],
+  "exclude": ["coverage/**", "tests/**", "benchmark/**", "node_modules/**"],
+  "all": true
+}
