@@ -335,7 +335,7 @@ npm run clean
 
 ## 🆚 Comparison
 
-| Feature | Simpleflakes | UUID v4 | UUID v7 | Nanoid | KSUID | Twitter Snowflake |
+| Feature | Simpleflake | UUID v4 | UUID v7 | Nanoid | KSUID | Twitter Snowflake |
 |---------|-------------|---------|---------|--------|-------|------------------|
 | **Size** | 64-bit | 128-bit | 128-bit | Variable | 160-bit | 64-bit |
 | **Time-ordered** | ✅ Yes | ❌ No | ✅ Yes | ❌ No | ✅ Yes | ✅ Yes |
