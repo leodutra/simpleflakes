@@ -61,7 +61,7 @@ function generateReleaseNotes(version) {
   const categories = categorizeCommits(commits);
 
   let releaseNotes = `## 🚀 simpleflakes ${version}\n\n`;
-  releaseNotes += `Fast, reliable, distributed 64-bit ID generation for Node.js.\n\n`;
+  releaseNotes += `Fast, lightweight, and reliable distributed 64-bit ID generation with zero dependencies for Node.js.\n\n`;
 
   releaseNotes += `### Performance\n`;
   releaseNotes += `- ~8.8M ops/sec simpleflake() generation\n`;
