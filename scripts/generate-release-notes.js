@@ -73,7 +73,7 @@ function generateReleaseNotes(version) {
   }
 
   if (categories.fixes.length > 0) {
-    releaseNotes += `### 🐛 Bug Fixes\n${categories.fixes.join('\n')}\n\n`;
+    releaseNotes += `### 🪲 Bug Fixes\n${categories.fixes.join('\n')}\n\n`;
   }
 
   if (categories.perf.length > 0) {
