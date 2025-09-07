@@ -4,7 +4,7 @@ const test = require("tape");
 const lib = require("../dist/simpleflakes");
 
 // Test constants
-const SIMPLEFLAKE_EPOCH = 946702800000;
+const SIMPLEFLAKE_EPOCH = 946684800000;
 const SIMPLEFLAKE_TIMESTAMP = 1452440606092;
 const SIMPLEFLAKE_RANDOMBITS = 7460309;
 const UNSIGNED_23BIT_MAX = 8388607; // (Math.pow(2, 23) - 1)
@@ -45,17 +45,8 @@ test("simpleflake(): basic functionality", (t) => {
   t.assert(typeof lib.simpleflake() === "bigint", "returns BigInt");
 
   // Known value test
-  t.equal(
-    lib
-      .simpleflake(
-        SIMPLEFLAKE_TIMESTAMP,
-        SIMPLEFLAKE_RANDOMBITS,
-        SIMPLEFLAKE_EPOCH
-      )
-      .toString(),
-    "4242436206093260245",
-    "generates expected value with known parameters"
-  );
+  const result = lib.simpleflake(1452440606092, 7460309, SIMPLEFLAKE_EPOCH);
+  t.equal(result.toString(), '4242587201037260245', 'should generate the expected flake for given parameters');
 
   t.end();
 });
