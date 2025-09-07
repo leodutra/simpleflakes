@@ -18,7 +18,7 @@
     "test": "npm run build && tape tests/**/*.js | faucet",
     "test:compatibility": "npm run build && node test-compatibility.js",
     "test:ci": "npm run test:coverage && npm run test:compatibility",
-    "test:coverage": "nyc npm test",
+    "test:coverage": "npm run build && nyc --instrument --source-map=false tape tests/**/*.js",
     "test:coverage:report": "nyc report --reporter=html && echo '\nHTML coverage report generated in ./coverage/index.html'",
     "test:coverage:ci": "nyc npm test && cat ./coverage/lcov.info",
     "test:coverage:clean": "rimraf coverage .nyc_output",
