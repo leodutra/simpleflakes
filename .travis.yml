@@ -11,7 +11,9 @@ before_install:
 before_script:
   - export CODACY_PROJECT_TOKEN=becf7b26a5d84fceab4c94d0bb2bf2ec
 
-script: "npm run test:coverage:ci | coveralls && npm run test:coverage:ci | codacy-coverage && npm run test:coverage:clean"
+script:
+  - npm run test:coverage:ci | coveralls && npm run test:coverage:ci | codacy-coverage && npm run test:coverage:clean
+  - npm run test:compatibility
 
 deploy:
   provider: npm
