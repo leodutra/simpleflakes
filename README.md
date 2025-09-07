@@ -335,15 +335,16 @@ npm run clean
 
 ## 🆚 Comparison
 
-| Feature | Simpleflakes | UUID v4 | Twitter Snowflake |
-|---------|-------------|---------|------------------|
-| **Size** | 64-bit | 128-bit | 64-bit |
-| **Time-ordered** | ✅ Yes | ❌ No | ✅ Yes |
-| **Distributed** | ✅ Yes | ✅ Yes | ⚠️ Needs config |
-| **Dependencies** | ✅ Zero | ❌ crypto | ❌ System clock |
-| **Performance** | 🚀 8.8M/sec | 🐌 ~2M/sec | 🚀 ~10M/sec |
-| **URL-friendly** | ✅ Base36 | ❌ Long hex | ✅ Base36 |
-| **Database-friendly** | ✅ Integer | ❌ String | ✅ Integer |
+| Feature | Simpleflakes | UUID v4 | UUID v7 | Nanoid | KSUID | Twitter Snowflake |
+|---------|-------------|---------|---------|--------|-------|------------------|
+| **Size** | 64-bit | 128-bit | 128-bit | Variable | 160-bit | 64-bit |
+| **Time-ordered** | ✅ Yes | ❌ No | ✅ Yes | ❌ No | ✅ Yes | ✅ Yes |
+| **Distributed** | ✅ Yes | ✅ Yes | ✅ Yes | ✅ Yes | ✅ Yes | ⚠️ Needs config |
+| **Dependencies** | ✅ Zero | ❌ crypto | ❌ crypto | ✅ Zero | ❌ crypto | ❌ System clock |
+| **Performance** | 🚀 8.8M/sec | 🐌 ~2M/sec | 🐌 ~2M/sec | 🚀 ~5M/sec | 🐌 ~1M/sec | 🚀 ~10M/sec |
+| **URL-friendly** | ✅ Base36 | ❌ Long hex | ❌ Long hex | ✅ Custom | ✅ Base62 | ✅ Base36 |
+| **Database-friendly** | ✅ Integer | ❌ String | ❌ String | ❌ String | ❌ String | ✅ Integer |
+| **Collision-resistant** | ✅ 8.3M/ms | ✅ ~0 chance | ✅ ~0 chance | ✅ Configurable | ✅ ~0 chance | ✅ 4096/ms |
 
 ## 🤝 Contributing
 
