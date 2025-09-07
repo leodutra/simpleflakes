@@ -314,10 +314,7 @@ npm test
 # Run with coverage
 npm run test:coverage
 
-# Test module compatibility (CommonJS, ES Modules, TypeScript)
-npm run test:compatibility
-
-# Run all CI tests (coverage + compatibility)
+# Run all CI tests (coverage)
 npm run test:ci
 
 # Type checking
