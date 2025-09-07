@@ -2,6 +2,7 @@
 
 [![travis status][travis-badge]][travis-link]
 [![npm][npm-badge]][npm-link]
+[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 <!-- [![codacy quality][codacy-quality-badge]][codacy-quality-link]
 [![codacy coverage][codacy-coverage-badge]][codacy-coverage-link] -->
 [![coveralls status][coveralls-badge]][coveralls-link] [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fleodutra%2Fsimpleflakes.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fleodutra%2Fsimpleflakes?ref=badge_shield)
@@ -107,6 +108,12 @@ npm test
 
 # Run with coverage
 npm run test:coverage
+
+# Test module compatibility (CommonJS, ES Modules, TypeScript)
+npm run test:compatibility
+
+# Run all CI tests (coverage + compatibility)
+npm run test:ci
 
 # Type checking
 npm run type-check

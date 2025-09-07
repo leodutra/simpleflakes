@@ -6,7 +6,6 @@
   "types": "dist/simpleflakes.d.ts",
   "files": [
     "dist/",
-    "index.js",
     "lib/",
     "README.md",
     "LICENSE"
@@ -18,6 +17,8 @@
     "postbuild": "echo 'TypeScript compilation complete. Output in ./dist/'",
     "type-check": "tsc --noEmit",
     "test": "npm run build && tape tests/**/*.js | faucet",
+    "test:compatibility": "npm run build && node test-compatibility.js",
+    "test:ci": "npm run test:coverage && npm run test:compatibility",
     "test:coverage": "nyc npm test",
     "test:coverage:report": "nyc report --reporter=html && echo '\nHTML coverage report generated in ./coverage/index.html'",
     "test:coverage:ci": "nyc npm test && cat ./coverage/lcov.info",
