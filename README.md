@@ -2,7 +2,12 @@
 
 [![CI](https://github.com/leodutra/simpleflakes/actions/workflows/ci.yml/badge.svg)](https://github.com/leodutra/simpleflakes/actions/workflows/ci.yml)
 [![npm][npm-badge]][npm-link]
+[![npm downloads](https://img.shields.io/npm/dm/simpleflakes.svg?style=flat)](https://www.npmjs.com/package/simpleflakes)
+[![Bundle Size](https://img.shields.io/bundlephobia/minzip/simpleflakes?style=flat)](https://bundlephobia.com/package/simpleflakes)
+[![Node.js](https://img.shields.io/badge/node-%3E%3D14.0.0-brightgreen.svg?style=flat)](https://nodejs.org/)
+[![Dependencies](https://img.shields.io/badge/dependencies-0-green.svg?style=flat)](https://www.npmjs.com/package/simpleflakes)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
+[![Last Commit](https://img.shields.io/github/last-commit/leodutra/simpleflakes.svg?style=flat)](https://github.com/leodutra/simpleflakes)
 <!-- [![codacy quality][codacy-quality-badge]][codacy-quality-link]
 [![codacy coverage][codacy-coverage-badge]][codacy-coverage-link] -->
 [![coveralls status][coveralls-badge]][coveralls-link] [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fleodutra%2Fsimpleflakes.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fleodutra%2Fsimpleflakes?ref=badge_shield)

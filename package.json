@@ -55,7 +55,7 @@
   },
   "homepage": "https://github.com/leodutra/simpleflakes#readme",
   "engines": {
-    "node": ">=10.4.0"
+    "node": ">=14.0.0"
   },
   "devDependencies": {
     "@types/node": "^24.3.1",
