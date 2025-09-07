@@ -2,7 +2,7 @@
 const Benchmark = require('benchmark');
 
 const suite = new Benchmark.Suite();
-const lib = require('../lib/simpleflakes');
+const lib = require('../dist/simpleflakes');
 
 const SIMPLEFLAKE = '4242436206093260245';
 const SIMPLEFLAKE_EPOCH = 946702800000;
