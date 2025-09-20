@@ -12,21 +12,21 @@
 [![Last Commit](https://img.shields.io/github/last-commit/leodutra/simpleflakes.svg?style=flat)](https://github.com/leodutra/simpleflakes)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fleodutra%2Fsimpleflakes.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fleodutra%2Fsimpleflakes?ref=badge_shield)
 
-> **Fast, lightweight, and reliable distributed 64-bit ID generation for Node.js** ⚡
+> **Fast, lightweight, and reliable distributed 64-bit ID generation for Node.js**
 > Zero dependencies • TypeScript-ready • 8.8M+ ops/sec performance
 
-## ✨ Features
+## Features
 
-- 🚀 **Ultra-fast**: 8.8M+ operations per second
-- 🔢 **64-bit time-ordered IDs**: Globally unique, sortable by creation time
-- 📦 **Zero dependencies**: Pure JavaScript implementation
-- 🏷️ **TypeScript-first**: Full type safety and IntelliSense support
-- 🌐 **Universal**: Works with CommonJS, ES Modules, and TypeScript
-- ⚖️ **Lightweight**: Tiny bundle size, tree-shakable
-- 🧪 **Battle-tested**: 100% test coverage, production-ready
-- 🔄 **Snowflake compatible**: Drop-in replacement for Twitter Snowflake
+- **Ultra-fast**: 8.8M+ operations per second
+- **64-bit time-ordered IDs**: Globally unique, sortable by creation time
+- **Zero dependencies**: Pure JavaScript implementation
+- **TypeScript-first**: Full type safety and IntelliSense support
+- **Universal**: Works with CommonJS, ES Modules, and TypeScript
+- **Lightweight**: Tiny bundle size, tree-shakable
+- **Battle-tested**: 100% test coverage, production-ready
+- **Snowflake compatible**: Drop-in replacement for Twitter Snowflake
 
-## 🏗️ What is Simpleflake?
+## What is Simpleflake?
 
 Simpleflake generates **unique 64-bit integers** that are:
 
@@ -37,16 +37,16 @@ Simpleflake generates **unique 64-bit integers** that are:
 
 Perfect for database primary keys, distributed system IDs, and anywhere you need fast, unique identifiers.
 
-[See the original presentation (slides)](http://akmanalp.com/simpleflake_presentation/)  
+[See the original presentation (slides)](http://akmanalp.com/simpleflake_presentation/)
 [Mali Akmanalp discusses Simpleflake (video)](http://www.youtube.com/watch?v=SCQPBGi_QRk)
 
-## 📦 Installation
+## Installation
 
 ```bash
 npm install simpleflakes
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### JavaScript (CommonJS)
 ```javascript
@@ -75,7 +75,7 @@ console.log(parsed.timestamp);   // "1693244847123" (Unix timestamp as string)
 console.log(parsed.randomBits);  // "4567234" (Random component as string)
 ```
 
-## 🎯 Advanced Usage
+## Advanced Usage
 
 ### Custom Parameters
 ```javascript
@@ -117,7 +117,7 @@ const batch = generateBatch(1000);
 console.log(`Generated ${batch.length} unique IDs`);
 ```
 
-## 🔬 ID Structure
+## ID Structure
 
 Each 64-bit simpleflake ID contains:
 
@@ -136,7 +136,7 @@ This gives you:
 - **8.3 million** unique IDs per millisecond
 - **Sortable by creation time** when converted to integers
 
-## ⚡ Performance
+## Performance
 
 This library is optimized for speed:
 
@@ -149,7 +149,7 @@ binary()               // ~26M ops/sec
 
 Perfect for high-throughput applications requiring millions of IDs per second.
 
-## 🏛️ Architecture
+## Architecture
 
 ### Why 64-bit IDs?
 
@@ -166,7 +166,7 @@ No coordination required between multiple ID generators:
 - **Random collision protection**: 23 random bits provide 8.3M combinations per millisecond
 - **High availability**: Each service can generate IDs independently
 
-## 🧪 API Reference
+## API Reference
 
 ### Core Functions
 
@@ -247,7 +247,7 @@ interface SimpleFlakeStruct {
 }
 ```
 
-## 🔄 Migration Guide
+## Migration Guide
 
 ### From UUID
 ```javascript
@@ -268,7 +268,7 @@ const id = simpleflake().toString(36); // "w68acyhy50hc" (shorter!)
 // - Simpleflake: 41 bits timestamp + 23 bits random
 ```
 
-## 📖 Use Cases
+## Use Cases
 
 ### Database Primary Keys
 ```javascript
@@ -299,7 +299,7 @@ const eventId = simpleflake();
 await analytics.track({ eventId, userId, action: "click" });
 ```
 
-## 🔧 Development
+## Development
 
 This project is written in TypeScript and includes comprehensive test coverage.
 
@@ -329,13 +329,13 @@ npm run benchmark
 npm run clean
 ```
 
-## 📚 References
+## References
 
 - **[Original Presentation](http://akmanalp.com/simpleflake_presentation/)** - Introduction to the concept
 - **[Python Implementation](https://simpleflake.readthedocs.org/en/latest/)** - Original reference implementation
 - **[Twitter Snowflake](https://blog.twitter.com/engineering/en_us/a/2010/announcing-snowflake.html)** - Similar distributed ID system
 
-## 🆚 Comparison
+## Comparison
 
 | Feature | Simpleflake | UUID v4 | UUID v7 | Nanoid | KSUID | Twitter Snowflake |
 |---------|-------------|---------|---------|--------|-------|------------------|
@@ -343,12 +343,12 @@ npm run clean
 | **Time-ordered** | ✅ Yes | ❌ No | ✅ Yes | ❌ No | ✅ Yes | ✅ Yes |
 | **Distributed** | ✅ Yes | ✅ Yes | ✅ Yes | ✅ Yes | ✅ Yes | ⚠️ Needs config |
 | **Dependencies** | ✅ Zero | ❌ crypto | ❌ crypto | ✅ Zero | ❌ crypto | ❌ System clock |
-| **Performance** | 🚀 8.8M/sec | 🐌 ~2M/sec | 🐌 ~2M/sec | 🚀 ~5M/sec | 🐌 ~1M/sec | 🚀 ~10M/sec |
+| **Performance** | ⚡ 8.8M/sec | 🔸 ~2M/sec | 🔸 ~2M/sec | ⚡ ~5M/sec | 🔸 ~1M/sec | ⚡ ~10M/sec |
 | **URL-friendly** | ✅ Base36 | ❌ Long hex | ❌ Long hex | ✅ Custom | ✅ Base62 | ✅ Base36 |
 | **Database-friendly** | ✅ Integer | ❌ String | ❌ String | ❌ String | ❌ String | ✅ Integer |
 | **Collision-resistant** | ✅ 8.3M/ms | ✅ ~0 chance | ✅ ~0 chance | ✅ Configurable | ✅ ~0 chance | ✅ 4096/ms |
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
@@ -356,13 +356,13 @@ npm run clean
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📄 License
+## License
 
 [MIT](https://raw.githubusercontent.com/leodutra/simpleflakes/master/LICENSE)
 
 ---
 
-## 🏷️ Credits
+## Credits
 
 - Original concept by [Mali Akmanalp](http://akmanalp.com/)
 - TypeScript port and optimizations by [Leo Dutra](https://github.com/leodutra)
