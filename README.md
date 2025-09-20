@@ -133,11 +133,10 @@ console.log(`Generated ${batch.length} unique IDs`);
 
 Each 64-bit simpleflake ID contains:
 
-```
-|-- 41 bits ---|-- 23 bits --|
-| Timestamp     | Random      |
-| (milliseconds)| (0-8388607) |
-```
+| <------ 41 bits ------> |<- 23 bits ->|
+|-------------------------|-------------|
+|Timestamp                |Random       |
+|(milliseconds from epoch)|(0-8388607)  |
 
 - **41 bits timestamp**: Milliseconds since epoch (Year 2000)
 - **23 bits random**: Random number for uniqueness within the same millisecond
