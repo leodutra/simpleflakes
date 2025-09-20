@@ -17,11 +17,11 @@
 
 ## Features
 
-- **8.8M+ ops/sec** - Ultra-fast performance
-- **Time-ordered 64-bit IDs** - Globally unique, sortable by creation time
-- **Zero dependencies** - Pure JavaScript, lightweight bundle
-- **TypeScript-ready** - Full type safety and universal module support
-- **Production-ready** - 100% test coverage, Snowflake compatible
+- ⚡ **8.8M+ ops/sec** - Ultra-fast performance
+- 🔢 **Time-oriented 64-bit IDs** - Globally unique, sortable by creation time
+- 0️⃣ **Zero dependencies** - Pure JavaScript, lightweight bundle
+- 🏷️ **TypeScript-ready** - Full type safety and universal module support
+- 🚀 **Production-ready** - 100% test coverage, Snowflake compatible
 
 ## Table of Contents
 
