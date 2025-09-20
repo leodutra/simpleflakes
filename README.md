@@ -145,6 +145,7 @@ Each 64-bit simpleflake ID contains:
 This gives you:
 - **69+ years** of timestamp range (until year 2069)
 - **8.3 million** unique IDs per millisecond
+- **Extremely low collision chance** - 1 in 8.3 million per millisecond
 - **Sortable by creation time** when converted to integers
 
 ## Performance
