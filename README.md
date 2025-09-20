@@ -17,14 +17,27 @@
 
 ## Features
 
-- **Ultra-fast**: 8.8M+ operations per second
-- **64-bit time-ordered IDs**: Globally unique, sortable by creation time
-- **Zero dependencies**: Pure JavaScript implementation
-- **TypeScript-first**: Full type safety and IntelliSense support
-- **Universal**: Works with CommonJS, ES Modules, and TypeScript
-- **Lightweight**: Tiny bundle size, tree-shakable
-- **Battle-tested**: 100% test coverage, production-ready
-- **Snowflake compatible**: Drop-in replacement for Twitter Snowflake
+- **8.8M+ ops/sec** - Ultra-fast performance
+- **Time-ordered 64-bit IDs** - Globally unique, sortable by creation time
+- **Zero dependencies** - Pure JavaScript, lightweight bundle
+- **TypeScript-ready** - Full type safety and universal module support
+- **Production-ready** - 100% test coverage, Snowflake compatible
+
+## Table of Contents
+
+- [What is Simpleflake?](#what-is-simpleflake)
+- [Installation](#installation)
+- [Quick Start](#quick-start)
+- [Advanced Usage](#advanced-usage)
+- [ID Structure](#id-structure)
+- [Performance](#performance)
+- [Architecture](#architecture)
+- [Use Cases](#use-cases)
+- [API Reference](#api-reference)
+- [Migration Guide](#migration-guide)
+- [Comparison](#comparison)
+- [Development](#development)
+- [Contributing](#contributing)
 
 ## What is Simpleflake?
 
@@ -141,9 +154,9 @@ This library is optimized for speed:
 
 ```javascript
 // Benchmark results (operations per second)
-simpleflake()           // ~8.8M ops/sec
-parseSimpleflake()      // ~3.9M ops/sec
-binary()               // ~26M ops/sec
+simpleflake()       // ~8.8M+ ops/sec
+parseSimpleflake()  // ~3.9M+ ops/sec
+binary()            // ~26M+ ops/sec
 ```
 
 Perfect for high-throughput applications requiring millions of IDs per second.
@@ -164,6 +177,37 @@ No coordination required between multiple ID generators:
 - **Clock skew tolerant**: Small time differences between servers are fine
 - **Random collision protection**: 23 random bits provide 8.3M combinations per millisecond
 - **High availability**: Each service can generate IDs independently
+
+## Use Cases
+
+### Database Primary Keys
+```javascript
+// Perfect for database IDs - time-ordered and unique
+const userId = simpleflake();
+await db.users.create({ id: userId.toString(), name: "John" });
+```
+
+### Distributed System IDs
+```javascript
+// Each service can generate IDs independently
+const serviceAId = simpleflake(); // Service A
+const serviceBId = simpleflake(); // Service B
+// No coordination needed, guaranteed unique across services
+```
+
+### Short URLs
+```javascript
+// Generate compact URL identifiers
+const shortId = simpleflake().toString(36); // "w68acyhy50hc"
+const url = `https://short.ly/${shortId}`;
+```
+
+### Event Tracking
+```javascript
+// Time-ordered event IDs for chronological processing
+const eventId = simpleflake();
+await analytics.track({ eventId, userId, action: "click" });
+```
 
 ## API Reference
 
@@ -267,37 +311,6 @@ const id = simpleflake().toString(36); // "w68acyhy50hc" (shorter!)
 // - Simpleflake: 41 bits timestamp + 23 bits random
 ```
 
-## Use Cases
-
-### Database Primary Keys
-```javascript
-// Perfect for database IDs - time-ordered and unique
-const userId = simpleflake();
-await db.users.create({ id: userId.toString(), name: "John" });
-```
-
-### Distributed System IDs
-```javascript
-// Each service can generate IDs independently
-const serviceAId = simpleflake(); // Service A
-const serviceBId = simpleflake(); // Service B
-// No coordination needed, guaranteed unique across services
-```
-
-### Short URLs
-```javascript
-// Generate compact URL identifiers
-const shortId = simpleflake().toString(36); // "w68acyhy50hc"
-const url = `https://short.ly/${shortId}`;
-```
-
-### Event Tracking
-```javascript
-// Time-ordered event IDs for chronological processing
-const eventId = simpleflake();
-await analytics.track({ eventId, userId, action: "click" });
-```
-
 ## Development
 
 This project is written in TypeScript and includes comprehensive test coverage.
@@ -336,16 +349,25 @@ npm run clean
 
 ## Comparison
 
-| Feature | Simpleflake | UUID v4 | UUID v7 | Nanoid | KSUID | Twitter Snowflake |
-|---------|-------------|---------|---------|--------|-------|------------------|
-| **Size** | 64-bit | 128-bit | 128-bit | Variable | 160-bit | 64-bit |
-| **Time-ordered** | ✅ Yes | ❌ No | ✅ Yes | ❌ No | ✅ Yes | ✅ Yes |
-| **Distributed** | ✅ Yes | ✅ Yes | ✅ Yes | ✅ Yes | ✅ Yes | ⚠️ Needs config |
-| **Dependencies** | ✅ Zero | ❌ crypto | ❌ crypto | ✅ Zero | ❌ crypto | ❌ System clock |
-| **Performance** | ⚡ 8.8M/sec | 🔸 ~2M/sec | 🔸 ~2M/sec | ⚡ ~5M/sec | 🔸 ~1M/sec | ⚡ ~10M/sec |
-| **URL-friendly** | ✅ Base36 | ❌ Long hex | ❌ Long hex | ✅ Custom | ✅ Base62 | ✅ Base36 |
-| **Database-friendly** | ✅ Integer | ❌ String | ❌ String | ❌ String | ❌ String | ✅ Integer |
-| **Collision-resistant** | ✅ 8.3M/ms | ✅ ~0 chance | ✅ ~0 chance | ✅ Configurable | ✅ ~0 chance | ✅ 4096/ms |
+### Core Characteristics
+| Library | Size | Time-ordered | Performance |
+|---------|------|--------------|-------------|
+| **Simpleflake** | 64-bit | ✅ Yes | ⚡ 8.8M/sec |
+| UUID v4 | 128-bit | ❌ No | 🔸 ~2M/sec |
+| UUID v7 | 128-bit | ✅ Yes | 🔸 ~2M/sec |
+| Nanoid | Variable | ❌ No | ⚡ ~5M/sec |
+| KSUID | 160-bit | ✅ Yes | 🔸 ~1M/sec |
+| Twitter Snowflake | 64-bit | ✅ Yes | ⚡ ~10M/sec |
+
+### Technical Features
+| Library | Dependencies | Database-friendly | URL-friendly | Distributed |
+|---------|--------------|-------------------|--------------|-------------|
+| **Simpleflake** | ✅ Zero | ✅ Integer | ✅ Base36 | ✅ Yes |
+| UUID v4 | ❌ crypto | ❌ String | ❌ Long hex | ✅ Yes |
+| UUID v7 | ❌ crypto | ❌ String | ❌ Long hex | ✅ Yes |
+| Nanoid | ✅ Zero | ❌ String | ✅ Custom | ✅ Yes |
+| KSUID | ❌ crypto | ❌ String | ✅ Base62 | ✅ Yes |
+| Twitter Snowflake | ❌ System clock | ✅ Integer | ✅ Base36 | ⚠️ Needs config |
 
 ## Contributing
 
