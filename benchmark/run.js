@@ -1,10 +1,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import Benchmark from 'benchmark';
-import * as lib from '../lib/simpleflakes.js';
-import * as wasm from '../lib/simpleflakes-wasm.js';
+import * as lib from '../dist/simpleflakes.js';
 
 const suite = new Benchmark.Suite();
-const lib = require('../dist/simpleflakes');
 
 const SIMPLEFLAKE = '4242436206093260245';
 const SIMPLEFLAKE_EPOCH = 946702800000;
@@ -22,18 +20,6 @@ suite.add('JS simpleflake()', () => {
   })
   .add('JS parseSimpleflake()', () => {
     lib.parseSimpleflake(SIMPLEFLAKE);
-  })
-  .add('WASM simpleflake()', () => {
-    wasm.simpleflake();
-  })
-  .add('WASM simpleflake(parameterization)', () => {
-    wasm.simpleflake(SIMPLEFLAKE_TIMESTAMP, SIMPLEFLAKE_RANDOMBITS, SIMPLEFLAKE_EPOCH);
-  })
-  .add('WASM binary()', () => {
-    wasm.binary(64);
-  })
-  .add('WASM parseSimpleflake()', () => {
-    wasm.parseSimpleflake(SIMPLEFLAKE);
   })
   .add('BigInt()', () => {
     // eslint-disable-next-line no-undef
