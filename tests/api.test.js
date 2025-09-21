@@ -16,8 +16,8 @@ test("API - constructors", (t) => {
 });
 
 test("API - constants", (t) => {
-  t.equal(lib.SIMPLEFLAKE_EPOCH, EPOCH_2000, "SIMPLEFLAKE_EPOCH value");
-  t.equal(typeof lib.SIMPLEFLAKE_EPOCH, "number", "SIMPLEFLAKE_EPOCH type");
+  t.equal(lib.SIMPLEFLAKE_EPOCH, BigInt(EPOCH_2000), "SIMPLEFLAKE_EPOCH value");
+  t.equal(typeof lib.SIMPLEFLAKE_EPOCH, "bigint", "SIMPLEFLAKE_EPOCH type");
   t.end();
 });
 
