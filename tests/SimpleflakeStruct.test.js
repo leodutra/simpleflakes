@@ -52,9 +52,9 @@ test("SimpleflakeStruct - edge cases", (t) => {
   t.equal(structZero.randomBits, 0n, "accepts zero randomBits");
 
   // Large values
-  const structLarge = new lib.SimpleflakeStruct(999999999999999n, BigInt(MAX_23BIT));
+  const structLarge = new lib.SimpleflakeStruct(999999999999999n, MAX_23BIT);
   t.equal(structLarge.timestamp, 999999999999999n, "accepts large timestamp");
-  t.equal(structLarge.randomBits, BigInt(MAX_23BIT), "accepts max 23-bit random");
+  t.equal(structLarge.randomBits, MAX_23BIT, "accepts max 23-bit random");
 
   t.end();
 });

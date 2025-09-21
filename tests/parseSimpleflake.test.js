@@ -7,8 +7,8 @@ test("parseSimpleflake() - basic parsing", (t) => {
   const parsed = lib.parseSimpleflake(flake);
 
   t.ok(parsed instanceof lib.SimpleflakeStruct, "returns SimpleflakeStruct");
-  t.equal(parsed.timestamp, BigInt(TEST_TIMESTAMP), "correct timestamp");
-  t.equal(parsed.randomBits, BigInt(TEST_RANDOM_BITS), "correct random bits");
+  t.equal(parsed.timestamp, TEST_TIMESTAMP, "correct timestamp");
+  t.equal(parsed.randomBits, TEST_RANDOM_BITS, "correct random bits");
 
   t.end();
 });
@@ -42,7 +42,7 @@ test("parseSimpleflake() - edge cases", (t) => {
   // Maximum random bits
   const flakeMax = lib.simpleflake(Date.now(), MAX_23BIT);
   const parsedMax = lib.parseSimpleflake(flakeMax);
-  t.equal(parsedMax.randomBits, BigInt(MAX_23BIT), "parses max random bits");
+  t.equal(parsedMax.randomBits, MAX_23BIT, "parses max random bits");
 
   t.end();
 });
