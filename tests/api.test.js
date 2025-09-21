@@ -11,8 +11,7 @@ test("API - core functions", (t) => {
 });
 
 test("API - constructors", (t) => {
-  t.equal(typeof lib.SimpleFlakeStruct, "function", "SimpleFlakeStruct constructor");
-  t.equal(lib.SimpleFlakeStruct, lib.simpleflakeStruct, "simpleflakeStruct alias");
+  t.equal(typeof lib.SimpleflakeStruct, "function", "SimpleflakeStruct constructor");
   t.end();
 });
 

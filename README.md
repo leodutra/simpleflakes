@@ -76,13 +76,13 @@ console.log(id.toString(36));  // "w68acyhy50hc" (base36 - shortest)
 
 ### TypeScript / ES Modules
 ```typescript
-import { simpleflake, parseSimpleflake, type SimpleFlakeStruct } from 'simpleflakes';
+import { simpleflake, parseSimpleflake, type SimpleflakeStruct } from 'simpleflakes';
 
 // Generate with full type safety
 const id: bigint = simpleflake();
 
 // Parse the ID to extract timestamp and random bits
-const parsed: SimpleFlakeStruct = parseSimpleflake(id);
+const parsed: SimpleflakeStruct = parseSimpleflake(id);
 console.log(parsed.timestamp);   // "1693244847123" (Unix timestamp as string)
 console.log(parsed.randomBits);  // "4567234" (Random component as string)
 ```
@@ -228,13 +228,13 @@ const id = simpleflake();
 const customId = simpleflake(Date.now(), 12345, Date.UTC(2000, 0, 1));
 ```
 
-#### `parseSimpleflake(flake): SimpleFlakeStruct`
+#### `parseSimpleflake(flake): SimpleflakeStruct`
 Parses a simpleflake ID into its components.
 
 **Parameters:**
 - `flake` (bigint | string | number): The ID to parse
 
-**Returns:** Object with `timestamp` and `randomBits` properties (both strings)
+**Returns:** Object with `timestamp` and `randomBits` properties (both bigint)
 
 ```javascript
 const parsed = parseSimpleflake(4234673179811182512n);
@@ -284,9 +284,9 @@ console.log(SIMPLEFLAKE_EPOCH); // 946684800000
 ### TypeScript Types
 
 ```typescript
-interface SimpleFlakeStruct {
-  timestamp: string;   // Unix timestamp as string
-  randomBits: string;  // Random component as string
+interface SimpleflakeStruct {
+  timestamp: bigint;   // Unix timestamp as bigint (since 2000)
+  randomBits: bigint;  // Random component as bigint
 }
 ```
 

@@ -41,8 +41,8 @@ test("Integration - complete workflow", (t) => {
 
   // Parse it back
   const parsed = lib.parseSimpleflake(flake);
-  t.equal(parsed.timestamp, timestamp.toString(), "timestamp survives round-trip");
-  t.equal(parsed.randomBits, randomBits.toString(), "randomBits survives round-trip");
+  t.equal(parsed.timestamp, BigInt(timestamp), "timestamp survives round-trip");
+  t.equal(parsed.randomBits, BigInt(randomBits), "randomBits survives round-trip");
 
   // Verify binary representation
   const binaryRep = lib.binary(flake);

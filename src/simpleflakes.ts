@@ -50,13 +50,13 @@ export function extractBits(data: bigint | number | string, shift: bigint | numb
 /**
  * Structure representing a parsed simpleflake
  */
-export class SimpleFlakeStruct {
-  public readonly timestamp: string;
-  public readonly randomBits: string;
+export class SimpleflakeStruct {
+  public readonly timestamp: bigint;
+  public readonly randomBits: bigint;
 
-  constructor(timestamp: string, randomBits: string) {
+  constructor(timestamp: bigint, randomBits: bigint) {
     if (timestamp == null || randomBits == null) {
-      throw new Error('Missing argument for SimpleFlakeStruct.');
+      throw new Error('Missing argument for SimpleflakeStruct.');
     }
     this.timestamp = timestamp;
     this.randomBits = randomBits;
@@ -66,20 +66,17 @@ export class SimpleFlakeStruct {
 /**
  * Parses a simpleflake into its components
  * @param flake - The simpleflake to parse
- * @returns SimpleFlakeStruct containing timestamp and random bits
+ * @returns SimpleflakeStruct containing timestamp and random bits
  */
-export function parseSimpleflake(flake: bigint | number | string): SimpleFlakeStruct {
-  return new SimpleFlakeStruct(
+export function parseSimpleflake(flake: bigint | number | string): SimpleflakeStruct {
+  return new SimpleflakeStruct(
     // timestamp
     (extractBits(flake, SIMPLEFLAKE_TIMESTAMP_SHIFT, SIMPLEFLAKE_TIMESTAMP_LENGTH)
-      + BigInt(SIMPLEFLAKE_EPOCH)).toString(10),
+      + BigInt(SIMPLEFLAKE_EPOCH)),
     // random bits
-    extractBits(flake, SIMPLEFLAKE_RANDOM_SHIFT, SIMPLEFLAKE_RANDOM_LENGTH).toString(10)
+    extractBits(flake, SIMPLEFLAKE_RANDOM_SHIFT, SIMPLEFLAKE_RANDOM_LENGTH)
   );
 }
-
-// Legacy function alias for backwards compatibility
-export const simpleflakeStruct = SimpleFlakeStruct;
 
 // Export constants
 export { SIMPLEFLAKE_EPOCH };
@@ -87,13 +84,12 @@ export { SIMPLEFLAKE_EPOCH };
 // Default export for CommonJS compatibility
 export default {
   // Enhancements
-  SimpleFlakeStruct: SimpleFlakeStruct,
+  SimpleflakeStruct,
 
   // original API
-  simpleflakeStruct: SimpleFlakeStruct,
-  extractBits: extractBits,
-  parseSimpleflake: parseSimpleflake,
-  binary: binary,
+  extractBits,
+  parseSimpleflake,
+  binary,
   SIMPLEFLAKE_EPOCH: SIMPLEFLAKE_EPOCH,
-  simpleflake: simpleflake
+  simpleflake
 };
