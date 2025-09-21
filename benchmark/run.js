@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import Benchmark from 'benchmark';
-import * as lib from '../dist/simpleflakes.js';
+
+const Benchmark = require("benchmark");
+const lib = require("../dist/simpleflakes");
 
 const suite = new Benchmark.Suite();
 
