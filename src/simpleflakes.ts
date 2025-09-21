@@ -105,13 +105,10 @@ export { SIMPLEFLAKE_EPOCH };
 
 // Default export for CommonJS compatibility
 export default {
-  // Enhancements
-  SimpleflakeStruct,
-
-  // original API
+  binary,
   extractBits,
   parseSimpleflake,
-  binary,
   SIMPLEFLAKE_EPOCH,
   simpleflake,
+  SimpleflakeStruct,
 };
