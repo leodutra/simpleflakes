@@ -1,0 +1,35 @@
+{
+  "jsc": {
+    "target": "es2020",
+    "parser": {
+      "syntax": "typescript",
+      "tsx": false
+    },
+    "transform": {},
+    "externalHelpers": false,
+    "keepClassNames": false,
+    "minify": {
+      "compress": {
+        "unused": true,
+        "dead_code": true,
+        "evaluate": true,
+        "conditionals": true,
+        "sequences": true,
+        "hoist_funs": false,
+        "hoist_vars": false,
+        "reduce_vars": true,
+        "collapse_vars": true
+      },
+      "mangle": {
+        "keep_fnames": true,
+        "keep_classnames": false,
+        "toplevel": false
+      }
+    }
+  },
+  "module": {
+    "type": "commonjs"
+  },
+  "minify": true,
+  "sourceMaps": true
+}

@@ -1,13 +1,31 @@
 {
   "name": "simpleflakes",
-  "version": "2.2.2",
-  "description": "Fast, and reliable, distributed 64-bit ID generation, in pure JavaScript, for Node.js.",
-  "main": "index.js",
-  "type": "module",
+  "version": "3.1.0",
+  "description": "Fast, lightweight, and reliable distributed 64-bit ID generation with zero dependencies for Node.js.",
+  "main": "dist/simpleflakes.js",
+  "types": "dist/simpleflakes.d.ts",
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
-    "test": "tape tests/**/*.js | faucet",
-    "test-wasm": "tape tests/simpleflakes-wasm.tests.js | faucet",
-    "benchmark": "node benchmark/run.js"
+    "build": "npm run type-check && npm run build:js && npm run build:dts",
+    "build:js": "swc src/simpleflakes.ts -o dist/simpleflakes.js --source-maps",
+    "build:dts": "tsc --emitDeclarationOnly",
+    "build:clean": "rimraf dist",
+    "prebuild": "npm run build:clean",
+    "postbuild": "echo 'Build complete. Output in ./dist/'",
+    "type-check": "tsc --noEmit",
+    "test": "npm run build && tape tests/**/*.js | faucet",
+    "test:ci": "npm run test:coverage",
+    "test:coverage": "npm run build && nyc --instrument --source-map=false tape tests/**/*.js",
+    "test:coverage:report": "nyc report --reporter=html && echo '\nHTML coverage report generated in ./coverage/index.html'",
+    "test:coverage:ci": "npm run test:coverage && cat ./coverage/lcov.info",
+    "test:coverage:clean": "rimraf coverage .nyc_output",
+    "test:wasm": "tape tests/simpleflakes-wasm.tests.js | faucet",
+    "benchmark": "npm run build && node benchmark/run.js",
+    "clean": "npm run build:clean && npm run test:coverage:clean"
   },
   "repository": {
     "type": "git",
@@ -16,13 +34,19 @@
   "keywords": [
     "simpleflake",
     "snowflake",
-    "id",
-    "sql",
-    "nosql",
     "flake",
+    "id",
+    "uuid",
+    "sequential",
+    "monotonic",
+    "ksuid",
+    "nanoid",
+    "uuidv7",
+    "database",
+    "distributed",
     "bigint",
-    "shards",
-    "partition"
+    "time-ordered",
+    "typescript"
   ],
   "author": {
     "name": "Leonardo Dutra",
@@ -34,12 +58,22 @@
     "url": "https://github.com/leodutra/simpleflakes/issues"
   },
   "homepage": "https://github.com/leodutra/simpleflakes#readme",
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "dependencies": {
     "simpleflakes-wasm": "file:simpleflakes-wasm/pkg"
   },
   "devDependencies": {
+    "@swc/cli": "^0.7.8",
+    "@swc/core": "^1.13.5",
+    "@types/node": "^24.3.1",
     "benchmark": "^2.1.4",
     "faucet": "^0.0.4",
-    "tape": "^5.9.0"
+    "nyc": "^17.1.0",
+    "rimraf": "^6.0.1",
+    "tape": "^5.9.0",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
   }
 }

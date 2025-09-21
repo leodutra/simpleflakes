@@ -4,6 +4,7 @@ import * as lib from '../lib/simpleflakes.js';
 import * as wasm from '../lib/simpleflakes-wasm.js';
 
 const suite = new Benchmark.Suite();
+const lib = require('../dist/simpleflakes');
 
 const SIMPLEFLAKE = '4242436206093260245';
 const SIMPLEFLAKE_EPOCH = 946702800000;
@@ -38,7 +39,9 @@ suite.add('JS simpleflake()', () => {
     // eslint-disable-next-line no-undef
     BigInt('4242436206093260245');
   })
-
+  .add('parseSimpleflake()', () => {
+    lib.parseSimpleflake(SIMPLEFLAKE);
+  })
 // add listeners
   .on('cycle', (event) => {
     console.log(String(event.target));
