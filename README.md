@@ -49,7 +49,12 @@ Simpleflake generates **unique 64-bit integers** that are:
 
 Perfect for database primary keys, distributed system IDs, and anywhere you need fast, unique identifiers.
 
-[Original presentation](http://akmanalp.com/simpleflake_presentation/) | [Video discussion](http://www.youtube.com/watch?v=SCQPBGi_QRk)
+## References
+
+- **[Original Presentation](http://akmanalp.com/simpleflake_presentation/)** - Introduction to the concept by Mali Akmanalp
+- **[Video Discussion](http://www.youtube.com/watch?v=SCQPBGi_QRk)** - Detailed explanation and use cases
+- **[Python Implementation](https://simpleflake.readthedocs.org/en/latest/)** - Original reference implementation
+- **[Twitter Snowflake](https://blog.twitter.com/engineering/en_us/a/2010/announcing-snowflake.html)** - Similar distributed ID system
 
 ## Installation
 
@@ -309,12 +314,6 @@ const id = simpleflake().toString(36); // "w68acyhy50hc" (shorter!)
 // - Snowflake: 41 bits timestamp + 10 bits machine + 12 bits sequence
 // - Simpleflake: 41 bits timestamp + 23 bits random
 ```
-
-## References
-
-- **[Original Presentation](http://akmanalp.com/simpleflake_presentation/)** - Introduction to the concept
-- **[Python Implementation](https://simpleflake.readthedocs.org/en/latest/)** - Original reference implementation
-- **[Twitter Snowflake](https://blog.twitter.com/engineering/en_us/a/2010/announcing-snowflake.html)** - Similar distributed ID system
 
 ## Comparison
 
