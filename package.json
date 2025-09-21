@@ -7,7 +7,7 @@
   "scripts": {
     "test": "tape tests/**/*.js | faucet",
     "test-wasm": "tape tests/simpleflakes-wasm.tests.js | faucet",
-    "benchmark": "node  benchmark/run.js"
+    "benchmark": "node benchmark/run.js"
   },
   "repository": {
     "type": "git",
@@ -35,7 +35,6 @@
   },
   "homepage": "https://github.com/leodutra/simpleflakes#readme",
   "dependencies": {
-    "bn.js": "^5.2.1",
     "simpleflakes-wasm": "file:simpleflakes-wasm/pkg"
   },
   "devDependencies": {
