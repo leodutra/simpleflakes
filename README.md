@@ -311,8 +311,10 @@ const id = simpleflake().toString(36); // "w68acyhy50hc" (shorter!)
 ```javascript
 // Simpleflake is backwards compatible with Snowflake structure
 // Just different bit allocation:
-// - Snowflake: 41 bits timestamp + 10 bits machine + 12 bits sequence (double-check epoch)
+// - Snowflake: 41 bits timestamp + 10 bits machine + 12 bits sequence
 // - Simpleflake: 41 bits timestamp + 23 bits random
+//
+// *double-check epoch
 ```
 
 ## Comparison
