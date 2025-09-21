@@ -36,7 +36,6 @@
 - [API Reference](#api-reference)
 - [Migration Guide](#migration-guide)
 - [Comparison](#comparison)
-- [Development](#development)
 - [Contributing](#contributing)
 
 ## What is Simpleflake?
@@ -309,36 +308,6 @@ const id = simpleflake().toString(36); // "w68acyhy50hc" (shorter!)
 // Just different bit allocation:
 // - Snowflake: 41 bits timestamp + 10 bits machine + 12 bits sequence
 // - Simpleflake: 41 bits timestamp + 23 bits random
-```
-
-## Development
-
-This project is written in TypeScript and includes comprehensive test coverage.
-
-```bash
-# Install dependencies
-npm install
-
-# Build TypeScript to JavaScript
-npm run build
-
-# Run tests (automatically builds first)
-npm test
-
-# Run with coverage
-npm run test:coverage
-
-# Run all CI tests (coverage)
-npm run test:ci
-
-# Type checking
-npm run type-check
-
-# Run benchmarks
-npm run benchmark
-
-# Clean build artifacts
-npm run clean
 ```
 
 ## References
