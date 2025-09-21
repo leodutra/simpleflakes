@@ -90,6 +90,6 @@ export default {
   extractBits,
   parseSimpleflake,
   binary,
-  SIMPLEFLAKE_EPOCH: SIMPLEFLAKE_EPOCH,
+  SIMPLEFLAKE_EPOCH,
   simpleflake
 };
