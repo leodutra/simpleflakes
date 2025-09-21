@@ -13,16 +13,24 @@ const SIMPLEFLAKE_TIMESTAMP_SHIFT: u8 = 23;
 
 #[wasm_bindgen]
 pub struct SimpleFlakeStruct {
-    timestamp: u64,
-    random_bits: u64,
+    timestamp: String,
+    random_bits: String,
 }
 
 #[wasm_bindgen]
 impl SimpleFlakeStruct {
     #[wasm_bindgen(constructor)]
     pub fn new(timestamp: JsValue, random_bits: JsValue) -> Result<SimpleFlakeStruct, JsValue> {
-        let timestamp = js_value_to_u64(&timestamp)?;
-        let random_bits = js_value_to_u64(&random_bits)?;
+        let timestamp = if let Some(string) = timestamp.as_string() {
+            string
+        } else {
+            js_value_to_u64(&timestamp)?.to_string()
+        };
+        let random_bits = if let Some(string) = random_bits.as_string() {
+            string
+        } else {
+            js_value_to_u64(&random_bits)?.to_string()
+        };
         Ok(SimpleFlakeStruct {
             timestamp,
             random_bits,
@@ -30,45 +38,89 @@ impl SimpleFlakeStruct {
     }
 
     #[wasm_bindgen(getter)]
-    pub fn timestamp(&self) -> js_sys::BigInt {
-        self.timestamp.into()
+    pub fn timestamp(&self) -> String {
+        self.timestamp.clone()
+    }
+
+    #[wasm_bindgen(setter)]
+    pub fn set_timestamp(&mut self, timestamp: JsValue) -> Result<(), JsValue> {
+        if let Some(string) = timestamp.as_string() {
+            self.timestamp = string;
+            Ok(())
+        } else {
+            self.timestamp = js_value_to_u64(&timestamp)?.to_string();
+            Ok(())
+        }
     }
 
     #[wasm_bindgen(getter)]
-    pub fn random_bits(&self) -> js_sys::BigInt {
-        self.random_bits.into()
+    pub fn random_bits(&self) -> String {
+        self.random_bits.clone()
+    }
+
+    #[wasm_bindgen(setter)]
+    pub fn set_random_bits(&mut self, random_bits: JsValue) -> Result<(), JsValue> {
+        if let Some(string) = random_bits.as_string() {
+            self.random_bits = string;
+            Ok(())
+        } else {
+            self.random_bits = js_value_to_u64(&random_bits)?.to_string();
+            Ok(())
+        }
+    }    #[wasm_bindgen(getter, js_name = "randomBits")]
+    pub fn random_bits_camel(&self) -> String {
+        self.random_bits.clone()
+    }
+
+    #[wasm_bindgen(setter, js_name = "randomBits")]
+    pub fn set_random_bits_camel(&mut self, random_bits: JsValue) -> Result<(), JsValue> {
+        self.set_random_bits(random_bits)
     }
 }
 
 #[wasm_bindgen]
 pub fn simpleflake(ts: JsValue, random_bits: JsValue, epoch: JsValue) -> Result<u64, JsValue> {
-    let ts = js_value_to_u64(&ts).unwrap_or_else(|_| js_sys::Date::now() as u64);
-    let epoch = js_value_to_u64(&epoch).unwrap_or(SIMPLEFLAKE_EPOCH);
-    let random_bits = js_value_to_u64(&random_bits).unwrap_or_else(|_| {
+    let ts = if ts.is_null() || ts.is_undefined() {
+        js_sys::Date::now() as u64
+    } else {
+        js_value_to_u64(&ts)?
+    };
+
+    let epoch = if epoch.is_null() || epoch.is_undefined() {
+        SIMPLEFLAKE_EPOCH
+    } else {
+        js_value_to_u64(&epoch)?
+    };
+
+    let random_bits = if random_bits.is_null() || random_bits.is_undefined() {
         let mut buf = [0u8; 4]; // We need 4 bytes to cover a u32.
         getrandom(&mut buf).expect("Failed to get random data");
         let rand_num = u32::from_be_bytes(buf) & UNSIGNED_23BIT_MAX; // Mask with 23-bit max
         rand_num as u64
-    });
+    } else {
+        js_value_to_u64(&random_bits)?
+    };
+
     Ok((ts - epoch) << SIMPLEFLAKE_TIMESTAMP_SHIFT | random_bits)
 }
 
 #[wasm_bindgen]
 pub fn binary(value: JsValue, padding: Option<bool>) -> Result<String, JsValue> {
     let value_u64 = js_value_to_u64(&value)?;
-    let binary = format!("{:b}", value_u64);
-    let padding = padding.unwrap_or(false);
+    let padding = padding.unwrap_or(true); // Default to true for padding
 
     if padding {
-        let pad_length = 64 - binary.len();
-        Ok(format!(
-            "{:0pad_length$b}",
-            value_u64,
-            pad_length = pad_length
-        ))
+        Ok(format!("{:064b}", value_u64)) // Pad to 64 bits
     } else {
-        Ok(binary)
+        Ok(format!("{:b}", value_u64))
     }
+}
+
+#[wasm_bindgen(js_name = "extractBits")]
+pub fn extract_bits_js(data: JsValue, shift: u8, length: u8) -> Result<js_sys::BigInt, JsValue> {
+    let data = js_value_to_u64(&data)?;
+    let result = extract_bits(data, shift, length);
+    Ok(result.into())
 }
 
 fn extract_bits(data: u64, shift: u8, length: u8) -> u64 {
@@ -111,11 +163,25 @@ fn js_value_to_u64(value: &JsValue) -> Result<u64, JsValue> {
             Err(_) => Err(JsValue::from_str("BigInt is out of u64 range")),
         }
     } else if let Some(number) = value.as_f64() {
+        if number.is_nan() {
+            return Err(JsValue::from_str("NaN is not allowed"));
+        }
         Ok(number as u64)
     } else if let Some(string) = value.as_string() {
-        string
-            .parse::<u64>()
-            .map_err(|_| JsValue::from_str("Failed to parse string as BigInt"))
+        if string.is_empty() {
+            // Empty string coerces to 0
+            Ok(0)
+        } else {
+            string
+                .parse::<u64>()
+                .map_err(|_| JsValue::from_str("Failed to parse string as BigInt"))
+        }
+    } else if value.as_bool() == Some(false) {
+        // false coerces to 0
+        Ok(0)
+    } else if value.as_bool() == Some(true) {
+        // true coerces to 1
+        Ok(1)
     } else {
         Err(JsValue::from_str(
             "Invalid input type: expected BigInt, Number, or String",
@@ -221,8 +287,8 @@ pub mod tests {
         let timestamp = js_value_from_u64(1452440606092);
         let random_bits = js_value_from_u64(7460309);
         let simpleflake = SimpleFlakeStruct::new(timestamp.clone(), random_bits.clone()).unwrap();
-        assert_eq!(simpleflake.timestamp(), BigInt::from(1452440606092i64));
-        assert_eq!(simpleflake.random_bits(), BigInt::from(7460309));
+        assert_eq!(simpleflake.timestamp(), "1452440606092");
+        assert_eq!(simpleflake.random_bits(), "7460309");
 
         // Test error when timestamp is invalid
         let invalid_timestamp = JsValue::from_str("invalid");
@@ -239,8 +305,8 @@ pub mod tests {
         let flake = js_value_from_u64(4242436206093260245);
         let parsed_flake = parse_simpleflake(flake).unwrap();
 
-        assert_eq!(parsed_flake.timestamp(), BigInt::from(1452440606092i64));
-        assert_eq!(parsed_flake.random_bits(), BigInt::from(7460309));
+        assert_eq!(parsed_flake.timestamp(), "1452440606092");
+        assert_eq!(parsed_flake.random_bits(), "7460309");
 
         // Test parsing an invalid SimpleFlake
         let invalid_flake = JsValue::from_str("invalid");

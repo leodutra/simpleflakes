@@ -10,9 +10,10 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "npm run type-check && npm run build:js && npm run build:dts",
+    "build": "npm run build:wasm && npm run type-check && npm run build:js && npm run build:dts",
     "build:js": "swc src/simpleflakes.ts -o dist/simpleflakes.js --source-maps",
     "build:dts": "tsc --emitDeclarationOnly",
+    "build:wasm": "cd simpleflakes-wasm && wasm-pack build --target nodejs",
     "build:clean": "rimraf dist",
     "prebuild": "npm run build:clean",
     "postbuild": "echo 'Build complete. Output in ./dist/'",
