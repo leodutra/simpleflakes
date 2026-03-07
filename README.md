@@ -9,7 +9,7 @@
 [![Node.js](https://img.shields.io/badge/node-%3E%3D16.0.0-brightgreen.svg?style=flat)](https://nodejs.org/)
 [![Performance](https://img.shields.io/badge/performance-8.8M%20ops%2Fsec-brightgreen?style=flat&logo=javascript)](https://github.com/leodutra/simpleflakes/actions/workflows/ci.yml)
 [![Last Commit](https://img.shields.io/github/last-commit/leodutra/simpleflakes.svg?style=flat)](https://github.com/leodutra/simpleflakes)
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fleodutra%2Fsimpleflakes.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fleodutra%2Fsimpleflakes?ref=badge_shield)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fleodutra%2Fsimpleflakes.svg?type=shield&issueType=license)](https://app.fossa.io/projects/git%2Bgithub.com%2Fleodutra%2Fsimpleflakes?ref=badge_shield&issueType=license)
 
 > **Fast, lightweight, and reliable distributed 64-bit ID generation for Node.js**
 > Zero dependencies • TypeScript-ready • 8.8M+ ops/sec performance
