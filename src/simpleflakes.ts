@@ -21,7 +21,7 @@ let randomBuffer = new Uint32Array(RANDOM_BUFFER_SIZE);
 let randomBufferIndex = RANDOM_BUFFER_SIZE;
 
 function toBigInt(value: bigint | number | string): bigint {
-  return BigInt(value);
+  return typeof value === "bigint" ? value : BigInt(value);
 }
 
 function getRandomSource(): RandomSource {
