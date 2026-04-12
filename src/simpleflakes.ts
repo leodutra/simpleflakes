@@ -74,7 +74,7 @@ export function simpleflake(
 
   return (
     ((toBigInt(ts) - toBigInt(epoch)) << SIMPLEFLAKE_TIMESTAMP_SHIFT) |
-    toBigInt(randomBits ?? random23())
+    (randomBits == null ? random23() : toBigInt(randomBits))
   );
 }
 
