@@ -28,17 +28,15 @@ function getRandomSource(): RandomSource {
   const globalCrypto = (globalThis as typeof globalThis & {
     crypto?: RandomSource;
   }).crypto;
-  if (globalCrypto) {
-    return globalCrypto;
-  }
+
+  if (globalCrypto) return globalCrypto;
 
   if (typeof require === "function") {
     const { webcrypto } = require(["node", "crypto"].join(":")) as {
       webcrypto?: RandomSource;
     };
-    if (webcrypto) {
-      return webcrypto;
-    }
+
+    if (webcrypto) return webcrypto;
   }
 
   throw new Error(
