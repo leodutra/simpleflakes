@@ -1,5 +1,6 @@
 const SIMPLEFLAKE_EPOCH = 946684800000n; // Date.UTC(2000, 0, 1) == epoch ms, since 1 Jan 2000 00:00
 const UNSIGNED_23BIT_MAX = 8388607; // (Math.pow(2, 23) - 1) >> 0
+const RANDOM_BUFFER_SIZE = 1024;
 
 const SIMPLEFLAKE_TIMESTAMP_LENGTH = 41n;
 const SIMPLEFLAKE_RANDOM_LENGTH = 23n;
@@ -10,10 +11,57 @@ const SIMPLEFLAKE_TIMESTAMP_SHIFT = 23n;
 const CACHE_64_BIT_ZEROS =
   "0000000000000000000000000000000000000000000000000000000000000000";
 
+interface RandomSource {
+  getRandomValues<T extends ArrayBufferView>(array: T): T;
+}
+
+declare const require: ((moduleName: string) => unknown) | undefined;
+
+let randomBuffer = new Uint32Array(RANDOM_BUFFER_SIZE);
+let randomBufferIndex = RANDOM_BUFFER_SIZE;
+
+function toBigInt(value: bigint | number | string): bigint {
+  return BigInt(value);
+}
+
+function getRandomSource(): RandomSource {
+  const globalCrypto = (globalThis as typeof globalThis & {
+    crypto?: RandomSource;
+  }).crypto;
+  if (globalCrypto) {
+    return globalCrypto;
+  }
+
+  if (typeof require === "function") {
+    const { webcrypto } = require(["node", "crypto"].join(":")) as {
+      webcrypto?: RandomSource;
+    };
+    if (webcrypto) {
+      return webcrypto;
+    }
+  }
+
+  throw new Error(
+    "Cryptographically secure random values are unavailable in this environment."
+  );
+}
+
+function refillRandomBuffer(): void {
+  getRandomSource().getRandomValues(randomBuffer);
+  randomBufferIndex = 0;
+}
+
+function random23(): bigint {
+  if (randomBufferIndex >= RANDOM_BUFFER_SIZE) {
+    refillRandomBuffer();
+  }
+  return BigInt(randomBuffer[randomBufferIndex++] & UNSIGNED_23BIT_MAX);
+}
+
 /**
  * Generates a simpleflake ID
  * @param ts - Timestamp in milliseconds (defaults to current time)
- * @param randomBits - Random bits for the ID (defaults to a random value)
+ * @param randomBits - Random bits for the ID (defaults to a cryptographically secure random value)
  * @param epoch - Epoch timestamp in milliseconds (defaults to SIMPLEFLAKE_EPOCH)
  * @returns Generated simpleflake as a BigInt
  */
@@ -25,8 +73,8 @@ export function simpleflake(
   // Use bitwise OR instead of addition since bit ranges don't overlap
 
   return (
-    ((BigInt(ts) - BigInt(epoch)) << SIMPLEFLAKE_TIMESTAMP_SHIFT) |
-    BigInt(randomBits ?? Math.round(Math.random() * UNSIGNED_23BIT_MAX))
+    ((toBigInt(ts) - toBigInt(epoch)) << SIMPLEFLAKE_TIMESTAMP_SHIFT) |
+    toBigInt(randomBits ?? random23())
   );
 }
 
@@ -40,7 +88,7 @@ export function binary(
   value: bigint | number | string,
   padding: boolean = true
 ): string {
-  const binValue = BigInt(value).toString(2);
+  const binValue = toBigInt(value).toString(2);
   return padding && binValue.length < 64
     ? CACHE_64_BIT_ZEROS.substr(0, 64 - binValue.length) + binValue
     : binValue;
@@ -58,10 +106,10 @@ export function extractBits(
   shift: bigint | number,
   length: bigint | number
 ): bigint {
-  const shiftN = BigInt(shift);
-  const lengthN = BigInt(length);
+  const shiftN = toBigInt(shift);
+  const lengthN = toBigInt(length);
   // Optimize: shift right first, then mask (avoids creating large bitmask)
-  return (BigInt(data) >> shiftN) & ((1n << lengthN) - 1n);
+  return (toBigInt(data) >> shiftN) & ((1n << lengthN) - 1n);
 }
 
 /**
