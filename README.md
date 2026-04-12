@@ -183,6 +183,13 @@ No coordination required between multiple ID generators:
 - **Random collision protection**: 23 random bits provide 8.3M combinations per millisecond
 - **High availability**: Each service can generate IDs independently
 
+### Randomness Considerations
+
+- **Cryptographic randomness by default**: simpleflake() uses Web Crypto in browsers and Node's built-in crypto implementation in Node.js.
+- **No Math.random() fallback**: this keeps the default entropy source strong and avoids silently weakening collision resistance.
+- **Runtime requirements**: modern browsers need `crypto.getRandomValues()` and Node.js needs version 16 or newer.
+- **Deterministic or legacy environments**: pass `randomBits` explicitly if you need repeatable output or if you are targeting a runtime without crypto support.
+
 ## Use Cases
 
 ### Database Primary Keys
