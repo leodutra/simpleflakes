@@ -1,6 +1,21 @@
 const test = require("tape");
 const lib = require("../dist/simpleflakes");
 
+const LIB_PATH = require.resolve("../dist/simpleflakes");
+
+function loadFreshLib() {
+  delete require.cache[LIB_PATH];
+  return require(LIB_PATH);
+}
+
+function restoreGlobalCrypto(descriptor) {
+  if (descriptor) {
+    Object.defineProperty(globalThis, "crypto", descriptor);
+    return;
+  }
+  delete globalThis.crypto;
+}
+
 test("Integration - time ordering", (t) => {
   const flakes = [];
   const baseTime = Date.now();
@@ -19,12 +34,34 @@ test("Integration - time ordering", (t) => {
 });
 
 test("Integration - uniqueness", (t) => {
+  const originalDescriptor = Object.getOwnPropertyDescriptor(globalThis, "crypto");
   const flakes = new Set();
   const iterations = 1000;
+  const timestamp = Date.now();
+  let nextRandomValue = 0;
 
-  // Generate many flakes quickly
-  for (let i = 0; i < iterations; i++) {
-    flakes.add(lib.simpleflake().toString());
+  Object.defineProperty(globalThis, "crypto", {
+    configurable: true,
+    value: {
+      getRandomValues(array) {
+        for (let i = 0; i < array.length; i++) {
+          array[i] = nextRandomValue;
+          nextRandomValue += 1;
+        }
+        return array;
+      }
+    }
+  });
+
+  try {
+    const freshLib = loadFreshLib();
+
+    for (let i = 0; i < iterations; i++) {
+      flakes.add(freshLib.simpleflake(timestamp).toString());
+    }
+  } finally {
+    restoreGlobalCrypto(originalDescriptor);
+    delete require.cache[LIB_PATH];
   }
 
   t.equal(flakes.size, iterations, "all generated flakes are unique");
