@@ -31,17 +31,15 @@ function getRandomSource(): RandomSource {
 
   if (globalCrypto) return globalCrypto;
 
-  if (typeof require === "function") {
-    const { webcrypto } = require(["node", "crypto"].join(":")) as {
-      webcrypto?: RandomSource;
-    };
-
-    if (webcrypto) return webcrypto;
+  try {
+    return (require as (moduleName: string) => { webcrypto: RandomSource })(
+      ["node", "crypto"].join(":")
+    ).webcrypto;
+  } catch {
+    throw new Error(
+      "Cryptographically secure random values are unavailable in this environment."
+    );
   }
-
-  throw new Error(
-    "Cryptographically secure random values are unavailable in this environment."
-  );
 }
 
 function refillRandomBuffer(): void {
@@ -53,11 +51,7 @@ function random23(): bigint {
   if (randomBufferIndex >= RANDOM_BUFFER_SIZE) {
     refillRandomBuffer();
   }
-  const value = randomBuffer[randomBufferIndex];
-
-  if (value === undefined) {
-    throw new Error("Random buffer read failed.");
-  }
+  const value = randomBuffer[randomBufferIndex]!;
 
   randomBufferIndex += 1;
   return BigInt(value & UNSIGNED_23BIT_MAX);
@@ -121,8 +115,8 @@ export function extractBits(
  * Structure representing a parsed simpleflake
  */
 export class SimpleflakeStruct {
-  public readonly timestamp: bigint;
-  public readonly randomBits: bigint;
+  public declare readonly timestamp: bigint;
+  public declare readonly randomBits: bigint;
 
   constructor(timestamp: bigint, randomBits: bigint) {
     if (timestamp == null || randomBits == null) {
