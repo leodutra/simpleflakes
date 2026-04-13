@@ -9,6 +9,14 @@ const SIMPLEFLAKE_EPOCH = 946702800000;
 const SIMPLEFLAKE_TIMESTAMP = 1452440606092;
 const SIMPLEFLAKE_RANDOMBITS = 7460309;
 
+function formatBenchmarkResult(target) {
+  const hz = target.hz;
+  const nsPerOp = 1e9 / hz;
+  const usPerOp = nsPerOp / 1e3;
+
+  return `${target.name} x ${Benchmark.formatNumber(hz.toFixed(0))} ops/sec ±${target.stats.rme.toFixed(2)}% (${target.stats.sample.length} runs sampled) | ${nsPerOp.toFixed(2)} ns/op | ${usPerOp.toFixed(4)} us/op`;
+}
+
 suite.add('simpleflake()', () => {
   lib.simpleflake();
 })
@@ -27,7 +35,7 @@ suite.add('simpleflake()', () => {
   })
 // add listeners
   .on('cycle', (event) => {
-    console.log(String(event.target));
+    console.log(formatBenchmarkResult(event.target));
   })
 // .on('complete', function() {
 //   console.log('Fastest is ' + this.filter('fastest').map('name'))
