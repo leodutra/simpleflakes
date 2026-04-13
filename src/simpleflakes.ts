@@ -53,7 +53,14 @@ function random23(): bigint {
   if (randomBufferIndex >= RANDOM_BUFFER_SIZE) {
     refillRandomBuffer();
   }
-  return BigInt(randomBuffer[randomBufferIndex++] & UNSIGNED_23BIT_MAX);
+  const value = randomBuffer[randomBufferIndex];
+
+  if (value === undefined) {
+    throw new Error("Random buffer read failed.");
+  }
+
+  randomBufferIndex += 1;
+  return BigInt(value & UNSIGNED_23BIT_MAX);
 }
 
 /**
