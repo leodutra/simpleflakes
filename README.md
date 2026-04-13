@@ -7,16 +7,16 @@
 [![Bundle Size](https://img.shields.io/bundlephobia/minzip/simpleflakes?style=flat)](https://bundlephobia.com/package/simpleflakes)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D16.0.0-brightgreen.svg?style=flat)](https://nodejs.org/)
-[![Performance](https://img.shields.io/badge/performance-8.8M%20ops%2Fsec-brightgreen?style=flat&logo=javascript)](https://github.com/leodutra/simpleflakes/actions/workflows/ci.yml)
+[![Performance](https://img.shields.io/badge/performance-10.8M%20ops%2Fsec-brightgreen?style=flat&logo=javascript)](https://github.com/leodutra/simpleflakes/actions/workflows/ci.yml)
 [![Last Commit](https://img.shields.io/github/last-commit/leodutra/simpleflakes.svg?style=flat)](https://github.com/leodutra/simpleflakes)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fleodutra%2Fsimpleflakes.svg?type=shield&issueType=license)](https://app.fossa.io/projects/git%2Bgithub.com%2Fleodutra%2Fsimpleflakes?ref=badge_shield&issueType=license)
 
 > **Fast, lightweight, and reliable distributed 64-bit ID generation for Node.js and the web**
-> Zero dependencies • TypeScript-ready • 8.8M+ ops/sec performance
+> Zero dependencies • TypeScript-ready • 10M+ ops/sec performance
 
 ## Features
 
-- ⚡ **8.8M+ ops/sec** - Ultra-fast performance
+- ⚡ **10M+ ops/sec** - Ultra-fast performance
 - 🔢 **Time-oriented 64-bit IDs** - Globally unique, sortable by creation time
 - 0️⃣ **Zero dependencies** - Pure JavaScript, lightweight bundle
 - 🏷️ **TypeScript-ready** - Full type safety and universal module support
@@ -157,12 +157,28 @@ This gives you:
 
 This library is optimized for speed:
 
-```javascript
-// Benchmark results (operations per second)
-simpleflake()       // ~8.8M+ ops/sec
-parseSimpleflake()  // ~3.9M+ ops/sec
-binary()            // ~26M+ ops/sec
+| Operation | Ops/sec | Time/op |
+|-----------|---------|---------|
+| `simpleflake()` | 10,813,399 | 92.48 ns |
+| `simpleflake(timestamp, randomBits, epoch)` | 14,136,114 | 70.74 ns |
+| `binary()` | 21,975,165 | 45.51 ns |
+| `BigInt()` | 15,322,655 | 65.26 ns |
+| `parseSimpleflake()` | 6,288,182 | 159.03 ns |
+
+Benchmark command:
+
+```bash
+npm run benchmark
 ```
+
+Benchmark environment:
+
+- Node.js v24.14.1
+- Linux 6.6.87.2-microsoft-standard-WSL2 (WSL2)
+- AMD Ryzen 7 5800X3D 8-Core Processor
+- 8 cores / 16 threads
+
+Results will vary across CPUs, Node.js versions, power profiles, and native Linux vs. WSL2 environments.
 
 Perfect for high-throughput applications requiring millions of IDs per second.
 
