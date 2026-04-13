@@ -7,7 +7,7 @@
 [![Bundle Size](https://img.shields.io/bundlephobia/minzip/simpleflakes?style=flat)](https://bundlephobia.com/package/simpleflakes)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D16.0.0-brightgreen.svg?style=flat)](https://nodejs.org/)
-[![Performance](https://img.shields.io/badge/performance-10.8M%20ops%2Fsec-brightgreen?style=flat&logo=javascript)](https://github.com/leodutra/simpleflakes/actions/workflows/ci.yml)
+[![Performance](https://img.shields.io/badge/performance-11.5M%20ops%2Fsec-brightgreen?style=flat&logo=javascript)](https://github.com/leodutra/simpleflakes/actions/workflows/ci.yml)
 [![Last Commit](https://img.shields.io/github/last-commit/leodutra/simpleflakes.svg?style=flat)](https://github.com/leodutra/simpleflakes)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fleodutra%2Fsimpleflakes.svg?type=shield&issueType=license)](https://app.fossa.io/projects/git%2Bgithub.com%2Fleodutra%2Fsimpleflakes?ref=badge_shield&issueType=license)
 
@@ -159,11 +159,11 @@ This library is optimized for speed:
 
 | Operation | Ops/sec | Time/op |
 |-----------|---------|---------|
-| `simpleflake()` | 10,813,399 | 92.48 ns |
-| `simpleflake(timestamp, randomBits, epoch)` | 14,136,114 | 70.74 ns |
-| `binary()` | 21,975,165 | 45.51 ns |
-| `BigInt()` | 15,322,655 | 65.26 ns |
-| `parseSimpleflake()` | 6,288,182 | 159.03 ns |
+| `simpleflake()` | 11,468,350 | 87.20 ns |
+| `simpleflake(timestamp, randomBits, epoch)` | 14,557,764 | 68.69 ns |
+| `binary()` | 22,794,523 | 43.87 ns |
+| `BigInt()` | 15,933,159 | 62.76 ns |
+| `parseSimpleflake()` | 6,722,882 | 148.75 ns |
 
 Benchmark command:
 
