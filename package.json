@@ -1,6 +1,6 @@
 {
   "name": "simpleflakes",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "description": "Fast, lightweight, and reliable distributed 64-bit ID generation with zero dependencies for Node.js and the web.",
   "main": "dist/simpleflakes.js",
   "types": "dist/simpleflakes.d.ts",
