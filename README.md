@@ -56,6 +56,7 @@ Works in Node.js and modern browsers with BigInt and Web Crypto support.
 - **[Video Discussion](http://www.youtube.com/watch?v=SCQPBGi_QRk)** - Detailed explanation and use cases
 - **[Python Implementation](https://simpleflake.readthedocs.org/en/latest/)** - Original reference implementation
 - **[Twitter Snowflake](https://blog.twitter.com/engineering/en_us/a/2010/announcing-snowflake.html)** - Similar distributed ID system
+- **[Choose your database identifiers wisely](https://racum.blog/articles/identifiers/)** - Broader comparison of serial, UUID, Snowflake-style, and other identifier families
 
 ## Installation
 
@@ -100,7 +101,7 @@ console.log(parsed.randomBits);  // "4567234" (Random component as string)
 const customId = simpleflake(
   Date.now(),           // timestamp (default: Date.now())
   12345,               // random bits (default: 23-bit random)
-  Date.UTC(2000, 0, 1) // epoch (default: Year 2000)
+  Date.UTC(2000, 0, 1) // epoch (default: 2000-01-01T00:00:00.000Z / 946684800000)
 );
 ```
 
@@ -118,6 +119,16 @@ console.log(binary(id));
 const timestampBits = extractBits(id, 23n, 41n); // Extract 41 bits starting at position 23
 const randomBits = extractBits(id, 0n, 23n);     // Extract first 23 bits
 ```
+
+### Debugging Existing IDs
+
+If you want an external CLI to inspect a Simpleflake, [uuinfo](https://github.com/Racum/uuinfo) supports it.
+
+```bash
+uuinfo -f sf-simpleflake 4234673179811182512
+```
+
+`uuinfo --compare <id>` can also help when you want to compare a numeric ID against other Snowflake-style formats.
 
 ### Batch Generation
 ```javascript
@@ -143,7 +154,7 @@ Each 64-bit simpleflake ID contains:
 |Timestamp                |Random       |
 |(milliseconds from epoch)|(0-8388607)  |
 
-- **41 bits timestamp**: Milliseconds since epoch (Year 2000)
+- **41 bits timestamp**: Milliseconds since `2000-01-01T00:00:00.000Z` (`Date.UTC(2000, 0, 1)` / `946684800000`)
 - **23 bits random**: Random number for uniqueness within the same millisecond
 - **Total**: 64 bits = fits in a signed 64-bit integer
 
@@ -247,7 +258,7 @@ Generates a unique 64-bit ID.
 **Parameters:**
 - `timestamp` (number, optional): Unix timestamp in milliseconds. Default: `Date.now()`
 - `randomBits` (number, optional): Random bits (0-8388607). Default: random 23-bit number
-- `epoch` (number, optional): Epoch start time. Default: `Date.UTC(2000, 0, 1)`
+- `epoch` (number, optional): Epoch start time. Default: `Date.UTC(2000, 0, 1)` (`2000-01-01T00:00:00.000Z`, `946684800000`)
 
 **Returns:** BigInt - The generated ID
 
@@ -342,6 +353,8 @@ const id = simpleflake().toString(36); // "w68acyhy50hc" (shorter!)
 ```
 
 ## Comparison
+
+For a broader discussion of identifier tradeoffs beyond this library-level summary, see [Choose your database identifiers wisely](https://racum.blog/articles/identifiers/).
 
 ### Core Characteristics
 | Library | Size | Time-ordered | Performance |
