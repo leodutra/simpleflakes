@@ -56,7 +56,7 @@ Works in Node.js and modern browsers with BigInt and Web Crypto support.
 - **[Video Discussion](http://www.youtube.com/watch?v=SCQPBGi_QRk)** - Detailed explanation and use cases
 - **[Python Implementation](https://simpleflake.readthedocs.org/en/latest/)** - Original reference implementation
 - **[Twitter Snowflake](https://blog.twitter.com/engineering/en_us/a/2010/announcing-snowflake.html)** - Similar distributed ID system
-- **[First Principles](docs/FIRST_PRINCIPLES.md)** - Design rationale for simpleflakes from first principles, including the inversion approach
+- **[First Principles](docs/FIRST_PRINCIPLES.md)** - Design rationale for simpleflakes from first principles
 - **[Choose your database identifiers wisely](https://racum.blog/articles/identifiers/)** - Broader comparison of serial, UUID, Snowflake-style, and other identifier families
 
 ## Installation
