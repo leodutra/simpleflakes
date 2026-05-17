@@ -128,7 +128,7 @@ If you want an external CLI to inspect a Simpleflake, [uuinfo](https://github.co
 uuinfo -f sf-simpleflake 4234673179811182512
 ```
 
-`uuinfo --compare <id>` can also help when you want to compare a numeric ID against other Snowflake-style formats.
+`uuinfo --compare <id>` can also help when you want to compare a numeric ID against other Snowflake-style and UUID formats.
 
 ### Batch Generation
 ```javascript
