@@ -360,7 +360,7 @@ For a broader discussion of identifier tradeoffs beyond this library-level summa
 ### Core Characteristics
 | Library | Size | Time-ordered | Performance |
 |---------|------|--------------|-------------|
-| **Simpleflake** | 64-bit | ✅ Yes | ⚡ 8.8M/sec |
+| **Simpleflake** | 64-bit | ✅ Yes | ⚡ 11M/sec |
 | UUID v4 | 128-bit | ❌ No | 🔸 ~2M/sec |
 | UUID v7 | 128-bit | ✅ Yes | 🔸 ~2M/sec |
 | Nanoid | Variable | ❌ No | ⚡ ~5M/sec |
