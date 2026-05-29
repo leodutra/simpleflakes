@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "build": "npm run type-check && npm run build:js && npm run build:dts",
-    "build:js": "swc src/simpleflakes.ts -o dist/simpleflakes.js --source-maps",
+    "build:js": "swc src -d dist --source-maps",
     "build:dts": "tsc --emitDeclarationOnly",
     "build:clean": "rimraf dist",
     "prebuild": "npm run build:clean",
