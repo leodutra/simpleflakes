@@ -29,7 +29,8 @@ Examples of tags that do not match this workflow trigger:
 Defined in `.github/workflows/publish.yml`.
 
 - Trigger: manual `workflow_dispatch` only
-- Effect: installs dependencies, builds the package, runs `npm run test:ci`, and runs `npm publish`
+- Effect: installs dependencies and runs `npm publish`
+- Publish safety: `npm publish` triggers `prepublishOnly`, which runs `npm run build` and `npm test` before publishing
 - Authentication: requires the `NPM_TOKEN` repository secret
 
 Important: pushing a Git tag does not trigger NPM publishing in the current setup.
@@ -41,17 +42,23 @@ The `publish.yml` workflow declares an optional `version` input, but the workflo
 Defined in `.github/workflows/ci.yml`.
 
 - Trigger: pushes to `main` or `master`, pull requests targeting `main` or `master`, or manual dispatch
-- Effect: runs the test matrix and benchmark job
+- Effect: runs an explicit type-check, the test matrix, and the benchmark job
 
 Important: tag pushes do not trigger this CI workflow.
+
+### Local Git hooks
+
+- `npm install` now runs the `prepare` script, which installs Husky Git hooks
+- `.husky/pre-commit` runs `npm run check:commit`, which executes `npm run type-check` and `npm test`
+- This matches the intended local commit gate: editor type feedback while coding, then type-check plus tests before each commit
 
 ## Recommended release flow
 
 1. Update the package version in `package.json`.
-2. Commit and push the version change to `main` or `master`.
-3. Create and push a matching `vX.Y.Z` tag.
-4. Confirm that the Release workflow creates the GitHub Release.
-5. Manually run the Publish to NPM workflow from the Actions tab.
+2. Use VS Code with the workspace TypeScript SDK for inline type-checking while coding.
+3. Commit and push the version change to `main` or `master`. Husky runs `npm run type-check` and `npm test` before the commit completes.
+4. Create and push a matching `vX.Y.Z` tag. The Release workflow now runs `npm run build` and `npm test` before creating the GitHub Release.
+5. Manually run the Publish to NPM workflow from the Actions tab. `npm publish` reruns the release checks through `prepublishOnly` before publishing.
 
 Keeping the Git tag and `package.json` version aligned avoids releasing one version on GitHub and publishing a different version to NPM.
 
@@ -90,4 +97,5 @@ Before manually running the publish workflow:
 2. Verify the release tag matches that same version.
 3. Verify the GitHub Release has been created successfully.
 4. Verify the repository secret `NPM_TOKEN` is configured.
-5. Start the `Publish to NPM` workflow from the Actions tab.
+5. Expect `npm publish` to run `npm run build` and `npm test` automatically via `prepublishOnly`.
+6. Start the `Publish to NPM` workflow from the Actions tab.

@@ -17,6 +17,18 @@ jobs:
       with:
         fetch-depth: 0  # Fetch full history for release notes
 
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 'lts/*'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run release checks
+      run: npm run check:release
+
     - name: Generate release notes
       id: release_notes
       run: |

@@ -34,6 +34,9 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
+    - name: Type-check sources
+      run: npm run type-check
+
     - name: Run tests with coverage and generate LCOV
       run: npm run test:coverage:ci
 
@@ -71,6 +74,9 @@ jobs:
 
     - name: Install dependencies
       run: npm ci
+
+    - name: Type-check sources
+      run: npm run type-check
 
     - name: Run benchmark
       run: |
