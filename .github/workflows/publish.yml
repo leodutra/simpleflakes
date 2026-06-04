@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Tag to publish (e.g. v4.2.0). Leave empty to use the latest tag.'
+        description: 'Tag to publish (e.g. v4.3.0). Leave empty to use the latest tag.'
         required: false
         type: string
 
