@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 const Benchmark = require("benchmark");
 
 const lib = require("../dist/simpleflakes");

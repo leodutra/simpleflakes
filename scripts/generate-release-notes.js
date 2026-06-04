@@ -6,7 +6,7 @@ const { execSync } = require('child_process');
 function getLastTag() {
   try {
     return execSync('git describe --tags --abbrev=0 HEAD^', { encoding: 'utf8' }).trim();
-  } catch (error) {
+  } catch {
     // If no previous tag, use first commit
     return execSync('git rev-list --max-parents=0 HEAD', { encoding: 'utf8' }).trim();
   }
@@ -17,7 +17,7 @@ function getCommitsSinceLastTag(lastTag) {
   try {
     const output = execSync(command, { encoding: 'utf8' });
     return output.trim().split('\n').filter(line => line.length > 0);
-  } catch (error) {
+  } catch {
     return [];
   }
 }
