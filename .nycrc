@@ -5,7 +5,7 @@
   "functions": 95,
   "branches": 88,
   "statements": 95,
-  "include": ["dist/**"],
+  "include": ["dist/simpleflakes.js"],
   "exclude": ["coverage/**", "tests/**", "benchmark/**", "node_modules/**"],
   "all": true,
   "skip-full": false,
