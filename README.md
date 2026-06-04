@@ -5,9 +5,10 @@
 [![coveralls status][coveralls-badge]][coveralls-link]
 [![npm downloads](https://img.shields.io/npm/dm/simpleflakes.svg?style=flat)](https://www.npmjs.com/package/simpleflakes)
 [![Bundle Size](https://img.shields.io/bundlephobia/minzip/simpleflakes?style=flat)](https://bundlephobia.com/package/simpleflakes)
+[![ESM](https://img.shields.io/badge/module-ESM-f7df1e?style=flat)](https://www.npmjs.com/package/simpleflakes)
+[![CommonJS](https://img.shields.io/badge/module-CommonJS-00599C?style=flat)](https://www.npmjs.com/package/simpleflakes)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D16.0.0-brightgreen.svg?style=flat)](https://nodejs.org/)
-[![Performance](https://img.shields.io/badge/performance-11.5M%20ops%2Fsec-brightgreen?style=flat&logo=javascript)](https://github.com/leodutra/simpleflakes/actions/workflows/ci.yml)
 [![Last Commit](https://img.shields.io/github/last-commit/leodutra/simpleflakes.svg?style=flat)](https://github.com/leodutra/simpleflakes)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fleodutra%2Fsimpleflakes.svg?type=shield&issueType=license)](https://app.fossa.io/projects/git%2Bgithub.com%2Fleodutra%2Fsimpleflakes?ref=badge_shield&issueType=license)
 

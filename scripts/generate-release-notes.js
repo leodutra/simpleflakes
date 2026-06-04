@@ -63,29 +63,24 @@ function generateReleaseNotes(version) {
   let releaseNotes = `## 🚀 simpleflakes ${version}\n\n`;
   releaseNotes += `Fast, lightweight, and reliable distributed 64-bit ID generation with zero dependencies for Node.js.\n\n`;
 
-  releaseNotes += `### Performance\n`;
-  releaseNotes += `- ~10M ops/sec simpleflake() generation\n`;
-  releaseNotes += `- Zero dependencies\n`;
-  releaseNotes += `- TypeScript ready\n\n`;
-
   if (categories.features.length > 0) {
-    releaseNotes += `### ✨ New Features\n${categories.features.join('\n')}\n\n`;
+    releaseNotes += `### New Features\n${categories.features.join('\n')}\n\n`;
   }
 
   if (categories.fixes.length > 0) {
-    releaseNotes += `### 🪲 Bug Fixes\n${categories.fixes.join('\n')}\n\n`;
+    releaseNotes += `### Bug Fixes\n${categories.fixes.join('\n')}\n\n`;
   }
 
   if (categories.perf.length > 0) {
-    releaseNotes += `### ⚡ Performance Improvements\n${categories.perf.join('\n')}\n\n`;
+    releaseNotes += `### Performance Improvements\n${categories.perf.join('\n')}\n\n`;
   }
 
   if (categories.docs.length > 0) {
-    releaseNotes += `### 📚 Documentation\n${categories.docs.join('\n')}\n\n`;
+    releaseNotes += `### Documentation\n${categories.docs.join('\n')}\n\n`;
   }
 
   if (categories.chore.length > 0) {
-    releaseNotes += `### 🔧 Maintenance\n${categories.chore.join('\n')}\n\n`;
+    releaseNotes += `### Maintenance\n${categories.chore.join('\n')}\n\n`;
   }
 
   if (categories.other.length > 0) {
