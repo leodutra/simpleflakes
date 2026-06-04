@@ -68,6 +68,7 @@ npm install simpleflakes
 ## Quick Start
 
 ### JavaScript (CommonJS)
+
 ```javascript
 const { simpleflake } = require('simpleflakes');
 
@@ -82,6 +83,7 @@ console.log(id.toString(36));  // "w68acyhy50hc" (base36 - shortest)
 ```
 
 ### TypeScript / ES Modules
+
 ```typescript
 import { simpleflake, parseSimpleflake, type SimpleflakeStruct } from 'simpleflakes';
 
@@ -97,6 +99,7 @@ console.log(parsed.randomBits);  // "4567234" (Random component as string)
 ## Advanced Usage
 
 ### Custom Parameters
+
 ```javascript
 // Generate with custom timestamp and random bits
 const customId = simpleflake(
@@ -107,6 +110,7 @@ const customId = simpleflake(
 ```
 
 ### Working with Binary Data
+
 ```javascript
 import { binary, extractBits } from 'simpleflakes';
 
@@ -132,6 +136,7 @@ uuinfo -f sf-simpleflake 4234673179811182512
 `uuinfo --compare <id>` can also help when you want to compare a numeric ID against other Snowflake-style and UUID formats.
 
 ### Batch Generation
+
 ```javascript
 // Generate multiple IDs efficiently
 function generateBatch(count) {
@@ -150,16 +155,17 @@ console.log(`Generated ${batch.length} unique IDs`);
 
 Each 64-bit simpleflake ID contains:
 
-|<------- 41 bits ------->|<- 23 bits ->|
-|-------------------------|-------------|
-|Timestamp                |Random       |
-|(milliseconds from epoch)|(0-8388607)  |
+| <------- 41 bits -------> | <- 23 bits -> |
+| ------------------------- | ------------- |
+| Timestamp                 | Random        |
+| (milliseconds from epoch) | (0-8388607)   |
 
 - **41 bits timestamp**: Milliseconds since `2000-01-01T00:00:00.000Z` (`Date.UTC(2000, 0, 1)` / `946684800000`)
 - **23 bits random**: Random number for uniqueness within the same millisecond
 - **Total**: 64 bits = fits in a signed 64-bit integer
 
 This gives you:
+
 - **69+ years** of timestamp range (until year 2069)
 - **8.3 million** unique IDs per millisecond
 - **Extremely low collision chance** - 1 in 8.3 million per millisecond
@@ -170,7 +176,7 @@ This gives you:
 This library is optimized for speed:
 
 | Operation | Ops/sec | Time/op |
-|-----------|---------|---------|
+| --------- | ------- | ------- |
 | `simpleflake()` | 11,468,350 | 87.20 ns |
 | `simpleflake(timestamp, randomBits, epoch)` | 14,557,764 | 68.69 ns |
 | `binary()` | 22,794,523 | 43.87 ns |
@@ -207,6 +213,7 @@ Perfect for high-throughput applications requiring millions of IDs per second.
 ### Distributed Generation
 
 No coordination required between multiple ID generators:
+
 - **Clock skew tolerant**: Small time differences between servers are fine
 - **Random collision protection**: 23 random bits provide 8.3M combinations per millisecond
 - **High availability**: Each service can generate IDs independently
@@ -221,6 +228,7 @@ No coordination required between multiple ID generators:
 ## Use Cases
 
 ### Database Primary Keys
+
 ```javascript
 // Perfect for database IDs - time-sortable and unique
 const userId = simpleflake();
@@ -228,6 +236,7 @@ await db.users.create({ id: userId.toString(), name: "John" });
 ```
 
 ### Distributed System IDs
+
 ```javascript
 // Each service can generate IDs independently
 const serviceAId = simpleflake(); // Service A
@@ -236,6 +245,7 @@ const serviceBId = simpleflake(); // Service B
 ```
 
 ### Short URLs
+
 ```javascript
 // Generate compact URL identifiers
 const shortId = simpleflake().toString(36); // "w68acyhy50hc"
@@ -243,6 +253,7 @@ const url = `https://short.ly/${shortId}`;
 ```
 
 ### Event Tracking
+
 ```javascript
 // Time-sortable event IDs for chronological processing at millisecond granularity
 const eventId = simpleflake();
@@ -254,9 +265,11 @@ await analytics.track({ eventId, userId, action: "click" });
 ### Core Functions
 
 #### `simpleflake(timestamp?, randomBits?, epoch?): bigint`
+
 Generates a unique 64-bit ID.
 
 **Parameters:**
+
 - `timestamp` (number, optional): Unix timestamp in milliseconds. Default: `Date.now()`
 - `randomBits` (number, optional): Random bits (0-8388607). Default: random 23-bit number
 - `epoch` (number, optional): Epoch start time. Default: `Date.UTC(2000, 0, 1)` (`2000-01-01T00:00:00.000Z`, `946684800000`)
@@ -264,6 +277,7 @@ Generates a unique 64-bit ID.
 **Returns:** BigInt - The generated ID
 
 **Throws:**
+
 - `TypeError` when `timestamp`, `randomBits`, or `epoch` cannot be converted to an integer BigInt value
 - `RangeError` when `timestamp - epoch` falls outside the supported 41-bit range or when `randomBits` falls outside the 23-bit range
 
@@ -273,15 +287,18 @@ const customId = simpleflake(Date.now(), 12345, Date.UTC(2000, 0, 1));
 ```
 
 #### `parseSimpleflake(flake, epoch?): SimpleflakeStruct`
+
 Parses a simpleflake ID into its components.
 
 **Parameters:**
+
 - `flake` (bigint | string | number): The ID to parse
 - `epoch` (bigint | string | number, optional): Epoch to use when reconstructing the timestamp. Default: `SIMPLEFLAKE_EPOCH`
 
 **Returns:** Object with `timestamp` and `randomBits` properties (both bigint)
 
 **Throws:**
+
 - `TypeError` when `flake` or `epoch` cannot be converted to an integer BigInt value
 - `RangeError` when `flake` falls outside the unsigned 64-bit range
 
@@ -296,9 +313,11 @@ const parsedCustom = parseSimpleflake(customId, customEpoch);
 ```
 
 #### `binary(value, padding?): string`
+
 Converts a number to binary string representation.
 
 **Parameters:**
+
 - `value` (bigint | string | number): Value to convert
 - `padding` (boolean, optional): Whether to pad to 64 bits. Default: `true`
 
@@ -310,9 +329,11 @@ console.log(binary(42n, false)); // "101010"
 ```
 
 #### `extractBits(data, shift, length): bigint`
+
 Extracts a portion of bits from a number.
 
 **Parameters:**
+
 - `data` (bigint | string | number): Source data
 - `shift` (bigint): Starting bit position (0-based from right)
 - `length` (bigint): Number of bits to extract
@@ -327,6 +348,7 @@ console.log(bits); // 15n (0b1111)
 ### Constants
 
 #### `SIMPLEFLAKE_EPOCH: bigint`
+
 The epoch start time (January 1, 2000 UTC) as a Unix timestamp bigint.
 
 ```javascript
@@ -346,6 +368,7 @@ interface SimpleflakeStruct {
 ## Migration Guide
 
 ### From UUID
+
 ```javascript
 // Before (UUID v4)
 import { v4 as uuidv4 } from 'uuid';
@@ -357,6 +380,7 @@ const id = simpleflake().toString(36); // "w68acyhy50hc" (shorter!)
 ```
 
 ### From Twitter Snowflake
+
 ```javascript
 // Simpleflake is backwards compatible with Snowflake structure
 // Just different bit allocation:
@@ -371,8 +395,9 @@ const id = simpleflake().toString(36); // "w68acyhy50hc" (shorter!)
 For a broader discussion of identifier tradeoffs beyond this library-level summary, see [Choose your database identifiers wisely](https://racum.blog/articles/identifiers/).
 
 ### Core Characteristics
+
 | Library | Size | Time-ordered | Performance |
-|---------|------|--------------|-------------|
+| ------- | ---- | ------------ | ----------- |
 | **Simpleflake** | 64-bit | ✅ Yes | ⚡ 11M/sec |
 | UUID v4 | 128-bit | ❌ No | 🔸 ~2M/sec |
 | UUID v7 | 128-bit | ✅ Yes | 🔸 ~2M/sec |
@@ -381,8 +406,9 @@ For a broader discussion of identifier tradeoffs beyond this library-level summa
 | Twitter Snowflake | 64-bit | ✅ Yes | ⚡ ~10M/sec |
 
 ### Technical Features
+
 | Library | Dependencies | Database-friendly | URL-friendly | Distributed |
-|---------|--------------|-------------------|--------------|-------------|
+| ------- | ------------ | ----------------- | ------------ | ----------- |
 | **Simpleflake** | ✅ Zero | ✅ Integer | ✅ Base36 | ✅ Yes |
 | UUID v4 | ❌ crypto | ❌ String | ❌ Long hex | ✅ Yes |
 | UUID v7 | ❌ crypto | ❌ String | ❌ Long hex | ✅ Yes |

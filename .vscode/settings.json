@@ -1,4 +1,15 @@
 {
+  "cSpell.words": [
+    "Akmanalp",
+    "Dutra",
+    "KSUID",
+    "Ryzen",
+    "simpleflake",
+    "Simpleflake",
+    "simpleflakes",
+    "uuidv4",
+    "uuinfo"
+  ],
   "js/ts.tsdk.path": "node_modules/typescript/lib",
   "js/ts.tsdk.promptToUseWorkspaceVersion": true
 }
