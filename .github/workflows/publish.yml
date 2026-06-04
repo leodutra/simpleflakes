@@ -3,34 +3,46 @@ name: Publish to NPM
 on:
   workflow_dispatch:
     inputs:
-      version:
-        description: 'Version to publish (optional - will use package.json version)'
+      tag:
+        description: 'Tag to publish (e.g. v4.2.0). Leave empty to use the latest tag.'
         required: false
         type: string
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: false
 
 jobs:
   publish:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v6
+      with:
+        fetch-depth: 0
+        fetch-tags: true
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
+    - name: Resolve tag
+      id: tag
+      run: |
+        if [[ -n '${{ inputs.tag }}' ]]; then
+          t='${{ inputs.tag }}'
+          [[ "$t" == v* ]] || t="v$t"
+        else
+          t="$(git tag --list 'v*' --sort=-version:refname | head -1)"
+        fi
+        echo "value=$t" >> "$GITHUB_OUTPUT"
+
+    - uses: actions/checkout@v6
+      with:
+        ref: ${{ steps.tag.outputs.value }}
+
+    - uses: actions/setup-node@v6
       with:
         node-version: 'lts/*'
         registry-url: 'https://registry.npmjs.org'
         cache: 'npm'
 
-    - name: Install dependencies
-      run: npm ci
+    - run: npm ci
 
-    - name: Publish to NPM
-      run: npm publish
+    - run: echo "Publishing from tag ${{ steps.tag.outputs.value }}"
+
+    - run: npm publish
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
