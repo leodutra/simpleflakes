@@ -7,7 +7,9 @@
     "simpleflake",
     "Simpleflake",
     "simpleflakes",
+    "toplevel",
     "uuidv4",
+    "uuidv7",
     "uuinfo"
   ],
   "js/ts.tsdk.path": "node_modules/typescript/lib",
