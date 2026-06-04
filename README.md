@@ -1,8 +1,8 @@
 # simpleflakes
 
 [![CI](https://github.com/leodutra/simpleflakes/actions/workflows/ci.yml/badge.svg)](https://github.com/leodutra/simpleflakes/actions/workflows/ci.yml)
-[![npm][npm-badge]][npm-link]
-[![coveralls status][coveralls-badge]][coveralls-link]
+[![npm](https://img.shields.io/npm/v/simpleflakes.svg?style=flat)](https://www.npmjs.com/package/simpleflakes)
+[![coveralls status](https://img.shields.io/coveralls/leodutra/simpleflakes.svg?style=flat)](https://coveralls.io/github/leodutra/simpleflakes)
 [![npm downloads](https://img.shields.io/npm/dm/simpleflakes.svg?style=flat)](https://www.npmjs.com/package/simpleflakes)
 [![Bundle Size](https://img.shields.io/bundlephobia/minzip/simpleflakes?style=flat)](https://bundlephobia.com/package/simpleflakes)
 [![ESM](https://img.shields.io/badge/module-ESM-f7df1e?style=flat)](https://www.npmjs.com/package/simpleflakes)
@@ -14,6 +14,8 @@
 
 > **Fast, lightweight, and reliable distributed 64-bit ID generation for Node.js and the web**
 > Zero dependencies • TypeScript-ready • 10M+ ops/sec performance
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fleodutra%2Fsimpleflakes.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fleodutra%2Fsimpleflakes?ref=badge_large)
 
 ## Features
 
@@ -438,11 +440,3 @@ For a broader discussion of identifier tradeoffs beyond this library-level summa
 - Original concept by [Mali Akmanalp](http://akmanalp.com/)
 - TypeScript port and optimizations by [Leo Dutra](https://github.com/leodutra)
 - Inspired by [Twitter Snowflake](https://blog.twitter.com/engineering/en_us/a/2010/announcing-snowflake.html)
-
-[npm-badge]: https://img.shields.io/npm/v/simpleflakes.svg?style=flat
-[coveralls-badge]: https://img.shields.io/coveralls/leodutra/simpleflakes.svg?style=flat
-
-[npm-link]: https://www.npmjs.com/package/simpleflakes
-[coveralls-link]: https://coveralls.io/github/leodutra/simpleflakes
-
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fleodutra%2Fsimpleflakes.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fleodutra%2Fsimpleflakes?ref=badge_large)
