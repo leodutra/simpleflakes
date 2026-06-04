@@ -438,5 +438,3 @@ For a broader discussion of identifier tradeoffs beyond this library-level summa
 - Original concept by [Mali Akmanalp](http://akmanalp.com/)
 - TypeScript port and optimizations by [Leo Dutra](https://github.com/leodutra)
 - Inspired by [Twitter Snowflake](https://blog.twitter.com/engineering/en_us/a/2010/announcing-snowflake.html)
-
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fleodutra%2Fsimpleflakes.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fleodutra%2Fsimpleflakes?ref=badge_large)
