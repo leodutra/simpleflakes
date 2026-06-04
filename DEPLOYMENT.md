@@ -31,11 +31,11 @@ Defined in `.github/workflows/publish.yml`.
 - Trigger: manual `workflow_dispatch` only
 - Effect: installs dependencies and runs `npm publish`
 - Publish safety: `npm publish` triggers `prepublishOnly`, which runs `npm run build` and `npm test` before publishing
-- Authentication: requires the `NPM_TOKEN` repository secret
+- Authentication: uses npm trusted publishing via GitHub Actions OIDC (`id-token: write`), not an `NPM_TOKEN` repository secret
 
 Important: pushing a Git tag does not trigger NPM publishing in the current setup.
 
-The `publish.yml` workflow declares an optional `version` input, but the workflow does not currently use that value anywhere. Publishing therefore uses whatever version is already present in `package.json`.
+The `publish.yml` workflow declares an optional `tag` input. If provided, the workflow publishes from that Git tag. If left empty, it resolves the latest `v*` tag and publishes from there. The published package version still comes from `package.json` at the checked out tag.
 
 ### CI workflow
 
@@ -96,6 +96,6 @@ Before manually running the publish workflow:
 1. Verify `package.json` contains the intended version.
 2. Verify the release tag matches that same version.
 3. Verify the GitHub Release has been created successfully.
-4. Verify the repository secret `NPM_TOKEN` is configured.
+4. Verify npm trusted publishing is configured for this package and that the trusted publisher matches this repository and `publish.yml` workflow.
 5. Expect `npm publish` to run `npm run build` and `npm test` automatically via `prepublishOnly`.
 6. Start the `Publish to NPM` workflow from the Actions tab.
