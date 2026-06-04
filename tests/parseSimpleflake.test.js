@@ -1,6 +1,7 @@
 const test = require("tape");
 const lib = require("../dist/simpleflakes");
 const { TEST_TIMESTAMP, TEST_RANDOM_BITS, MAX_23BIT } = require("./test-constants");
+const MAX_UINT64 = (1n << 64n) - 1n;
 
 test("parseSimpleflake() - basic parsing", (t) => {
   const flake = lib.simpleflake(TEST_TIMESTAMP, TEST_RANDOM_BITS);
@@ -25,6 +26,19 @@ test("parseSimpleflake() - round-trip", (t) => {
   t.end();
 });
 
+test("parseSimpleflake() - round-trip with custom epoch", (t) => {
+  const customEpoch = Date.UTC(2020, 0, 1);
+  const timestamp = customEpoch + 123456;
+  const randomBits = 6789;
+  const generated = lib.simpleflake(timestamp, randomBits, customEpoch);
+  const roundTrip = lib.parseSimpleflake(generated, customEpoch);
+
+  t.equal(roundTrip.timestamp, BigInt(timestamp), "timestamp survives with custom epoch");
+  t.equal(roundTrip.randomBits, BigInt(randomBits), "random bits survive with custom epoch");
+
+  t.end();
+});
+
 test("parseSimpleflake() - input types", (t) => {
   const testFlake = "4242436206093260245";
   t.doesNotThrow(() => lib.parseSimpleflake(testFlake), "handles string input");
@@ -43,6 +57,17 @@ test("parseSimpleflake() - edge cases", (t) => {
   const flakeMax = lib.simpleflake(Date.now(), MAX_23BIT);
   const parsedMax = lib.parseSimpleflake(flakeMax);
   t.equal(parsedMax.randomBits, MAX_23BIT, "parses max random bits");
+
+  t.end();
+});
+
+test("parseSimpleflake() - rejects out-of-range input", (t) => {
+  t.throws(() => lib.parseSimpleflake(-1), /flake/, "rejects negative flakes");
+  t.throws(
+    () => lib.parseSimpleflake(MAX_UINT64 + 1n),
+    /flake/,
+    "rejects values larger than 64 bits"
+  );
 
   t.end();
 });

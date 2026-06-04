@@ -16,7 +16,7 @@ function restoreGlobalCrypto(descriptor) {
   delete globalThis.crypto;
 }
 
-test("Integration - time ordering", (t) => {
+test("Integration - time ordering across milliseconds", (t) => {
   const flakes = [];
   const baseTime = Date.now();
 
@@ -28,6 +28,38 @@ test("Integration - time ordering", (t) => {
   // Verify ascending order
   for (let i = 1; i < flakes.length; i++) {
     t.ok(flakes[i] > flakes[i-1], `flake ${i} > flake ${i-1}`);
+  }
+
+  t.end();
+});
+
+test("Integration - same timestamp is not monotonic by generation order", (t) => {
+  const originalDescriptor = Object.getOwnPropertyDescriptor(globalThis, "crypto");
+  const timestamp = Date.now();
+
+  Object.defineProperty(globalThis, "crypto", {
+    configurable: true,
+    value: {
+      getRandomValues(array) {
+        array[0] = 2;
+        array[1] = 1;
+        for (let i = 2; i < array.length; i++) {
+          array[i] = 0;
+        }
+        return array;
+      }
+    }
+  });
+
+  try {
+    const freshLib = loadFreshLib();
+    const first = freshLib.simpleflake(timestamp);
+    const second = freshLib.simpleflake(timestamp);
+
+    t.ok(first > second, "later generation can be numerically smaller within the same millisecond");
+  } finally {
+    restoreGlobalCrypto(originalDescriptor);
+    delete require.cache[LIB_PATH];
   }
 
   t.end();

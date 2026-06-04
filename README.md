@@ -17,7 +17,7 @@
 ## Features
 
 - ⚡ **10M+ ops/sec** - Ultra-fast performance
-- 🔢 **Time-oriented 64-bit IDs** - Globally unique, sortable by creation time
+- 🔢 **Time-oriented 64-bit IDs** - Globally unique, sortable by timestamp at millisecond granularity
 - 0️⃣ **Zero dependencies** - Pure JavaScript, lightweight bundle
 - 🏷️ **TypeScript-ready** - Full type safety and universal module support
 - 🚀 **Production-ready** - 100% test coverage, Snowflake compatible
@@ -41,7 +41,7 @@
 
 Simpleflake generates **unique 64-bit integers** that are:
 
-1. **Time-ordered** - IDs generated later are numerically larger
+1. **Time-sortable** - IDs from later milliseconds are numerically larger
 2. **Distributed-safe** - No coordination needed between multiple generators
 3. **Compact** - Fits in a 64-bit integer (vs UUID's 128 bits)
 4. **URL-friendly** - Can be represented as short strings
@@ -163,7 +163,7 @@ This gives you:
 - **69+ years** of timestamp range (until year 2069)
 - **8.3 million** unique IDs per millisecond
 - **Extremely low collision chance** - 1 in 8.3 million per millisecond
-- **Sortable by creation time** when converted to integers
+- **Sortable by timestamp** when converted to integers at millisecond granularity; within one millisecond, random bits determine relative order
 
 ## Performance
 
@@ -201,7 +201,7 @@ Perfect for high-throughput applications requiring millions of IDs per second.
 - **Database-friendly**: Most databases optimize for 64-bit integers
 - **Memory efficient**: Half the size of UUIDs (128-bit)
 - **Performance**: Integer operations are faster than string operations
-- **Sortable**: Natural ordering by creation time
+- **Sortable**: Natural ordering across milliseconds; within one millisecond, random bits determine relative order
 - **Compact URLs**: Shorter than UUIDs when base36-encoded
 
 ### Distributed Generation
@@ -222,7 +222,7 @@ No coordination required between multiple ID generators:
 
 ### Database Primary Keys
 ```javascript
-// Perfect for database IDs - time-ordered and unique
+// Perfect for database IDs - time-sortable and unique
 const userId = simpleflake();
 await db.users.create({ id: userId.toString(), name: "John" });
 ```
@@ -244,7 +244,7 @@ const url = `https://short.ly/${shortId}`;
 
 ### Event Tracking
 ```javascript
-// Time-ordered event IDs for chronological processing
+// Time-sortable event IDs for chronological processing at millisecond granularity
 const eventId = simpleflake();
 await analytics.track({ eventId, userId, action: "click" });
 ```
@@ -263,23 +263,36 @@ Generates a unique 64-bit ID.
 
 **Returns:** BigInt - The generated ID
 
+**Throws:**
+- `TypeError` when `timestamp`, `randomBits`, or `epoch` cannot be converted to an integer BigInt value
+- `RangeError` when `timestamp - epoch` falls outside the supported 41-bit range or when `randomBits` falls outside the 23-bit range
+
 ```javascript
 const id = simpleflake();
 const customId = simpleflake(Date.now(), 12345, Date.UTC(2000, 0, 1));
 ```
 
-#### `parseSimpleflake(flake): SimpleflakeStruct`
+#### `parseSimpleflake(flake, epoch?): SimpleflakeStruct`
 Parses a simpleflake ID into its components.
 
 **Parameters:**
 - `flake` (bigint | string | number): The ID to parse
+- `epoch` (bigint | string | number, optional): Epoch to use when reconstructing the timestamp. Default: `SIMPLEFLAKE_EPOCH`
 
 **Returns:** Object with `timestamp` and `randomBits` properties (both bigint)
+
+**Throws:**
+- `TypeError` when `flake` or `epoch` cannot be converted to an integer BigInt value
+- `RangeError` when `flake` falls outside the unsigned 64-bit range
 
 ```javascript
 const parsed = parseSimpleflake(4234673179811182512n);
 console.log(parsed.timestamp);  // "1693244847123"
 console.log(parsed.randomBits); // "4567234"
+
+const customEpoch = Date.UTC(2020, 0, 1);
+const customId = simpleflake(customEpoch + 12345, 99, customEpoch);
+const parsedCustom = parseSimpleflake(customId, customEpoch);
 ```
 
 #### `binary(value, padding?): string`
@@ -313,19 +326,19 @@ console.log(bits); // 15n (0b1111)
 
 ### Constants
 
-#### `SIMPLEFLAKE_EPOCH: number`
-The epoch start time (January 1, 2000 UTC) as Unix timestamp.
+#### `SIMPLEFLAKE_EPOCH: bigint`
+The epoch start time (January 1, 2000 UTC) as a Unix timestamp bigint.
 
 ```javascript
 import { SIMPLEFLAKE_EPOCH } from 'simpleflakes';
-console.log(SIMPLEFLAKE_EPOCH); // 946684800000
+console.log(SIMPLEFLAKE_EPOCH); // 946684800000n
 ```
 
 ### TypeScript Types
 
 ```typescript
 interface SimpleflakeStruct {
-  timestamp: bigint;   // Unix timestamp as bigint (since 2000)
+  timestamp: bigint;   // Absolute Unix timestamp as bigint
   randomBits: bigint;  // Random component as bigint
 }
 ```

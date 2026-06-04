@@ -1,9 +1,12 @@
-const SIMPLEFLAKE_EPOCH = 946684800000n; // Date.UTC(2000, 0, 1) == epoch ms, since 1 Jan 2000 00:00
-const UNSIGNED_23BIT_MAX = 8388607; // (Math.pow(2, 23) - 1) >> 0
+const SIMPLEFLAKE_EPOCH = 946684800000n; // Date.UTC(2000, 0, 1)
+const UNSIGNED_23BIT_MAX = 8388607;
 const RANDOM_BUFFER_SIZE = 1024;
 
 const SIMPLEFLAKE_TIMESTAMP_LENGTH = 41n;
 const SIMPLEFLAKE_RANDOM_LENGTH = 23n;
+const SIMPLEFLAKE_TIMESTAMP_MAX = (1n << SIMPLEFLAKE_TIMESTAMP_LENGTH) - 1n;
+const SIMPLEFLAKE_RANDOM_MAX = (1n << SIMPLEFLAKE_RANDOM_LENGTH) - 1n;
+const UNSIGNED_64BIT_MAX = (1n << 64n) - 1n;
 
 const SIMPLEFLAKE_RANDOM_SHIFT = 0n;
 const SIMPLEFLAKE_TIMESTAMP_SHIFT = 23n;
@@ -20,8 +23,25 @@ declare const require: ((moduleName: string) => unknown) | undefined;
 let randomBuffer = new Uint32Array(RANDOM_BUFFER_SIZE);
 let randomBufferIndex = RANDOM_BUFFER_SIZE;
 
-function toBigInt(value: bigint | number | string): bigint {
-  return typeof value === "bigint" ? value : BigInt(value);
+function toBigInt(value: bigint | number | string, label: string): bigint {
+  try {
+    return typeof value === "bigint" ? value : BigInt(value);
+  } catch {
+    throw new TypeError(`${label} must be an integer representable as a BigInt.`);
+  }
+}
+
+function assertInRange(
+  value: bigint,
+  minValue: bigint,
+  maxValue: bigint,
+  label: string
+): void {
+  if (value < minValue || value > maxValue) {
+    throw new RangeError(
+      `${label} must be between ${minValue} and ${maxValue}.`
+    );
+  }
 }
 
 function getRandomSource(): RandomSource {
@@ -59,21 +79,35 @@ function random23(): bigint {
 
 /**
  * Generates a simpleflake ID
- * @param ts - Timestamp in milliseconds (defaults to current time)
+ * @param timestamp - Timestamp in milliseconds (defaults to current time)
  * @param randomBits - Random bits for the ID (defaults to a cryptographically secure random value)
  * @param epoch - Epoch timestamp in milliseconds (defaults to SIMPLEFLAKE_EPOCH)
  * @returns Generated simpleflake as a BigInt
  */
 export function simpleflake(
-  ts: number | bigint = Date.now(),
+  timestamp: number | bigint = Date.now(),
   randomBits?: number | bigint,
   epoch: number | bigint = SIMPLEFLAKE_EPOCH
 ): bigint {
+  const timestampValue = toBigInt(timestamp, "timestamp");
+  const epochValue = toBigInt(epoch, "epoch");
+  const timestampOffset = timestampValue - epochValue;
+  const resolvedRandomBits =
+    randomBits == null ? random23() : toBigInt(randomBits, "randomBits");
+
+  assertInRange(
+    timestampOffset,
+    0n,
+    SIMPLEFLAKE_TIMESTAMP_MAX,
+    "timestamp - epoch"
+  );
+  assertInRange(resolvedRandomBits, 0n, SIMPLEFLAKE_RANDOM_MAX, "randomBits");
+
   // Use bitwise OR instead of addition since bit ranges don't overlap
 
   return (
-    ((toBigInt(ts) - toBigInt(epoch)) << SIMPLEFLAKE_TIMESTAMP_SHIFT) |
-    (randomBits == null ? random23() : toBigInt(randomBits))
+    (timestampOffset << SIMPLEFLAKE_TIMESTAMP_SHIFT) |
+    resolvedRandomBits
   );
 }
 
@@ -87,7 +121,7 @@ export function binary(
   value: bigint | number | string,
   padding: boolean = true
 ): string {
-  const binValue = toBigInt(value).toString(2);
+  const binValue = toBigInt(value, "value").toString(2);
   return padding && binValue.length < 64
     ? CACHE_64_BIT_ZEROS.substr(0, 64 - binValue.length) + binValue
     : binValue;
@@ -105,10 +139,10 @@ export function extractBits(
   shift: bigint | number,
   length: bigint | number
 ): bigint {
-  const shiftN = toBigInt(shift);
-  const lengthN = toBigInt(length);
+  const shiftN = toBigInt(shift, "shift");
+  const lengthN = toBigInt(length, "length");
   // Optimize: shift right first, then mask (avoids creating large bitmask)
-  return (toBigInt(data) >> shiftN) & ((1n << lengthN) - 1n);
+  return (toBigInt(data, "data") >> shiftN) & ((1n << lengthN) - 1n);
 }
 
 /**
@@ -130,20 +164,29 @@ export class SimpleflakeStruct {
 /**
  * Parses a simpleflake into its components
  * @param flake - The simpleflake to parse
+ * @param epoch - Epoch timestamp in milliseconds used to reconstruct the absolute timestamp
  * @returns SimpleflakeStruct containing timestamp and random bits
  */
 export function parseSimpleflake(
-  flake: bigint | number | string
+  flake: bigint | number | string,
+  epoch: bigint | number = SIMPLEFLAKE_EPOCH
 ): SimpleflakeStruct {
+  const flakeValue = toBigInt(flake, "flake");
+  const epochValue = toBigInt(epoch, "epoch");
+
+  assertInRange(flakeValue, 0n, UNSIGNED_64BIT_MAX, "flake");
+
   return new SimpleflakeStruct(
-    // timestamp
     extractBits(
-      flake,
+      flakeValue,
       SIMPLEFLAKE_TIMESTAMP_SHIFT,
       SIMPLEFLAKE_TIMESTAMP_LENGTH
-    ) + SIMPLEFLAKE_EPOCH,
-    // random bits
-    extractBits(flake, SIMPLEFLAKE_RANDOM_SHIFT, SIMPLEFLAKE_RANDOM_LENGTH)
+    ) + epochValue,
+    extractBits(
+      flakeValue,
+      SIMPLEFLAKE_RANDOM_SHIFT,
+      SIMPLEFLAKE_RANDOM_LENGTH
+    )
   );
 }
 

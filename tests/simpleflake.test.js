@@ -1,6 +1,7 @@
 const test = require("tape");
 const lib = require("../dist/simpleflakes");
 const { EPOCH_2000, TEST_TIMESTAMP, TEST_RANDOM_BITS, MAX_23BIT } = require("./test-constants");
+const MAX_41BIT = (1n << 41n) - 1n;
 
 test("simpleflake() - return type and deterministic behavior", (t) => {
   t.equal(typeof lib.simpleflake(), "bigint", "returns BigInt");
@@ -19,7 +20,7 @@ test("simpleflake() - randomness", (t) => {
   t.end();
 });
 
-test("simpleflake() - timestamp ordering", (t) => {
+test("simpleflake() - timestamp ordering across milliseconds", (t) => {
   const now = Date.now();
   const earlier = lib.simpleflake(now, 0);
   const later = lib.simpleflake(now + 1, 0);
@@ -62,6 +63,26 @@ test("simpleflake() - nullish coalescing", (t) => {
 
 test("simpleflake() - error handling", (t) => {
   t.throws(() => lib.simpleflake(Date.now(), NaN), "NaN throws error");
+  t.throws(
+    () => lib.simpleflake(EPOCH_2000 - 1n, 0, EPOCH_2000),
+    /timestamp - epoch/,
+    "rejects timestamps earlier than the epoch"
+  );
+  t.throws(
+    () => lib.simpleflake(EPOCH_2000 + MAX_41BIT + 1n, 0, EPOCH_2000),
+    /timestamp - epoch/,
+    "rejects timestamps outside the 41-bit timestamp range"
+  );
+  t.throws(
+    () => lib.simpleflake(TEST_TIMESTAMP, MAX_23BIT + 1n, EPOCH_2000),
+    /randomBits/,
+    "rejects random bits outside the 23-bit range"
+  );
+  t.throws(
+    () => lib.simpleflake(TEST_TIMESTAMP, -1, EPOCH_2000),
+    /randomBits/,
+    "rejects negative random bits"
+  );
   t.end();
 });
 
