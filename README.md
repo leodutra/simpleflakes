@@ -65,6 +65,8 @@ Works in Node.js and modern browsers with BigInt and Web Crypto support.
 npm install simpleflakes
 ```
 
+Supports both CommonJS and native ESM.
+
 ## Quick Start
 
 ### JavaScript (CommonJS)

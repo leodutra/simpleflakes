@@ -2,6 +2,7 @@ const test = require("tape");
 const { EPOCH_2000, TEST_TIMESTAMP } = require("./test-constants");
 
 const LIB_PATH = require.resolve("../dist/simpleflakes");
+const PACKAGE_NAME = require("../package.json").name;
 
 function loadFreshLib() {
   delete require.cache[LIB_PATH];
@@ -62,4 +63,22 @@ test("simpleflake() - falls back to node webcrypto", (t) => {
   }
 
   t.end();
+});
+
+test("package exports - supports require and import", (t) => {
+  const requiredLib = require(PACKAGE_NAME);
+
+  import(PACKAGE_NAME)
+    .then((importedLib) => {
+      t.equal(typeof requiredLib.simpleflake, "function", "require exposes simpleflake()");
+      t.equal(typeof importedLib.simpleflake, "function", "import exposes simpleflake()");
+      t.equal(requiredLib.SIMPLEFLAKE_EPOCH, importedLib.SIMPLEFLAKE_EPOCH, "exports share the same API values");
+      t.equal(
+        requiredLib.simpleflake(TEST_TIMESTAMP, 0, EPOCH_2000),
+        importedLib.simpleflake(TEST_TIMESTAMP, 0, EPOCH_2000),
+        "require and import resolve the same implementation contract"
+      );
+      t.end();
+    })
+    .catch((error) => t.end(error));
 });

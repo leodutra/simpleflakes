@@ -28,7 +28,7 @@
     }
   },
   "module": {
-    "type": "es6"
+    "type": "commonjs"
   },
   "minify": true,
   "sourceMaps": true

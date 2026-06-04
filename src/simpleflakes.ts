@@ -20,7 +20,7 @@ interface RandomSource {
 
 declare const require: ((moduleName: string) => unknown) | undefined;
 
-let randomBuffer = new Uint32Array(RANDOM_BUFFER_SIZE);
+const randomBuffer = new Uint32Array(RANDOM_BUFFER_SIZE);
 let randomBufferIndex = RANDOM_BUFFER_SIZE;
 
 function toBigInt(value: bigint | number | string, label: string): bigint {

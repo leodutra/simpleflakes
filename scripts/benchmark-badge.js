@@ -2,7 +2,6 @@
 
 // Script to extract benchmark results and create a shields.io badge
 const fs = require('fs');
-const path = require('path');
 
 function extractOpsPerSec(benchmarkOutput) {
   // Parse the benchmark output to extract ops/sec for simpleflake()
@@ -14,7 +13,7 @@ function extractOpsPerSec(benchmarkOutput) {
     const match = simpleflakeLine.match(/([\d,]+)\s+ops\/sec/);
     if (match) {
       const opsPerSec = match[1].replace(/,/g, '');
-      const millions = (parseInt(opsPerSec) / 1000000).toFixed(1);
+      const millions = (parseInt(opsPerSec, 10) / 1000000).toFixed(1);
       return `${millions}M ops/sec`;
     }
   }
