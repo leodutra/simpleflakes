@@ -64,7 +64,7 @@ function generateReleaseNotes(version) {
   releaseNotes += `Fast, lightweight, and reliable distributed 64-bit ID generation with zero dependencies for Node.js.\n\n`;
 
   releaseNotes += `### Performance\n`;
-  releaseNotes += `- ~8.8M ops/sec simpleflake() generation\n`;
+  releaseNotes += `- ~10M ops/sec simpleflake() generation\n`;
   releaseNotes += `- Zero dependencies\n`;
   releaseNotes += `- TypeScript ready\n\n`;
 
