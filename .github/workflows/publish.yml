@@ -8,6 +8,10 @@ on:
         required: false
         type: string
 
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -44,5 +48,3 @@ jobs:
     - run: echo "Publishing from tag ${{ steps.tag.outputs.value }}"
 
     - run: npm publish
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
