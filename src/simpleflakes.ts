@@ -1,4 +1,4 @@
-const SIMPLEFLAKE_EPOCH = 946684800000n; // Date.UTC(2000, 0, 1)
+export const SIMPLEFLAKE_EPOCH = 946684800000n; // Date.UTC(2000, 0, 1)
 const UNSIGNED_23BIT_MAX = 8388607;
 const RANDOM_BUFFER_SIZE = 1024;
 
@@ -17,6 +17,8 @@ const CACHE_64_BIT_ZEROS =
 interface RandomSource {
   getRandomValues<T extends ArrayBufferView>(array: T): T;
 }
+
+type NodeCryptoRequire = (moduleName: string) => { webcrypto: RandomSource };
 
 declare const require: ((moduleName: string) => unknown) | undefined;
 
@@ -45,16 +47,12 @@ function assertInRange(
 }
 
 function getRandomSource(): RandomSource {
-  const globalCrypto = (globalThis as typeof globalThis & {
-    crypto?: RandomSource;
-  }).crypto;
+  const globalCrypto = (globalThis as { crypto?: RandomSource }).crypto;
 
   if (globalCrypto) return globalCrypto;
 
   try {
-    return (require as (moduleName: string) => { webcrypto: RandomSource })(
-      ["node", "crypto"].join(":")
-    ).webcrypto;
+    return (require as NodeCryptoRequire)("node:crypto").webcrypto;
   } catch {
     throw new Error(
       "Cryptographically secure random values are unavailable in this environment."
@@ -72,7 +70,6 @@ function random23(): bigint {
     refillRandomBuffer();
   }
   const value = randomBuffer[randomBufferIndex]!;
-
   randomBufferIndex += 1;
   return BigInt(value & UNSIGNED_23BIT_MAX);
 }
@@ -95,15 +92,8 @@ export function simpleflake(
   const resolvedRandomBits =
     randomBits == null ? random23() : toBigInt(randomBits, "randomBits");
 
-  assertInRange(
-    timestampOffset,
-    0n,
-    SIMPLEFLAKE_TIMESTAMP_MAX,
-    "timestamp - epoch"
-  );
+  assertInRange(timestampOffset, 0n, SIMPLEFLAKE_TIMESTAMP_MAX, "timestamp - epoch");
   assertInRange(resolvedRandomBits, 0n, SIMPLEFLAKE_RANDOM_MAX, "randomBits");
-
-  // Use bitwise OR instead of addition since bit ranges don't overlap
 
   return (
     (timestampOffset << SIMPLEFLAKE_TIMESTAMP_SHIFT) |
@@ -190,10 +180,6 @@ export function parseSimpleflake(
   );
 }
 
-// Export constants
-export { SIMPLEFLAKE_EPOCH };
-
-// Default export for CommonJS compatibility
 export default {
   binary,
   extractBits,
