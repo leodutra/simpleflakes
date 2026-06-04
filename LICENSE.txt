@@ -1,8 +1,7 @@
-simple-flake - https://github.com/SawdustSoftware/simple-flake
-
 The MIT License (MIT)
 
 Copyright (c) 2013 CustomMade Ventures
+  https://github.com/SawdustSoftware/simple-flake
 
 Contributors:
   Node.js version (https://github.com/leodutra/simpleflakes)
