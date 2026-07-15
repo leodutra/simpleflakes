@@ -21,6 +21,7 @@ declare const require: ((moduleName: string) => unknown) | undefined;
 
 let randomBuffer: Uint32Array | undefined;
 let randomBufferIndex = RANDOM_BUFFER_SIZE;
+let randomSource: RandomSource | undefined;
 
 function toBigInt(value: bigint | number | string, label: string): bigint {
   try {
@@ -44,12 +45,18 @@ function assertInRange(
 }
 
 function getRandomSource(): RandomSource {
+  if (randomSource) return randomSource;
+
   const globalCrypto = (globalThis as { crypto?: RandomSource }).crypto;
 
-  if (globalCrypto) return globalCrypto;
+  if (globalCrypto) {
+    randomSource = globalCrypto;
+    return randomSource;
+  }
 
   try {
-    return (require as NodeCryptoRequire)("node:crypto").webcrypto;
+    randomSource = (require as NodeCryptoRequire)("node:crypto").webcrypto;
+    return randomSource;
   } catch {
     throw new Error(
       "Cryptographically secure random values are unavailable in this environment."

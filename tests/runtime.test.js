@@ -43,6 +43,39 @@ test("simpleflake() - prefers global crypto when available", (t) => {
   t.end();
 });
 
+test("simpleflake() - caches the resolved random source across refills", (t) => {
+  const originalDescriptor = Object.getOwnPropertyDescriptor(globalThis, "crypto");
+  let globalCryptoAccesses = 0;
+
+  Object.defineProperty(globalThis, "crypto", {
+    configurable: true,
+    get() {
+      globalCryptoAccesses += 1;
+      return {
+        getRandomValues(array) {
+          array.fill(0);
+          return array;
+        }
+      };
+    }
+  });
+
+  try {
+    const lib = loadFreshLib();
+
+    for (let index = 0; index <= 1024; index += 1) {
+      lib.simpleflake(TEST_TIMESTAMP, undefined, EPOCH_2000);
+    }
+
+    t.equal(globalCryptoAccesses, 1, "resolves the source only once");
+  } finally {
+    restoreGlobalCrypto(originalDescriptor);
+    delete require.cache[LIB_PATH];
+  }
+
+  t.end();
+});
+
 test("simpleflake() - falls back to node webcrypto", (t) => {
   const originalDescriptor = Object.getOwnPropertyDescriptor(globalThis, "crypto");
 
