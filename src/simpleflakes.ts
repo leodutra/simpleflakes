@@ -15,7 +15,7 @@ interface RandomSource {
   getRandomValues<T extends ArrayBufferView>(array: T): T;
 }
 
-const randomBuffer = new Uint32Array(RANDOM_BUFFER_SIZE);
+let randomBuffer: Uint32Array | undefined;
 let randomBufferIndex = RANDOM_BUFFER_SIZE;
 
 function toBigInt(value: bigint | number | string, label: string): bigint {
@@ -52,6 +52,9 @@ function getRandomSource(): RandomSource {
 }
 
 function refillRandomBuffer(): void {
+  if (!randomBuffer) {
+    randomBuffer = new Uint32Array(RANDOM_BUFFER_SIZE);
+  }
   getRandomSource().getRandomValues(randomBuffer);
   randomBufferIndex = 0;
 }
@@ -60,7 +63,7 @@ function random23(): bigint {
   if (randomBufferIndex >= RANDOM_BUFFER_SIZE) {
     refillRandomBuffer();
   }
-  const value = randomBuffer[randomBufferIndex]!;
+  const value = randomBuffer![randomBufferIndex]!;
   randomBufferIndex += 1;
   return BigInt(value & UNSIGNED_23BIT_MAX);
 }
