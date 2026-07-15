@@ -126,6 +126,8 @@ export function extractBits(
 ): bigint {
   const shiftN = toBigInt(shift, "shift");
   const lengthN = toBigInt(length, "length");
+  assertInRange(shiftN, 0n, 63n, "shift");
+  assertInRange(lengthN, 0n, 63n, "length");
   // Optimize: shift right first, then mask (avoids creating large bitmask)
   return (toBigInt(data, "data") >> shiftN) & ((1n << lengthN) - 1n);
 }
