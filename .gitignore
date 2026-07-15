@@ -5,3 +5,7 @@ coverage/
 .nyc_output/
 dist/
 .husky/_/
+
+# Claude context-stack knowledge graph
+graphify-out/
+.headroom_wrap_marker.json
