@@ -11,9 +11,6 @@ const UNSIGNED_64BIT_MAX = (1n << 64n) - 1n;
 const SIMPLEFLAKE_RANDOM_SHIFT = 0n;
 const SIMPLEFLAKE_TIMESTAMP_SHIFT = 23n;
 
-const CACHE_64_BIT_ZEROS =
-  "0000000000000000000000000000000000000000000000000000000000000000";
-
 interface RandomSource {
   getRandomValues<T extends ArrayBufferView>(array: T): T;
 }
@@ -111,10 +108,8 @@ export function binary(
   value: bigint | number | string,
   padding: boolean = true
 ): string {
-  const binValue = toBigInt(value, "value").toString(2);
-  return padding && binValue.length < 64
-    ? CACHE_64_BIT_ZEROS.substr(0, 64 - binValue.length) + binValue
-    : binValue;
+  const binValue = BigInt.asUintN(64, toBigInt(value, "value")).toString(2);
+  return padding ? binValue.padStart(64, "0") : binValue;
 }
 
 /**
