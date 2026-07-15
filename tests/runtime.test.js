@@ -43,7 +43,7 @@ test("simpleflake() - prefers global crypto when available", (t) => {
   t.end();
 });
 
-test("simpleflake() - throws a clear error when global crypto is unavailable", (t) => {
+test("simpleflake() - falls back to node webcrypto", (t) => {
   const originalDescriptor = Object.getOwnPropertyDescriptor(globalThis, "crypto");
 
   Object.defineProperty(globalThis, "crypto", {
@@ -53,10 +53,9 @@ test("simpleflake() - throws a clear error when global crypto is unavailable", (
 
   try {
     const lib = loadFreshLib();
-    t.throws(
+    t.doesNotThrow(
       () => lib.simpleflake(TEST_TIMESTAMP, undefined, EPOCH_2000),
-      /globalThis\.crypto is required/,
-      "throws when globalThis.crypto is missing"
+      "uses node webcrypto when global crypto is unavailable"
     );
   } finally {
     restoreGlobalCrypto(originalDescriptor);
