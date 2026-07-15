@@ -76,8 +76,7 @@ function random23(): bigint {
   if (randomBufferIndex >= RANDOM_BUFFER_SIZE) {
     refillRandomBuffer();
   }
-  const value = randomBuffer![randomBufferIndex]!;
-  randomBufferIndex += 1;
+  const value = randomBuffer![randomBufferIndex++]!;
   return BigInt(value & UNSIGNED_23BIT_MAX);
 }
 
