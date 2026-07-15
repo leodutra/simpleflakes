@@ -169,10 +169,20 @@ Each 64-bit simpleflake ID contains:
 
 This gives you:
 
-- **69+ years** of timestamp range (until year 2069)
-- **8.3 million** unique IDs per millisecond
-- **Extremely low collision chance** - 1 in 8.3 million per millisecond
-- **Sortable by timestamp** when converted to integers at millisecond granularity; within one millisecond, random bits determine relative order
+- **69+ years** of timestamp range, but the 41-bit timestamp exhausts around **September 2069** (measured from the 2000-01-01 epoch) — pass a later custom epoch if you need range beyond that
+- **8.3 million** possible random values per millisecond
+- **Sortable by timestamp** when converted to integers at millisecond granularity; within one millisecond, IDs are **not ordered** — the 23 random bits carry no sequence counter, so generation order and numeric order can diverge for IDs sharing a millisecond
+
+### Collision Envelope
+
+The 23-bit random field is a birthday-bound space, not a per-millisecond counter, so collision probability climbs faster than the 8.3M combinations might suggest:
+
+| IDs generated in the same millisecond (single generator, no coordination) | Collision probability |
+| --------------------------------------------------------------------------- | ---------------------- |
+| ~410 | ~1% |
+| ~3,400 | ~50% |
+
+This is inherent to simpleflake's design (23 random bits, no machine/sequence bits) and isn't a parameter you can tune away. It's fine for workloads producing up to roughly a few hundred IDs/ms per generator with no cross-generator coordination. If you need higher per-millisecond throughput or coordination guarantees, that calls for a different algorithm — e.g. Twitter Snowflake (machine + sequence bits) or ULID (80 random bits) — rather than adjusting simpleflake's parameters.
 
 ## Performance
 

@@ -74,6 +74,16 @@ function random23(): bigint {
  * @param randomBits - Random bits for the ID (defaults to a cryptographically secure random value)
  * @param epoch - Epoch timestamp in milliseconds (defaults to SIMPLEFLAKE_EPOCH)
  * @returns Generated simpleflake as a BigInt
+ * @remarks
+ * - Collision envelope: the 23-bit random field is a birthday-bound space, not a
+ *   sequence counter — ~1% collision probability at ~410 IDs/ms and ~50% at ~3,400
+ *   IDs/ms from a single uncoordinated generator. Suitable for up to roughly a few
+ *   hundred IDs/ms per generator; higher throughput needs a different algorithm
+ *   (e.g. Snowflake's machine/sequence bits, or ULID's 80 random bits), not a parameter tweak.
+ * - Epoch horizon: the default 41-bit timestamp (from the 2000-01-01 epoch) is
+ *   exhausted around September 2069.
+ * - Same-millisecond ordering: IDs generated within the same millisecond are not
+ *   guaranteed to be numerically ordered by generation order — there is no sequence bit.
  */
 export function simpleflake(
   timestamp: number | bigint = Date.now(),
