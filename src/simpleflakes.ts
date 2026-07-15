@@ -15,10 +15,6 @@ interface RandomSource {
   getRandomValues<T extends ArrayBufferView>(array: T): T;
 }
 
-type NodeCryptoRequire = (moduleName: string) => { webcrypto: RandomSource };
-
-declare const require: ((moduleName: string) => unknown) | undefined;
-
 const randomBuffer = new Uint32Array(RANDOM_BUFFER_SIZE);
 let randomBufferIndex = RANDOM_BUFFER_SIZE;
 
@@ -46,15 +42,13 @@ function assertInRange(
 function getRandomSource(): RandomSource {
   const globalCrypto = (globalThis as { crypto?: RandomSource }).crypto;
 
-  if (globalCrypto) return globalCrypto;
-
-  try {
-    return (require as NodeCryptoRequire)("node:crypto").webcrypto;
-  } catch {
+  if (!globalCrypto?.getRandomValues) {
     throw new Error(
-      "Cryptographically secure random values are unavailable in this environment."
+      "globalThis.crypto is required (Node >= 19 or any modern browser/runtime)."
     );
   }
+
+  return globalCrypto;
 }
 
 function refillRandomBuffer(): void {

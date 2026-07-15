@@ -80,7 +80,7 @@
   },
   "homepage": "https://github.com/leodutra/simpleflakes#readme",
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=19.0.0"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
