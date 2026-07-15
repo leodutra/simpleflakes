@@ -18,6 +18,21 @@ function run(command, args, cwd) {
   }).trim();
 }
 
+function runNpm(args, cwd) {
+  if (process.platform === "win32") {
+    const npmCliPath = process.env.npm_execpath || path.join(
+      path.dirname(process.execPath),
+      "node_modules",
+      "npm",
+      "bin",
+      "npm-cli.js"
+    );
+    return run(process.execPath, [npmCliPath, ...args], cwd);
+  }
+
+  return run("npm", args, cwd);
+}
+
 function buildSnapshotScript(loader) {
   return `${loader}
 
@@ -41,12 +56,11 @@ try {
     JSON.stringify({ name: "simpleflakes-smoke", private: true }, null, 2)
   );
 
-  const packOutput = run("npm", ["pack", "--json", "--pack-destination", packDir], repoRoot);
+  const packOutput = runNpm(["pack", "--json", "--pack-destination", packDir], repoRoot);
   const [{ filename }] = JSON.parse(packOutput);
   const tarballPath = path.join(packDir, filename);
 
-  run(
-    "npm",
+  runNpm(
     ["install", "--no-package-lock", "--ignore-scripts", "--no-save", "--fund=false", "--audit=false", tarballPath],
     appDir
   );
