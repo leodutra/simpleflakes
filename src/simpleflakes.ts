@@ -24,8 +24,9 @@ let randomBufferIndex = RANDOM_BUFFER_SIZE;
 let randomSource: RandomSource | undefined;
 
 function toBigInt(value: bigint | number | string, label: string): bigint {
+  if (typeof value === "bigint") return value;
   try {
-    return typeof value === "bigint" ? value : BigInt(value);
+    return BigInt(value);
   } catch {
     throw new TypeError(`${label} must be an integer representable as a BigInt.`);
   }
@@ -65,7 +66,7 @@ function getRandomSource(): RandomSource {
 }
 
 function refillRandomBuffer(): void {
-  if (!randomBuffer) {
+  if (randomBuffer == null) {
     randomBuffer = new Uint32Array(RANDOM_BUFFER_SIZE);
   }
   getRandomSource().getRandomValues(randomBuffer);
