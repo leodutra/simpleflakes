@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 // Generate release notes from git commits
-const { execSync } = require('child_process');
+const { execSync, execFileSync } = require('child_process');
 
 function getLastTag() {
   try {
@@ -13,9 +13,9 @@ function getLastTag() {
 }
 
 function getCommitsSinceLastTag(lastTag) {
-  const command = `git log ${lastTag}..HEAD --pretty=format:"%h %s" --no-merges`;
+  const args = ['log', `${lastTag}..HEAD`, '--pretty=format:%h %s', '--no-merges'];
   try {
-    const output = execSync(command, { encoding: 'utf8' });
+    const output = execFileSync('git', args, { encoding: 'utf8' });
     return output.trim().split('\n').filter(line => line.length > 0);
   } catch {
     return [];
